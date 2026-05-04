@@ -4,7 +4,7 @@ on:
     branches: [main]
 
 env:
-  GODOT_VERSION: 4.5.1
+  GODOT_VERSION: 4.6.2
   ITCH_USERNAME: danigeri
   ITCH_GAME_ID: sandbox
 
@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.5.1
+      image: barichello/godot-ci:4.6.2
     steps:
       - uses: actions/checkout@v4
         with:
