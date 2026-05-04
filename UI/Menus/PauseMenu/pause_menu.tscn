@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://inxv7ghoaf62"]
+
+[ext_resource type="Script" uid="uid://dlk3suc2ok5kp" path="res://UI/Menus/PauseMenu/pause_menu.gd" id="1_tobvk"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tobvk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="PauseMenuContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -70.5
+offset_right = 49.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PauseMenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Options"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="PauseMenuContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="PauseMenuContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits
+"
+
+[node name="QuitButton" type="Button" parent="PauseMenuContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="BackButton" type="Button" parent="PauseMenuContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back
+"
+
+[connection signal="pressed" from="PauseMenuContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

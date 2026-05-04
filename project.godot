@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="gerappa-games-template"
+run/main_scene="uid://dhd8r8ji7gn64"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[audio]
+
+driver/output_latency.web=70
+
+[autoload]
+
+MusicPlayer="*res://Globals/MusicPlayer/music_player.tscn"
+SoundManager="*res://Globals/SoundManager/sound_manager.tscn"
+GameEvents="*res://Globals/game_events.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
