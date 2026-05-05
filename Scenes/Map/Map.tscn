@@ -9,7 +9,7 @@ size = Vector2(124, 121)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 
-[node name="Gameloop" type="Node2D" unique_id=63672224]
+[node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_11lgl")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1471212257]
