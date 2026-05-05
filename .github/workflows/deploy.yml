@@ -6,7 +6,7 @@ on:
 env:
   GODOT_VERSION: 4.6.2
   ITCH_USERNAME: ekaktusz
-  ITCH_GAME_ID: 4545039
+  ITCH_GAME_ID: brainrot
 
 jobs:
   build:
