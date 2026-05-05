@@ -1,13 +1,7 @@
 [gd_scene format=3 uid="uid://7ju5e2863kvy"]
 
 [ext_resource type="Script" uid="uid://dd85av81hor4g" path="res://Scenes/Map/map.gd" id="1_11lgl"]
-[ext_resource type="Script" uid="uid://b1clhw7jtx4st" path="res://Scenes/Map/character_body_2d.gd" id="2_yju8x"]
-[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="3_urk12"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
-size = Vector2(124, 121)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+[ext_resource type="PackedScene" uid="uid://bitvbcwrjf4ek" path="res://Scenes/Brain/Brain.tscn" id="2_lcs11"]
 
 [node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_11lgl")
@@ -18,22 +12,7 @@ closed = true
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=285663004]
 invert_enabled = true
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1048394043]
-collision_layer = 8
-collision_mask = 8
-script = ExtResource("2_yju8x")
-
-[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=819463165 groups=["player"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=1610016041]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_0e48y")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=430785867]
-texture = ExtResource("3_urk12")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1942157255]
-shape = SubResource("RectangleShape2D_epypp")
+[node name="Brain" parent="." unique_id=1118878017 instance=ExtResource("2_lcs11")]
 
 [node name="Bullets" type="Node2D" parent="." unique_id=2094394624]
 

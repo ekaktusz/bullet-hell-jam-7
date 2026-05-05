@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bitvbcwrjf4ek"]
+
+[ext_resource type="Script" uid="uid://b1clhw7jtx4st" path="res://Scenes/Brain/brain.gd" id="1_hdu4i"]
+[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_5bh3e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
+size = Vector2(124, 121)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+
+[node name="Brain" type="CharacterBody2D" unique_id=1118878017]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_hdu4i")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1184544161 groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1927511839]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_0e48y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=616194711]
+texture = ExtResource("2_5bh3e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=579428029]
+shape = SubResource("RectangleShape2D_epypp")
