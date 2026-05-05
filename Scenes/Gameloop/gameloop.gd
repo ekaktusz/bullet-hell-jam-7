@@ -1,28 +1,31 @@
 extends Node2D
 
-@onready var polygon_2d: Polygon2D = $Polygon2D
-#@onready var collision_polygon_2d: CollisionPolygon2D = $Area2D/CollisionPolygon2D
+#@onready var polygon_2d: Polygon2D = $Polygon2D
+@onready var polygon_2d: Line2D = $Line2D
 @onready var character_body_2d: CharacterBody2D = $CharacterBody2D
 @onready var player: CharacterBody2D = $CharacterBody2D
 @onready var bullets_container: Node2D = $Bullets
 const BULLET = preload("uid://cycafl512rjsx")
 
-var points = []
-var bullets = []
-var base_radius = 500
+#map 
+var map_speed = 10
 var noise = FastNoiseLite.new()
-var slowtime = 10
+var wobble = 1000
+var damping = 0.97
+var points = []
+var base_radius = 600
+var segments := 512
+
+
+var bullets = []
 var velocities = []
-var impact_force = 1000
-var impact_radius = 100
-var wobble = 100
-var damping = 0.9
 var body_size_x = 16
 var body_size_y = 16
-var bullet_speed = 100
-
-var t := 0.0
-var segments := 128
+var impact_force = 300
+var impact_radius = 100
+var bullet_speed = 500
+var shoot_cooldown = 0.1
+var can_shoot = true
 
 func _ready():
 	noise.frequency = 2
@@ -30,12 +33,11 @@ func _ready():
 	generate_blob(0)
 	
 func _process(delta):
-	t += delta
 
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, 100.0)
 
-	update_blob(t, delta)
+	update_blob(delta)
 
 func generate_blob(time: float):
 	points.clear()
@@ -51,26 +53,10 @@ func generate_blob(time: float):
 		points.append(p)
 		velocities.append(Vector2.ZERO)
 
-	polygon_2d.polygon = points
-	#collision_polygon_2d.polygon = points
+	polygon_2d.points = points
 
-
-func apply_impact(global_hit_pos: Vector2, force: float, radius: float):
-	var local_hit = to_local(global_hit_pos)
-
-	for i in range(points.size()):
-		var p = points[i]
-		var dist = p.distance_to(local_hit)
-
-		if dist < radius:
-			var influence = 1.0 - (dist / radius)
-
-			var dir = (p - local_hit).normalized()
-
-			# add impulse instead of moving directly
-			velocities[i] += dir * force * influence
 			
-func update_blob(time: float, delta: float):
+func update_blob(delta: float):
 	check_outside()
 	points.sort_custom(func(a, b):
 		return atan2(a.y, a.x) < atan2(b.y, b.x)
@@ -80,7 +66,7 @@ func update_blob(time: float, delta: float):
 		var point = points[i]
 		var velocity = velocities[i]
 
-		var inward = -point.normalized() * slowtime
+		var inward = -point.normalized() * map_speed
 
 		# 2. NEIGHBOR SPRING (this creates wobble!)
 		var prev = points[(i - 1 + points.size()) % points.size()]
@@ -96,8 +82,7 @@ func update_blob(time: float, delta: float):
 		points[i] = point
 		velocities[i] = velocity
 
-	polygon_2d.polygon = points
-	#collision_polygon_2d.polygon = points
+	polygon_2d.points = points
 	
 
 func check_outside():
@@ -121,22 +106,47 @@ func check_outside():
 			var local = to_local(p)
 
 			if !Geometry2D.is_point_in_polygon(local, points):
-				apply_impact(pos, impact_force, impact_radius)
-				bounce_bullet(bullet)
+				bullet.try_bounce(pos)
 				
-func bounce_bullet(bullet):
-	bullet.velocity = bullet.velocity * -1			
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
-		var bullet = BULLET.instantiate()
+		if can_shoot:
+			can_shoot = false
+			shoot_cooldown_timer()
+			var bullet = BULLET.instantiate()
 
-		var mouse_pos = get_global_mouse_position()
-		var spawn_pos = player.position
+			var mouse_pos = get_global_mouse_position()
+			var spawn_pos = player.position
 
-		var direction = (mouse_pos - to_global(spawn_pos)).normalized()
-		bullet.global_position = spawn_pos
-		bullet.velocity = direction * bullet_speed
-		print("spawn:" + str(spawn_pos))
-		print("target: " + str(mouse_pos))
-		bullets.append(bullet)
-		bullets_container.add_child(bullet)
+			var direction = (mouse_pos - to_global(spawn_pos)).normalized()
+			bullet.global_position = spawn_pos
+			bullet.velocity = direction * bullet_speed
+			print("spawn:" + str(spawn_pos))
+			print("target: " + str(mouse_pos))
+			bullets.append(bullet)
+			bullet.remove_bullet.connect(_on_bullet_remove)
+			bullet.apply_impact.connect(_on_apply_impact)
+			bullets_container.add_child(bullet)
+
+func _on_bullet_remove(id):
+	for bullet in bullets:
+		if bullet.get_instance_id() == id:
+			print(id)
+			bullets.erase(bullet)
+			return
+
+func _on_apply_impact(global_hit_pos: Vector2):
+	var local_hit = to_local(global_hit_pos)
+
+	for i in range(points.size()):
+		var point = points[i]
+		var dist = point.distance_to(local_hit)
+
+		if dist < impact_radius:
+			var influence = 1.0 - (dist / impact_radius)
+			var outward = (point - Vector2.ZERO).normalized()
+			velocities[i] += outward * impact_force * influence
+			
+func shoot_cooldown_timer():
+	await get_tree().create_timer(shoot_cooldown).timeout
+	can_shoot = true
