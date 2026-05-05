@@ -5,8 +5,8 @@ on:
 
 env:
   GODOT_VERSION: 4.6.2
-  ITCH_USERNAME: danigeri
-  ITCH_GAME_ID: sandbox
+  ITCH_USERNAME: ekaktusz
+  ITCH_GAME_ID: 4545039
 
 jobs:
   build:
