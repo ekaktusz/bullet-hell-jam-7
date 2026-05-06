@@ -1,6 +1,5 @@
 extends Node2D
 
-#@onready var polygon_2d: Polygon2D = $Polygon2D
 @onready var polygon_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullets_container: Node2D = $Bullets
@@ -9,7 +8,6 @@ const BULLET = preload("uid://cycafl512rjsx")
 #map 
 var map_speed = 20
 var noise = FastNoiseLite.new()
-var wobble = 1000
 var damping = 0.97
 var spike_size = 250
 var points = []
@@ -18,7 +16,9 @@ var segments := 512
 var velocities = []
 var bullets = []
 
+var rapid_fire_unlocked = false
 var shoot_cooldown = 0.1
+var shoot_timer := 0.0
 var can_shoot = true
 
 func _ready():
@@ -31,8 +31,25 @@ func _process(delta):
 	base_radius = max(base_radius, 100.0)
 	update_blob(delta)
 
+	# continuous fire
+	if rapid_fire_unlocked:
+		shoot_timer -= delta
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if shoot_timer <= 0.0:
+				spawn_bullet()
+				shoot_timer = shoot_cooldown
+
+func _input(event):
+	if not rapid_fire_unlocked:
+		if event is InputEventMouseButton and event.pressed:
+			if can_shoot:
+				can_shoot = false
+				shoot_cooldown_timer()
+				spawn_bullet()
+
 func generate_blob(time: float):
 	points.clear()
+	velocities.clear()
 	for i in range(segments):
 		var angle = TAU * i / segments
 		var n = noise.get_noise_2d(cos(angle) + time, sin(angle) + time)
@@ -63,34 +80,30 @@ func update_blob(delta: float):
 	polygon_2d.points = points
 	
 
+func get_closest_normal(point: Vector2) -> Vector2:
+	var closest_dist = INF
+	var best_normal = Vector2.ZERO
+	for i in range(points.size()):
+		var a = points[i]
+		var b = points[(i + 1) % points.size()]
+		var closest = Geometry2D.get_closest_point_to_segment(point, a, b)
+		var dist = point.distance_to(closest)
+		if dist < closest_dist:
+			closest_dist = dist
+			var edge = (b - a).normalized()
+			var normal = Vector2(-edge.y, edge.x)
+			print(normal)
+			if normal.dot(point) < 0:
+				normal = -normal
+			best_normal = normal
+	return best_normal
+
 func check_outside():
 	for bullet in bullets:
-		var pos = bullet.global_position
-		var extents = Vector2(bullet.body_size_x, bullet.body_size_y)
-		var test_points = [
-			pos,
-			pos + Vector2(extents.x, 0),
-			pos + Vector2(-extents.x, 0),
-			pos + Vector2(0, extents.y),
-			pos + Vector2(0, -extents.y),
-			pos + Vector2(extents.x, extents.y),
-			pos + Vector2(-extents.x, extents.y),
-			pos + Vector2(extents.x, -extents.y),
-			pos + Vector2(-extents.x, -extents.y),
-		]
-		for p in test_points:
-			var local = to_local(p)
-			if !Geometry2D.is_point_in_polygon(local, points):
-				bullet.try_bounce()
-				
-				
-func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		if can_shoot:
-			can_shoot = false
-			shoot_cooldown_timer()
-			spawn_bullet()
-
+		var local = to_local(bullet.global_position)
+		if !Geometry2D.is_point_in_polygon(local, points):
+			var normal = get_closest_normal(local)
+			bullet.try_bounce(normal)
 
 func spawn_bullet():
 	var bullet = BULLET.instantiate()
@@ -117,9 +130,9 @@ func _on_apply_impact(bullet):
 		var dist = point.distance_to(local_hit)
 		if dist < bullet.impact_radius:
 			var influence = 1.0 - (dist / bullet.impact_radius)
-			var outward = (point - Vector2.ZERO).normalized()
+			var outward = point.normalized()
 			velocities[i] += outward * bullet.impact_force * influence
-			
+
 func shoot_cooldown_timer():
 	await get_tree().create_timer(shoot_cooldown).timeout
 	can_shoot = true
