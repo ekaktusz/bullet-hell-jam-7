@@ -25,6 +25,8 @@ var time_to_remove_bullet = 0.05
 var min_dot = 0.2
 var correction_strength = 0.4 
 
+var has_bounced = false
+
 func _ready() -> void:
 	var number = rng.randf()
 	if number < 0.1:
@@ -49,10 +51,9 @@ func _physics_process(delta: float) -> void:
 
 func bounce_bullet(normal: Vector2):
 	max_bounce -= 1
-	
+	has_bounced = true
 	if max_bounce <= 0:
-		remove_bullet.emit(get_instance_id())
-		remove_bullet_after_timer()
+		trigger_bullet_remove()
 		return
 	
 	var v = velocity.normalized()
@@ -73,6 +74,11 @@ func try_bounce(normal: Vector2):
 	apply_impact.emit(self)
 	start_cooldown()
 
+func trigger_bullet_remove():
+	self.hide()
+	remove_bullet.emit(get_instance_id())
+	remove_bullet_after_timer()
+
 func remove_bullet_after_timer():
 	await get_tree().create_timer(time_to_remove_bullet).timeout
 	queue_free()
@@ -80,3 +86,9 @@ func remove_bullet_after_timer():
 func start_cooldown():
 	await get_tree().create_timer(bounce_cooldown).timeout
 	can_bounce = true
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player") and has_bounced:
+		print("HUT DETECTED")
+		trigger_bullet_remove()

@@ -3,10 +3,11 @@ extends Node2D
 @onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullets_container: Node2D = $Bullets
+@onready var label: Label = $Label
 const BULLET = preload("uid://cycafl512rjsx")
 
 #map 
-var map_speed = 20
+var map_speed = 25
 var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
@@ -20,6 +21,8 @@ var rapid_fire_unlocked = false
 var shoot_cooldown = 0.1
 var shoot_timer := 0.0
 var can_shoot = true
+
+var max_bullet_count = 10
 
 func _ready():
 	noise.frequency = 2
@@ -92,35 +95,78 @@ func get_closest_normal(point: Vector2) -> Vector2:
 			closest_dist = dist
 			var edge = (b - a).normalized()
 			var normal = Vector2(-edge.y, edge.x)
-			print(normal)
 			if normal.dot(point) < 0:
 				normal = -normal
 			best_normal = normal
 	return best_normal
 
 func check_outside():
+	check_bullets_outside()
+	check_brain_outside()
+	
+
+func check_bullets_outside():
 	for bullet in bullets:
 		var local = to_local(bullet.global_position)
 		if !Geometry2D.is_point_in_polygon(local, points):
 			var normal = get_closest_normal(local)
 			bullet.try_bounce(normal)
 
+
+func check_brain_outside():
+	if brain:
+		var shape = brain.get_node("CollisionShape2D").shape
+
+		if shape is CircleShape2D:
+			var radius = shape.radius
+			var pos = brain.global_position
+
+			var test_points = [
+				pos,
+				pos + Vector2(radius, 0),
+				pos + Vector2(-radius, 0),
+				pos + Vector2(0, radius),
+				pos + Vector2(0, -radius),
+
+				# diagonals
+				pos + Vector2(radius, radius).normalized() * radius,
+				pos + Vector2(-radius, radius).normalized() * radius,
+				pos + Vector2(radius, -radius).normalized() * radius,
+				pos + Vector2(-radius, -radius).normalized() * radius,
+			]
+
+			for p in test_points:
+				var local_p = to_local(p)
+
+				if !Geometry2D.is_point_in_polygon(local_p, points):
+					end_run()
+					##trigger end-run mechaning and the rest is not needed
+					brain.hide()
+					break
+				else: brain.show()
+				
 func spawn_bullet():
-	var bullet = BULLET.instantiate()
-	var mouse_pos = get_global_mouse_position()
-	var spawn_pos = brain.position
-	var direction = (mouse_pos - to_global(spawn_pos)).normalized()
-	bullet.global_position = spawn_pos
-	bullet.velocity = direction * bullet.bullet_speed
-	bullets.append(bullet)
-	bullet.remove_bullet.connect(_on_bullet_remove)
-	bullet.apply_impact.connect(_on_apply_impact)
-	bullets_container.add_child(bullet)
+	if brain && bullets.size() <= max_bullet_count:
+		update_bullet_label()
+		var bullet = BULLET.instantiate()
+		var mouse_pos = get_global_mouse_position()
+		var spawn_pos = brain.position
+		var direction = (mouse_pos - to_global(spawn_pos)).normalized()
+		bullet.global_position = spawn_pos
+		bullet.velocity = direction * bullet.bullet_speed
+		bullets.append(bullet)
+		bullet.remove_bullet.connect(_on_bullet_remove)
+		bullet.apply_impact.connect(_on_apply_impact)
+		bullets_container.add_child(bullet)
+
+func update_bullet_label():
+	label.text = str(bullets.size()) + " / " + str(max_bullet_count)
 
 func _on_bullet_remove(id):
 	for bullet in bullets:
 		if bullet.get_instance_id() == id:
 			bullets.erase(bullet)
+			update_bullet_label()
 			return
 
 func _on_apply_impact(bullet):
@@ -136,3 +182,7 @@ func _on_apply_impact(bullet):
 func shoot_cooldown_timer():
 	await get_tree().create_timer(shoot_cooldown).timeout
 	can_shoot = true
+	
+func end_run():
+	#todo real end run mechanic
+	pass

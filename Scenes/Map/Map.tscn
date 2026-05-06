@@ -14,3 +14,12 @@ closed = true
 [node name="Bullets" type="Node2D" parent="." unique_id=2094394624]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2071232349]
+
+[node name="Label" type="Label" parent="." unique_id=2101833982]
+offset_left = -934.0
+offset_top = -521.0
+offset_right = -888.0
+offset_bottom = -498.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "x / 10 "

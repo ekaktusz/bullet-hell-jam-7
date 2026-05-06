@@ -9,7 +9,7 @@ radius = 83.33333
 [sub_resource type="CircleShape2D" id="CircleShape2D_lv0gj"]
 radius = 83.39997
 
-[node name="Bullet" type="CharacterBody2D" unique_id=15843264]
+[node name="Bullet" type="CharacterBody2D" unique_id=15843264 groups=["bullet"]]
 scale = Vector2(0.3, 0.3)
 collision_layer = 4
 collision_mask = 0
@@ -23,8 +23,10 @@ modulate = Color(0.06666667, 0.16470589, 1, 1)
 texture = ExtResource("1_v7oki")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2004458116 groups=["bullet"]]
+collision_layer = 9
+collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=433703495]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=433703495 groups=["bullet"]]
 shape = SubResource("CircleShape2D_lv0gj")
 
-[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
