@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var polygon_2d: Line2D = $Line2D
+@onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullets_container: Node2D = $Bullets
 const BULLET = preload("uid://cycafl512rjsx")
@@ -57,7 +57,7 @@ func generate_blob(time: float):
 		var point = Vector2(cos(angle), sin(angle)) * radius
 		points.append(point)
 		velocities.append(Vector2.ZERO)
-	polygon_2d.points = points
+	line_2d.points = points
 
 			
 func update_blob(delta: float):
@@ -77,8 +77,8 @@ func update_blob(delta: float):
 		point += (inward + velocity) * delta
 		points[i] = point
 		velocities[i] = velocity
-	polygon_2d.points = points
-	
+	line_2d.points = points
+
 
 func get_closest_normal(point: Vector2) -> Vector2:
 	var closest_dist = INF

@@ -20,6 +20,7 @@ var double_hit = 2
 var bounce_cooldown := 0.1
 var time_to_remove_bullet = 0.05
 
+# bounce tweakek:
 var min_dot = 0.2
 var correction_strength = 0.4 
 
