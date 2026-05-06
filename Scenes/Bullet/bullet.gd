@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal remove_bullet
 signal apply_impact
 
+#ez átmeneti majd a skilltree megmondja mennyi esély lesz faszább bulletre
 var rng = RandomNumberGenerator.new()
 
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
