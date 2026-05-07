@@ -190,4 +190,4 @@ func shoot_cooldown_timer():
 func end_run():
 	get_tree().paused = true
 	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
-	get_tree().root.add_child(skill_tree)
+	get_tree().current_scene.add_child(skill_tree)

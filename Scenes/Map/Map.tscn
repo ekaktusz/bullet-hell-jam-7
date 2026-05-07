@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://7ju5e2863kvy"]
 
-[ext_resource type="Script" uid="uid://dd85av81hor4g" path="res://Scenes/Map/map.gd" id="1_11lgl"]
-[ext_resource type="PackedScene" uid="uid://bitvbcwrjf4ek" path="res://Scenes/Brain/Brain.tscn" id="2_lcs11"]
+[ext_resource type="Script" uid="uid://dd85av81hor4g" path="res://Scenes/Map/map.gd" id="1_jolfa"]
+[ext_resource type="PackedScene" uid="uid://bitvbcwrjf4ek" path="res://Scenes/Brain/Brain.tscn" id="2_03x5g"]
 
 [node name="Map" type="Node2D" unique_id=63672224]
-script = ExtResource("1_11lgl")
+script = ExtResource("1_jolfa")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1471212257]
 closed = true
 
-[node name="Brain" parent="." unique_id=1118878017 instance=ExtResource("2_lcs11")]
+[node name="Brain" parent="." unique_id=1118878017 instance=ExtResource("2_03x5g")]
 
 [node name="Bullets" type="Node2D" parent="." unique_id=2094394624]
 
