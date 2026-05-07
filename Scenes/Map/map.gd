@@ -17,7 +17,7 @@ var segments := 512
 var velocities = []
 var bullets = []
 
-var rapid_fire_unlocked = false
+#var rapid_fire_unlocked = false
 var shoot_cooldown = 0.1
 var shoot_timer := 0.0
 var can_shoot = true
@@ -33,9 +33,7 @@ func _process(delta):
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, 100.0)
 	update_blob(delta)
-
-	# continuous fire
-	if rapid_fire_unlocked:
+	if Progression.has_skill("rapid_fire"):
 		shoot_timer -= delta
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			if shoot_timer <= 0.0:
@@ -43,7 +41,7 @@ func _process(delta):
 				shoot_timer = shoot_cooldown
 
 func _input(event):
-	if not rapid_fire_unlocked:
+	if not Progression.has_skill("rapid_fire"):
 		if event is InputEventMouseButton and event.pressed:
 			if can_shoot:
 				can_shoot = false
@@ -144,7 +142,7 @@ func check_brain_outside():
 					brain.hide()
 					break
 				else: brain.show()
-				
+
 func spawn_bullet():
 	if brain && bullets.size() <= max_bullet_count:
 		update_bullet_label()
@@ -154,10 +152,16 @@ func spawn_bullet():
 		var direction = (mouse_pos - to_global(spawn_pos)).normalized()
 		bullet.global_position = spawn_pos
 		bullet.velocity = direction * bullet.bullet_speed
+		var modifiers = []
+		if Progression.has_skill("heavy_bullets"):
+			modifiers.append("heavy")
+		if Progression.has_skill("fast_bullets"):
+			modifiers.append("fast")
 		bullets.append(bullet)
 		bullet.remove_bullet.connect(_on_bullet_remove)
 		bullet.apply_impact.connect(_on_apply_impact)
 		bullets_container.add_child(bullet)
+		bullet.setup_bullet(modifiers)
 
 func update_bullet_label():
 	label.text = str(bullets.size()) + " / " + str(max_bullet_count)
@@ -184,5 +188,6 @@ func shoot_cooldown_timer():
 	can_shoot = true
 	
 func end_run():
-	#todo real end run mechanic
-	pass
+	get_tree().paused = true
+	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
+	get_tree().root.add_child(skill_tree)

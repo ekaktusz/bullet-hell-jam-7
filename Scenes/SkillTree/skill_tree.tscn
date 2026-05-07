@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://drjbxrwgj3lo3"]
+
+[ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
+[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
+
+[node name="Control" type="Control" unique_id=1199055753]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycyhv")
+
+[node name="Panel" type="Panel" parent="." unique_id=1359761278]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2079407991]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_right = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RapidFire" type="Button" parent="Panel/VBoxContainer" unique_id=1716505926]
+layout_mode = 2
+text = "RapidFire"
+icon = ExtResource("2_tq623")
+
+[node name="Heavy" type="Button" parent="Panel/VBoxContainer" unique_id=985788341]
+layout_mode = 2
+text = "Heavy"
+icon = ExtResource("2_tq623")
+
+[node name="Fast" type="Button" parent="Panel/VBoxContainer" unique_id=1252159654]
+layout_mode = 2
+text = "Fast"
+icon = ExtResource("2_tq623")
+
+[node name="Restart" type="Button" parent="Panel/VBoxContainer" unique_id=940318680]
+layout_mode = 2
+text = "Restart"
+icon = ExtResource("2_tq623")
+
+[connection signal="pressed" from="Panel/VBoxContainer/RapidFire" to="." method="_on_rapid_fire_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Heavy" to="." method="_on_heavy_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Fast" to="." method="_on_fast_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Restart" to="." method="_on_restart_pressed"]

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://0e0xxjii0xn1"]
+
+[node name="Button" type="Button" unique_id=1752074711]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Label" type="Label" parent="." unique_id=680391085]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
