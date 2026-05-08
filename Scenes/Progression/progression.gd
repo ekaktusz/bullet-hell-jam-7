@@ -1,5 +1,7 @@
 extends Node
 
+signal currency_changed(value)
+
 var unlocked_skills := []
 var currency := 0
 
@@ -40,7 +42,9 @@ func unlock_skill(skill_id: String):
 	var skill = skills[skill_id]
 	currency -= skill["cost"]
 	unlocked_skills.append(skill_id)
+	currency_changed.emit(currency)
 	print("UNLOCKED:", skill_id)
+	print("CURRENCY:", currency)
 
 func can_unlock(skill_id: String) -> bool:
 	if has_skill(skill_id):
@@ -61,3 +65,7 @@ func get_depth(skill_id: String) -> int:
 	for req in skill["requires"]:
 		max_depth = max(max_depth, get_depth(req) + 1)
 	return max_depth
+
+func add_currency(amount: int):
+	currency += amount
+	currency_changed.emit(currency)

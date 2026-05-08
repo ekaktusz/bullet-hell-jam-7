@@ -28,6 +28,8 @@ var max_bullet_count = 10
 var run_time := 0.0
 
 func _ready():
+	Progression.currency_changed.connect(_on_currency_changed)
+	update_currency_label()
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
@@ -198,3 +200,9 @@ func end_run():
 	get_tree().paused = true
 	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
 	get_tree().current_scene.add_child(skill_tree)
+
+func _on_currency_changed(value):
+	currency_label.text = "Currency: " + str(value)
+
+func update_currency_label():
+	currency_label.text = "Currency: " + str(Progression.currency)
