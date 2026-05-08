@@ -1,23 +1,18 @@
-# README
-
-## TODO
-
-- [ ] Update Godot version to 4.6
-- [ ] Copy a more recent intro variant with debug skip
+# Bullet Jam 7 - Unnamed Gerappa Games Entry
 
 ## Tools
 
 To set up auto-deploy to itch:
 
 - [ ] In /.github/workflows/deploy.yml set and check the following settings:
-    - GODOT_VERSION
-    - EXPORT_NAME
-    - ITCH_USERNAME
-    - ITCH_GAME_ID
+	- GODOT_VERSION
+	- EXPORT_NAME
+	- ITCH_USERNAME
+	- ITCH_GAME_ID
 
 - [ ] set the BUTLER_API_KEY
-    - generate a key at: https://itch.io/user/settings/api-keys
-    - store the repository secret on github
+	- generate a key at: https://itch.io/user/settings/api-keys
+	- store the repository secret on github
 
 Itch project settings
 

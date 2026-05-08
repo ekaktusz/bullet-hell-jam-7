@@ -27,6 +27,7 @@ var can_shoot = true
 
 var max_bullet_count = 10
 var run_time := 0.0
+var split_shot_angle := deg_to_rad(15.0)
 
 func _ready():
 	Progression.currency_changed.connect(_on_currency_changed)
@@ -152,25 +153,42 @@ func check_brain_outside():
 				else: brain.show()
 
 func spawn_bullet():
-	if brain && bullets.size() <= max_bullet_count:
-		update_bullet_label()
-		var bullet = BULLET.instantiate()
-		var mouse_pos = get_global_mouse_position()
-		var spawn_pos = brain.position
-		var direction = (mouse_pos - to_global(spawn_pos)).normalized()
-		bullet.global_position = spawn_pos
-		bullet.velocity = direction * bullet.bullet_speed
-		var modifiers = []
-		if Progression.has_skill("heavy_bullets"):
-			modifiers.append("heavy")
-		if Progression.has_skill("fast_bullets"):
-			modifiers.append("fast")
-		bullets.append(bullet)
-		bullet.remove_bullet.connect(_on_bullet_remove)
-		bullet.apply_impact.connect(_on_apply_impact)
-		bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
-		bullets_container.add_child(bullet)
-		bullet.setup_bullet(modifiers)
+	if !brain:
+		return
+	if  bullets.size() >= max_bullet_count:
+		return
+
+	var mouse_pos = get_global_mouse_position()
+	var spawn_pos = brain.position
+	var direction = (mouse_pos - to_global(spawn_pos)).normalized()
+	var directions = [direction]
+	if Progression.has_skill("split_shot"):
+		directions = [
+			direction.rotated(-split_shot_angle),
+			direction,
+			direction.rotated(split_shot_angle)
+		]
+
+	var modifiers = []
+	if Progression.has_skill("heavy_bullets"):
+		modifiers.append("heavy")
+	if Progression.has_skill("fast_bullets"):
+		modifiers.append("fast")
+
+	for shot_direction in directions.slice(0, max_bullet_count - bullets.size()):
+		spawn_single_bullet(spawn_pos, shot_direction, modifiers)
+	update_bullet_label()
+
+func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, modifiers: Array):
+	var bullet = BULLET.instantiate()
+	bullet.global_position = spawn_pos
+	bullet.velocity = direction * bullet.bullet_speed
+	bullets.append(bullet)
+	bullet.remove_bullet.connect(_on_bullet_remove)
+	bullet.apply_impact.connect(_on_apply_impact)
+	bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
+	bullets_container.add_child(bullet)
+	bullet.setup_bullet(modifiers)
 
 func update_bullet_label():
 	label.text = str(bullets.size()) + " / " + str(max_bullet_count)
