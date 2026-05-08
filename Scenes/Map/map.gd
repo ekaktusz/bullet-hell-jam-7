@@ -7,6 +7,7 @@ extends Node2D
 @onready var time_label: Label= $CanvasLayer/TimeLabel
 @onready var currency_label: Label = $CanvasLayer/CurrencyLabel
 const BULLET = preload("uid://cycafl512rjsx")
+const THOUGHT = preload("uid://bh5ungrieylu3")
 
 #map 
 var map_speed = 25
@@ -143,6 +144,7 @@ func check_brain_outside():
 				var local_p = to_local(p)
 
 				if !Geometry2D.is_point_in_polygon(local_p, points):
+					print("END RUN")
 					end_run()
 					##trigger end-run mechaning and the rest is not needed
 					brain.hide()
@@ -166,6 +168,7 @@ func spawn_bullet():
 		bullets.append(bullet)
 		bullet.remove_bullet.connect(_on_bullet_remove)
 		bullet.apply_impact.connect(_on_apply_impact)
+		bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
 		bullets_container.add_child(bullet)
 		bullet.setup_bullet(modifiers)
 
@@ -181,6 +184,7 @@ func _on_bullet_remove(id):
 
 func _on_apply_impact(bullet):
 	var local_hit = to_local(bullet.global_position)
+	spawn_thought(local_hit, true)
 	for i in range(points.size()):
 		var point = points[i]
 		var dist = point.distance_to(local_hit)
@@ -188,6 +192,16 @@ func _on_apply_impact(bullet):
 			var influence = 1.0 - (dist / bullet.impact_radius)
 			var outward = point.normalized()
 			velocities[i] += outward * bullet.impact_force * influence
+
+
+func _on_spawn_bad_thought():
+	spawn_thought(brain.position, false)
+
+func spawn_thought(position : Vector2, is_good: bool):
+	var thought = THOUGHT.instantiate()
+	thought.is_good = is_good
+	thought.position = position
+	get_tree().current_scene.add_child(thought)
 
 func shoot_cooldown_timer():
 	await get_tree().create_timer(shoot_cooldown).timeout

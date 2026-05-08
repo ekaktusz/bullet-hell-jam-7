@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 signal remove_bullet
 signal apply_impact
+signal spawn_bad_though
 
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
 var body_size_x = 16
@@ -81,5 +82,5 @@ func start_cooldown():
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player") and has_bounced:
-		print("HUT DETECTED")
+		spawn_bad_though.emit()
 		trigger_bullet_remove()
