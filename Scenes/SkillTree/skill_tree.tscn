@@ -20,10 +20,8 @@ script = ExtResource("1_ycyhv")
 
 [node name="Restart" type="Button" parent="." unique_id=940318680]
 layout_mode = 0
-offset_left = 161.0
-offset_top = 83.0
-offset_right = 375.0
-offset_bottom = 219.0
+offset_right = 197.0
+offset_bottom = 136.0
 text = "Restart"
 icon = ExtResource("2_tq623")
 

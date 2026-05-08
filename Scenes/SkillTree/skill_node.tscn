@@ -31,3 +31,8 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 vertical_alignment = 1
+
+[node name="CostLabel" type="Label" parent="." unique_id=198817538]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

@@ -1,41 +1,56 @@
 extends Node
 
-var unlocked_skills := {}
+var unlocked_skills := []
+var currency := 0
 
 var skills := {
 	"rapid_fire": {
 		"name": "Rapid Fire",
 		"requires": [],
+		"cost": 10,
 	},
 	"heavy_bullets": {
 		"name": "Heavy Bullets",
 		"requires": ["rapid_fire"],
+		"cost": 10,
 	},
 	"fast_bullets": {
 		"name": "Fast Bullets",
 		"requires": ["rapid_fire"],
+		"cost": 10,
 	},
 	"split_shot": {
 		"name": "Split Shot",
-		"requires": ["fast_bullets"],
+		"requires": ["fast_bullets", "heavy_bullets"],
+		"cost": 10,
+	},
+	"kamu": {
+		"name": "Kamu",
+		"requires": ["split_shot"],
+		"cost": 10,
 	}
 }
 
 func has_skill(id: String) -> bool:
-	return unlocked_skills.get(id, false)
+	return id in unlocked_skills
 
-func unlock_skill(id: String):
-	if can_unlock(id):
-		unlocked_skills[id] = true
-		print("UNLOCKED: ", id)
+func unlock_skill(skill_id: String):
+	if !can_unlock(skill_id):
+		return
+	var skill = skills[skill_id]
+	currency -= skill["cost"]
+	unlocked_skills.append(skill_id)
+	print("UNLOCKED:", skill_id)
 
-func can_unlock(id: String) -> bool:
-	if has_skill(id):
+func can_unlock(skill_id: String) -> bool:
+	if has_skill(skill_id):
 		return false
-	var requirements = skills[id]["requires"]
-	for requirement in requirements:
+	var skill = skills[skill_id]
+	for requirement in skill["requires"]:
 		if !has_skill(requirement):
 			return false
+	if currency < skill["cost"]:
+		return false
 	return true
 	
 func get_depth(skill_id: String) -> int:

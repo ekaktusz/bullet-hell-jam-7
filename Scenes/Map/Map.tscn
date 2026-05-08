@@ -15,11 +15,21 @@ closed = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2071232349]
 
-[node name="Label" type="Label" parent="." unique_id=2101833982]
-offset_left = -934.0
-offset_top = -521.0
-offset_right = -888.0
-offset_bottom = -498.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=975789396]
+
+[node name="BulletsLabel" type="Label" parent="CanvasLayer" unique_id=2101833982]
+offset_right = 46.0
+offset_bottom = 23.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "x / 10 "
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1740172599]
+offset_top = 28.0
+offset_right = 46.0
+offset_bottom = 51.0
+
+[node name="CurrencyLabel" type="Label" parent="CanvasLayer" unique_id=1884214471]
+offset_top = 56.0
+offset_right = 46.0
+offset_bottom = 79.0

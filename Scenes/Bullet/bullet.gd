@@ -79,7 +79,6 @@ func start_cooldown():
 	await get_tree().create_timer(bounce_cooldown).timeout
 	can_bounce = true
 
-
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player") and has_bounced:
 		print("HUT DETECTED")

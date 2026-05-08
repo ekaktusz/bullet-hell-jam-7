@@ -3,7 +3,9 @@ extends Node2D
 @onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullets_container: Node2D = $Bullets
-@onready var label: Label = $Label
+@onready var label: Label = $CanvasLayer/BulletsLabel
+@onready var time_label: Label= $CanvasLayer/TimeLabel
+@onready var currency_label: Label = $CanvasLayer/CurrencyLabel
 const BULLET = preload("uid://cycafl512rjsx")
 
 #map 
@@ -23,6 +25,7 @@ var shoot_timer := 0.0
 var can_shoot = true
 
 var max_bullet_count = 10
+var run_time := 0.0
 
 func _ready():
 	noise.frequency = 2
@@ -30,6 +33,9 @@ func _ready():
 	generate_blob(0)
 	
 func _process(delta):
+	run_time += delta
+	time_label.text = "TIME: " + str(int(run_time))
+	currency_label.text = "Currency: " + str(Progression.currency)
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, 100.0)
 	update_blob(delta)
@@ -101,7 +107,6 @@ func get_closest_normal(point: Vector2) -> Vector2:
 func check_outside():
 	check_bullets_outside()
 	check_brain_outside()
-	
 
 func check_bullets_outside():
 	for bullet in bullets:
@@ -109,7 +114,6 @@ func check_bullets_outside():
 		if !Geometry2D.is_point_in_polygon(local, points):
 			var normal = get_closest_normal(local)
 			bullet.try_bounce(normal)
-
 
 func check_brain_outside():
 	if brain:
@@ -188,6 +192,9 @@ func shoot_cooldown_timer():
 	can_shoot = true
 	
 func end_run():
+	var earned = int(run_time)
+	Progression.currency += earned
+	print("EARNED:", earned)
 	get_tree().paused = true
 	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
 	get_tree().current_scene.add_child(skill_tree)

@@ -1,6 +1,7 @@
 extends Button
 
 @onready var label: Label = $Label
+@onready var cost_label = $CostLabel
 
 var skill_id := ""
 
@@ -8,6 +9,7 @@ func setup(id: String):
 	skill_id = id
 	var skill_data = Progression.skills[id]
 	label.text = skill_data["name"]
+	cost_label.text = str(skill_data["cost"])
 	update_visual()
 
 func update_visual():
