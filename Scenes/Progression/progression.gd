@@ -6,22 +6,18 @@ var skills := {
 	"rapid_fire": {
 		"name": "Rapid Fire",
 		"requires": [],
-		"position": Vector2(500, 150)
 	},
 	"heavy_bullets": {
 		"name": "Heavy Bullets",
 		"requires": ["rapid_fire"],
-		"position": Vector2(350, 300)
 	},
 	"fast_bullets": {
 		"name": "Fast Bullets",
 		"requires": ["rapid_fire"],
-		"position": Vector2(650, 300)
 	},
 	"split_shot": {
 		"name": "Split Shot",
 		"requires": ["fast_bullets"],
-		"position": Vector2(650, 500)
 	}
 }
 
@@ -43,7 +39,7 @@ func can_unlock(id: String) -> bool:
 	return true
 	
 func get_depth(skill_id: String) -> int:
-	var skill = skills[skill_id]
+	var skill = Progression.skills[skill_id]
 	if skill["requires"].is_empty():
 		return 0
 	var max_depth = 0

@@ -8,7 +8,6 @@ func setup(id: String):
 	skill_id = id
 	var skill_data = Progression.skills[id]
 	label.text = skill_data["name"]
-	position = skill_data["position"]
 	update_visual()
 
 func update_visual():
