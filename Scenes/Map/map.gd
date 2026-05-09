@@ -17,6 +17,10 @@ var base_radius = 600
 var segments := 512
 var velocities = []
 var run_time := 0.0
+var brain_outside_time := 0.0
+
+const OUTSIDE_CONFIRM_TIME := 0.08
+const OUTSIDE_TOLERANCE := 3.0
 
 
 func _ready() -> void:
@@ -89,6 +93,16 @@ func get_closest_normal(point: Vector2) -> Vector2:
 	return best_normal
 
 
+func get_distance_to_boundary(point: Vector2) -> float:
+	var closest_dist := INF
+	for i in range(points.size()):
+		var a = points[i]
+		var b = points[(i + 1) % points.size()]
+		var closest = Geometry2D.get_closest_point_to_segment(point, a, b)
+		closest_dist = min(closest_dist, point.distance_to(closest))
+	return closest_dist
+
+
 func check_outside() -> void:
 	check_bullets_outside()
 	check_brain_outside()
@@ -104,34 +118,25 @@ func check_bullets_outside() -> void:
 
 func check_brain_outside() -> void:
 	if brain:
-		var shape = brain.get_node("CollisionShape2D").shape
+		var collision_shape: CollisionShape2D = brain.get_node("CollisionShape2D")
+		var shape = collision_shape.shape
 
 		if shape is CircleShape2D:
-			var radius = shape.radius
-			var pos = brain.global_position
+			var radius = shape.radius * max(absf(collision_shape.global_scale.x), absf(collision_shape.global_scale.y))
+			var center = to_local(collision_shape.global_position)
+			var center_is_inside = Geometry2D.is_point_in_polygon(center, points)
+			var distance_to_boundary = get_distance_to_boundary(center)
+			var overlaps_boundary = center_is_inside and distance_to_boundary < radius - OUTSIDE_TOLERANCE
 
-			var test_points = [
-				pos,
-				pos + Vector2(radius, 0),
-				pos + Vector2(-radius, 0),
-				pos + Vector2(0, radius),
-				pos + Vector2(0, -radius),
-				pos + Vector2(radius, radius).normalized() * radius,
-				pos + Vector2(-radius, radius).normalized() * radius,
-				pos + Vector2(radius, -radius).normalized() * radius,
-				pos + Vector2(-radius, -radius).normalized() * radius,
-			]
-
-			for p in test_points:
-				var local_p = to_local(p)
-
-				if !Geometry2D.is_point_in_polygon(local_p, points):
+			if !center_is_inside or overlaps_boundary:
+				brain_outside_time += get_process_delta_time()
+				if brain_outside_time >= OUTSIDE_CONFIRM_TIME:
 					print("END RUN")
 					end_run()
 					brain.hide()
-					break
-				else:
-					brain.show()
+			else:
+				brain_outside_time = 0.0
+				brain.show()
 
 
 func _on_apply_impact(bullet) -> void:
