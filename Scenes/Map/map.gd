@@ -6,6 +6,9 @@ extends Node2D
 @onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var currency_label: Label = $CanvasLayer/CurrencyLabel
 @onready var polygon_2d: Polygon2D = $Polygon2D
+@onready var skill_tree: Control = $SkillTree
+@onready var bullets: BulletManager = $Bullets
+@onready var thoughts: Node2D = $Thoughts
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
 
@@ -31,6 +34,8 @@ func _ready() -> void:
 	Progression.currency_changed.connect(_on_currency_changed)
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
+	Progression.refresh_tree.connect(_on_update_tree)
+	skill_tree.restart_run.connect(_on_restart)
 	update_currency_label()
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
@@ -61,6 +66,7 @@ func generate_blob(time: float) -> void:
 
 
 func update_blob(delta: float) -> void:
+	
 	check_outside()
 	points.sort_custom(func(a, b):
 		return atan2(a.y, a.x) < atan2(b.y, b.x)
@@ -167,21 +173,35 @@ func spawn_thought(position: Vector2, is_good: bool) -> void:
 	var thought = THOUGHT.instantiate()
 	thought.is_good = is_good
 	thought.position = position
-	get_tree().current_scene.add_child(thought)
+	thoughts.add_child(thought)
 
 
 func end_run() -> void:
+	bullet_manager.bullets = []
+	for child in bullets.get_children():
+		child.queue_free()
+	for child in thoughts.get_children():
+		child.queue_free()
 	var earned = int(run_time)
 	Progression.currency += earned
 	print("EARNED:", earned)
 	get_tree().paused = true
-	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
-	get_tree().current_scene.add_child(skill_tree)
+	skill_tree.show()
 
 
+func _on_update_tree():
+	skill_tree.refresh_tree()
+	
+	
 func _on_currency_changed(value) -> void:
 	currency_label.text = "Currency: " + str(value)
 
 
 func update_currency_label() -> void:
 	currency_label.text = "Currency: " + str(Progression.currency)
+
+func _on_restart():
+	generate_blob(0)
+	brain.position = Vector2(0,0)
+	skill_tree.hide()
+	
