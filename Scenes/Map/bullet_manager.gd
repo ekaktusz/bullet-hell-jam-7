@@ -81,12 +81,15 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 
 func get_bullet_type(bullet_rng):
 	print(bullet_rng)
-	if bullet_rng < 0.1 && Progression.has_skill("heavy_bullets"):
+	#ezek most a lvl 3 rangek, a rangeket majd csökkenthetjük amikor bekerülnek a lvl-ek
+	if bullet_rng < 0.15 && Progression.has_skill("heavy_bullets"):
 		return "heavy"
-	elif bullet_rng > 0.9 && Progression.has_skill("fast_bullets"):
+	elif bullet_rng > 0.15 && bullet_rng < 0.3 && Progression.has_skill("fast_bullets"):
 		return "fast"
-	elif bullet_rng > 0.6 && bullet_rng < 0.8 && Progression.has_skill("split_shot"):
+	elif bullet_rng > 0.3 && bullet_rng < 0.45 && Progression.has_skill("split_shot"):
 		return "split"
+	elif bullet_rng > 0.45 && bullet_rng < 0.85 && Progression.has_skill("ghost_shot"):
+		return "ghost"
 	else: return "normal"
 
 
