@@ -2,14 +2,12 @@ extends Node2D
 
 @onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
-@onready var bullets_container: Node2D = $Bullets
-@onready var label: Label = $CanvasLayer/BulletsLabel
-@onready var time_label: Label= $CanvasLayer/TimeLabel
+@onready var bullet_manager: BulletManager = $Bullets
+@onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var currency_label: Label = $CanvasLayer/CurrencyLabel
-const BULLET = preload("uid://cycafl512rjsx")
+
 const THOUGHT = preload("uid://bh5ungrieylu3")
 
-#map 
 var map_speed = 25
 var noise = FastNoiseLite.new()
 var damping = 0.97
@@ -18,47 +16,29 @@ var points = []
 var base_radius = 600
 var segments := 512
 var velocities = []
-var bullets = []
-
-#var rapid_fire_unlocked = false
-var shoot_cooldown = 0.1
-var shoot_timer := 0.0
-var can_shoot = true
-
-var max_bullet_count = 10
 var run_time := 0.0
-var split_shot_angle := deg_to_rad(15.0)
 
-func _ready():
+
+func _ready() -> void:
 	Progression.currency_changed.connect(_on_currency_changed)
+	bullet_manager.bullet_impact.connect(_on_apply_impact)
+	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	update_currency_label()
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
-	
-func _process(delta):
+
+
+func _process(delta: float) -> void:
 	run_time += delta
 	time_label.text = "TIME: " + str(int(run_time))
 	currency_label.text = "Currency: " + str(Progression.currency)
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, 100.0)
 	update_blob(delta)
-	if Progression.has_skill("rapid_fire"):
-		shoot_timer -= delta
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			if shoot_timer <= 0.0:
-				spawn_bullet()
-				shoot_timer = shoot_cooldown
 
-func _input(event):
-	if not Progression.has_skill("rapid_fire"):
-		if event is InputEventMouseButton and event.pressed:
-			if can_shoot:
-				can_shoot = false
-				shoot_cooldown_timer()
-				spawn_bullet()
 
-func generate_blob(time: float):
+func generate_blob(time: float) -> void:
 	points.clear()
 	velocities.clear()
 	for i in range(segments):
@@ -70,8 +50,8 @@ func generate_blob(time: float):
 		velocities.append(Vector2.ZERO)
 	line_2d.points = points
 
-			
-func update_blob(delta: float):
+
+func update_blob(delta: float) -> void:
 	check_outside()
 	points.sort_custom(func(a, b):
 		return atan2(a.y, a.x) < atan2(b.y, b.x)
@@ -83,7 +63,7 @@ func update_blob(delta: float):
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
 		var center = (prev + next) * 0.5
-		velocity += (center - point) * 8.0 * delta 
+		velocity += (center - point) * 8.0 * delta
 		velocity *= damping
 		point += (inward + velocity) * delta
 		points[i] = point
@@ -108,18 +88,21 @@ func get_closest_normal(point: Vector2) -> Vector2:
 			best_normal = normal
 	return best_normal
 
-func check_outside():
+
+func check_outside() -> void:
 	check_bullets_outside()
 	check_brain_outside()
 
-func check_bullets_outside():
-	for bullet in bullets:
+
+func check_bullets_outside() -> void:
+	for bullet in bullet_manager.get_bullets():
 		var local = to_local(bullet.global_position)
 		if !Geometry2D.is_point_in_polygon(local, points):
 			var normal = get_closest_normal(local)
 			bullet.try_bounce(normal)
 
-func check_brain_outside():
+
+func check_brain_outside() -> void:
 	if brain:
 		var shape = brain.get_node("CollisionShape2D").shape
 
@@ -133,8 +116,6 @@ func check_brain_outside():
 				pos + Vector2(-radius, 0),
 				pos + Vector2(0, radius),
 				pos + Vector2(0, -radius),
-
-				# diagonals
 				pos + Vector2(radius, radius).normalized() * radius,
 				pos + Vector2(-radius, radius).normalized() * radius,
 				pos + Vector2(radius, -radius).normalized() * radius,
@@ -147,60 +128,13 @@ func check_brain_outside():
 				if !Geometry2D.is_point_in_polygon(local_p, points):
 					print("END RUN")
 					end_run()
-					##trigger end-run mechaning and the rest is not needed
 					brain.hide()
 					break
-				else: brain.show()
+				else:
+					brain.show()
 
-func spawn_bullet():
-	if !brain:
-		return
-	if  bullets.size() >= max_bullet_count:
-		return
 
-	var mouse_pos = get_global_mouse_position()
-	var spawn_pos = brain.position
-	var direction = (mouse_pos - to_global(spawn_pos)).normalized()
-	var directions = [direction]
-	if Progression.has_skill("split_shot"):
-		directions = [
-			direction.rotated(-split_shot_angle),
-			direction,
-			direction.rotated(split_shot_angle)
-		]
-
-	var modifiers = []
-	if Progression.has_skill("heavy_bullets"):
-		modifiers.append("heavy")
-	if Progression.has_skill("fast_bullets"):
-		modifiers.append("fast")
-
-	for shot_direction in directions.slice(0, max_bullet_count - bullets.size()):
-		spawn_single_bullet(spawn_pos, shot_direction, modifiers)
-	update_bullet_label()
-
-func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, modifiers: Array):
-	var bullet = BULLET.instantiate()
-	bullet.global_position = spawn_pos
-	bullet.velocity = direction * bullet.bullet_speed
-	bullets.append(bullet)
-	bullet.remove_bullet.connect(_on_bullet_remove)
-	bullet.apply_impact.connect(_on_apply_impact)
-	bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
-	bullets_container.add_child(bullet)
-	bullet.setup_bullet(modifiers)
-
-func update_bullet_label():
-	label.text = str(bullets.size()) + " / " + str(max_bullet_count)
-
-func _on_bullet_remove(id):
-	for bullet in bullets:
-		if bullet.get_instance_id() == id:
-			bullets.erase(bullet)
-			update_bullet_label()
-			return
-
-func _on_apply_impact(bullet):
+func _on_apply_impact(bullet) -> void:
 	var local_hit = to_local(bullet.global_position)
 	spawn_thought(local_hit, true)
 	for i in range(points.size()):
@@ -212,20 +146,18 @@ func _on_apply_impact(bullet):
 			velocities[i] += outward * bullet.impact_force * influence
 
 
-func _on_spawn_bad_thought():
-	spawn_thought(brain.position, false)
+func spawn_bad_thought(position: Vector2) -> void:
+	spawn_thought(position, false)
 
-func spawn_thought(position : Vector2, is_good: bool):
+
+func spawn_thought(position: Vector2, is_good: bool) -> void:
 	var thought = THOUGHT.instantiate()
 	thought.is_good = is_good
 	thought.position = position
 	get_tree().current_scene.add_child(thought)
 
-func shoot_cooldown_timer():
-	await get_tree().create_timer(shoot_cooldown).timeout
-	can_shoot = true
-	
-func end_run():
+
+func end_run() -> void:
 	var earned = int(run_time)
 	Progression.currency += earned
 	print("EARNED:", earned)
@@ -233,8 +165,10 @@ func end_run():
 	var skill_tree = preload("res://Scenes/SkillTree/skill_tree.tscn").instantiate()
 	get_tree().current_scene.add_child(skill_tree)
 
-func _on_currency_changed(value):
+
+func _on_currency_changed(value) -> void:
 	currency_label.text = "Currency: " + str(value)
 
-func update_currency_label():
+
+func update_currency_label() -> void:
 	currency_label.text = "Currency: " + str(Progression.currency)
