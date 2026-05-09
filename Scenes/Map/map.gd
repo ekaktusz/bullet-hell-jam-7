@@ -10,7 +10,7 @@ const BULLET = preload("uid://cycafl512rjsx")
 const THOUGHT = preload("uid://bh5ungrieylu3")
 
 #map 
-var map_speed = 25
+var map_speed = 100
 var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
@@ -25,7 +25,7 @@ var shoot_cooldown = 0.1
 var shoot_timer := 0.0
 var can_shoot = true
 
-var max_bullet_count = 10
+var max_bullet_count = 100
 var run_time := 0.0
 var split_shot_angle := deg_to_rad(15.0)
 
@@ -210,6 +210,7 @@ func _on_apply_impact(bullet):
 			var influence = 1.0 - (dist / bullet.impact_radius)
 			var outward = point.normalized()
 			velocities[i] += outward * bullet.impact_force * influence
+			
 
 
 func _on_spawn_bad_thought():

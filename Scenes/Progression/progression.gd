@@ -3,7 +3,7 @@ extends Node
 signal currency_changed(value)
 
 var unlocked_skills := []
-var currency := 0
+var currency := 100
 
 var skills := {
 	"rapid_fire": {
