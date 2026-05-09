@@ -29,8 +29,6 @@ var brain_outside_time := 0.0
 const OUTSIDE_CONFIRM_TIME := 0.08
 const OUTSIDE_TOLERANCE := 3.0
 
-var split_shot_angle := deg_to_rad(15.0)
-
 
 func _ready() -> void:
 	SkillDatabase.current_money_changed.connect(_on_current_money_changed)
@@ -185,7 +183,9 @@ func end_run() -> void:
 	for child in thoughts.get_children():
 		child.queue_free()
 	var earned = int(run_time)
+
 	SkillDatabase.current_money += earned
+
 	print("EARNED:", earned)
 	get_tree().paused = true
 	skill_tree.show()
