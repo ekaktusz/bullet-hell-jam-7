@@ -1,7 +1,5 @@
 extends Node
 
-signal refresh_tree
-
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
 const B_UNLOCKED = preload("uid://cni27vxqonuw3")
 const C_UNLOCKED = preload("uid://do4nkkntwmb82")

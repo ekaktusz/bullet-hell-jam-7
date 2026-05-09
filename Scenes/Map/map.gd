@@ -3,12 +3,9 @@ extends Node2D
 @onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullet_manager: BulletManager = $Bullets
-@onready var time_label: Label = $CanvasLayer/TimeLabel
-@onready var current_money_label: Label = $CanvasLayer/CurrencyLabel
 @onready var polygon_2d: Polygon2D = $Polygon2D
-@onready var skill_tree: Control = $CanvasLayer/SkillTree
-@onready var bullets: BulletManager = $Bullets
 @onready var thoughts: Node2D = $Thoughts
+@onready var skill_tree: Control = $UICanvasLayer/SkillTree
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const DEFAULT_BASE_RADIUS := 600.0
@@ -33,9 +30,7 @@ const OUTSIDE_TOLERANCE := 3.0
 func _ready() -> void:
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
-	SkillDatabase.refresh_tree.connect(_on_update_tree)
 	skill_tree.restart_run.connect(_on_restart)
-	update_current_money_label()
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
@@ -43,8 +38,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	run_time += delta
-	time_label.text = "TIME: " + str(int(run_time))
-	update_current_money_label()
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
@@ -177,7 +170,7 @@ func spawn_thought(thought_position: Vector2, is_good: bool) -> void:
 
 func end_run() -> void:
 	bullet_manager.bullets = []
-	for child in bullets.get_children():
+	for child in bullet_manager.get_children():
 		child.queue_free()
 	for child in thoughts.get_children():
 		child.queue_free()
@@ -190,14 +183,6 @@ func end_run() -> void:
 	skill_tree.show()
 
 
-func _on_update_tree():
-	skill_tree.refresh_tree()
-
-
-
-func update_current_money_label() -> void:
-	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)
-
 func _on_restart():
 	run_time = 0.0
 	brain_outside_time = 0.0
@@ -205,7 +190,6 @@ func _on_restart():
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()
-	time_label.text = "TIME: 0"
 	skill_tree.hide()
 	get_tree().paused = false
 	
