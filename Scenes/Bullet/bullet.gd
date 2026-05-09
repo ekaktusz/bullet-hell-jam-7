@@ -5,6 +5,8 @@ signal remove_bullet
 signal apply_impact
 signal spawn_bad_though
 
+var bullet_rng: float
+
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
 var body_size_x = 16
 var body_size_y = 16
@@ -25,19 +27,40 @@ var correction_strength = 0.4
 
 var has_bounced = false
 
-func setup_bullet(modifiers: Array):
-	for modifier in modifiers:
-		match modifier:
-			"heavy":
-				impact_force *= double_hit * 2
-				impact_radius *= 1.5
-				velocity *= 0.5
-				sprite_2d.modulate = Color.FIREBRICK
-			"fast":
-				impact_force *= 0.5
-				velocity *= 2.0
-				max_bounce = 10
-				sprite_2d.modulate = Color.YELLOW
+func _ready() -> void:
+	if bullet_rng < 0.1 && Progression.has_skill("heavy_bullets"):
+		big_bullet_chance()
+	elif bullet_rng > 0.9 && Progression.has_skill("fast_bullets"):
+		fast_bullet_chance()
+	
+	
+func fast_bullet_chance():
+	impact_force = impact_force / 2
+	impact_radius = impact_radius
+	velocity = velocity * 2
+	max_bounce = 10
+	sprite_2d.modulate = Color.YELLOW
+	
+func big_bullet_chance():
+	impact_force *= double_hit * 2
+	impact_radius *= 1.5
+	velocity = velocity / 2
+	sprite_2d.modulate = Color.FIREBRICK
+#
+#func setup_bullet(modifiers: Array):
+	#print(Progression.unlocked_skills)
+	#for modifier in modifiers:
+		#match modifier:
+			#"heavy":
+				#impact_force *= double_hit * 2
+				#impact_radius *= 1.5
+				#velocity *= 0.5
+				#sprite_2d.modulate = Color.FIREBRICK
+			#"fast":
+				#impact_force *= 0.5
+				#velocity *= 2.0
+				#max_bounce = 10
+				#sprite_2d.modulate = Color.YELLOW
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()

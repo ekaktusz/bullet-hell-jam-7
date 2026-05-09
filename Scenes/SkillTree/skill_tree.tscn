@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
-[ext_resource type="Texture2D" uid="uid://dsa651hq45m4b" path="res://Scenes/SkillTree/assets/skillfa_full.png" id="2_ceqrk"]
 [ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
@@ -39,12 +38,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ycyhv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=913396009]
-visible = false
-position = Vector2(960, 544)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ceqrk")
-
 [node name="Restart" type="Button" parent="." unique_id=940318680]
 layout_mode = 0
 offset_left = 805.0
@@ -57,7 +50,7 @@ icon = ExtResource("2_tq623")
 [node name="Lines" type="Node2D" parent="." unique_id=1927873348]
 
 [node name="Line2D2" type="Line2D" parent="Lines" unique_id=124646332]
-position = Vector2(184, 0)
+position = Vector2(184, 1)
 points = PackedVector2Array(467, 749, 436, 774)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
