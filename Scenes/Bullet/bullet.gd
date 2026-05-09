@@ -8,8 +8,6 @@ signal spawn_bad_though
 var type
 
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
-var body_size_x = 16
-var body_size_y = 16
 var impact_force = 300
 var impact_radius = 100
 var bullet_speed = 500
@@ -31,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _ready() -> void:
+	scale = Vector2(SkillDatabase.bullet_size,SkillDatabase.bullet_size)
 	print(type)
 	match type:
 		"fast":

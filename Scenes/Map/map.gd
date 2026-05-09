@@ -11,16 +11,13 @@ extends Node2D
 @onready var thoughts: Node2D = $Thoughts
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
-const DEFAULT_BASE_RADIUS := 600.0
 const MIN_BASE_RADIUS := 100.0
-
-var map_speed = 100
 
 var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
 var points = []
-var base_radius = DEFAULT_BASE_RADIUS
+var base_radius = SkillDatabase.wall_size
 var segments := 512
 var velocities = []
 var run_time := 0.0
@@ -43,8 +40,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	run_time += delta
-	time_label.text = "TIME: " + str(int(run_time))
-	update_current_money_label()
+	time_label.text = "TIME x reward multiplier: " + str(int(run_time * SkillDatabase.reward_multiplier))
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
@@ -53,13 +49,27 @@ func _process(delta: float) -> void:
 func generate_blob(time: float) -> void:
 	points.clear()
 	velocities.clear()
+
+	var radius_x = base_radius * 1.6  # stretch horizontally
+	var radius_y = base_radius * 1  # slightly squash vertically
+
 	for i in range(segments):
 		var angle = TAU * i / segments
 		var n = noise.get_noise_2d(cos(angle) + time, sin(angle) + time)
+
 		var radius = base_radius + n * spike_size
-		var point = Vector2(cos(angle), sin(angle)) * radius
+
+		var dir = Vector2(cos(angle), sin(angle))
+
+		# apply ellipse scaling
+		var point = Vector2(
+			dir.x * radius * radius_x / base_radius,
+			dir.y * radius * radius_y / base_radius
+		) * radius / base_radius
+
 		points.append(point)
 		velocities.append(Vector2.ZERO)
+
 	line_2d.points = points
 	polygon_2d.polygon = points
 
@@ -73,7 +83,8 @@ func update_blob(delta: float) -> void:
 	for i in range(points.size()):
 		var point = points[i]
 		var velocity = velocities[i]
-		var inward = -point.normalized() * map_speed
+		var inward = -point.normalized() * SkillDatabase.wall_speed
+
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
 		var center = (prev + next) * 0.5
@@ -181,17 +192,20 @@ func end_run() -> void:
 		child.queue_free()
 	for child in thoughts.get_children():
 		child.queue_free()
-	var earned = int(run_time)
+	var earned = int(run_time * SkillDatabase.reward_multiplier)
 
 	SkillDatabase.current_money += earned
+	update_current_money_label()
 
 	print("EARNED:", earned)
+	SkillDatabase.refresh_tree.emit()
 	get_tree().paused = true
 	skill_tree.show()
 
 
 func _on_update_tree():
 	skill_tree.refresh_tree()
+	update_current_money_label()
 
 func update_current_money_label() -> void:
 	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)
@@ -199,7 +213,7 @@ func update_current_money_label() -> void:
 func _on_restart():
 	run_time = 0.0
 	brain_outside_time = 0.0
-	base_radius = DEFAULT_BASE_RADIUS
+	base_radius = SkillDatabase.wall_size
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()

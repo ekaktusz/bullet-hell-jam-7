@@ -1,6 +1,7 @@
 extends Node
 
 signal refresh_tree
+signal player_size_skill_emitter
 
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
 const B_UNLOCKED = preload("uid://cni27vxqonuw3")
@@ -30,13 +31,22 @@ const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
 var current_money := 100
 
+##skillekkel buffolhato global valtozok
+var max_bullet_count = 10
+var wall_speed = 0
+var wall_size = 500
+var player_speed = 100
+var player_size = 1.0
+var bullet_size = 0.3
+var reward_multiplier = 1
+
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
 	"cost": 10,
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
-	"max_level": 1,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [] as Array[SkillRequirement]
 })
@@ -47,7 +57,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 	"cost": 10,
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -63,7 +73,7 @@ var fast_bullets_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -79,7 +89,7 @@ var split_shot_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -95,12 +105,12 @@ var ghost_shot_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
 			"id": "fast_bullets",
-			"level": 5
+			"level": 1
 		})
 	] as Array[SkillRequirement]
 })
@@ -109,18 +119,18 @@ var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
 	"cost": 10,
-	"gray_image" : M_GRAY,
-	"unlocked_image" : M_UNLOCKED,
-	"max_level": 5,
+	"gray_image" : L_GRAY,
+	"unlocked_image" : L_UNLOCKED,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
 			"id": split_shot_skill.id,
-			"level": 5
+			"level": 1
 		}),
 		SkillRequirement.new({
 			"id": ghost_shot_skill.id,
-			"level": 5
+			"level": 1
 		})
 	] as Array[SkillRequirement]
 })
@@ -131,7 +141,7 @@ var reward_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [] as Array[SkillRequirement]
 })
@@ -142,7 +152,7 @@ var wall_speed_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -156,9 +166,9 @@ var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
 	"cost": 10,
-	"gray_image" : E_GRAY,
-	"unlocked_image" : E_UNLOCKED,
-	"max_level": 5,
+	"gray_image" : B_GRAY,
+	"unlocked_image" : B_UNLOCKED,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -174,7 +184,7 @@ var rapid_fire_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -190,7 +200,7 @@ var player_speed_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -206,7 +216,7 @@ var player_size_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
