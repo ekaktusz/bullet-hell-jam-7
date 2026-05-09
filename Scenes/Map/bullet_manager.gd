@@ -50,8 +50,8 @@ func spawn_bullet() -> void:
 		return
 
 	var mouse_pos = get_global_mouse_position()
-	var spawn_pos = brain.position
-	var direction = (mouse_pos - to_global(spawn_pos)).normalized()
+	var direction = (mouse_pos - to_global(brain.position)).normalized()
+	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var directions = [direction]
 	if Progression.has_skill("split_shot"):
 		directions = [
