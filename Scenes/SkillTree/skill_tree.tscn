@@ -53,16 +53,19 @@ text = "RESTART"
 
 [node name="FastBulletsLine" parent="Lines" unique_id=548036240 instance=ExtResource("3_ht7cp")]
 position = Vector2(107, 69)
+skill_from = "max_bullet"
 
 [node name="HeavyBulletsLine" parent="Lines" unique_id=377900794 instance=ExtResource("3_ht7cp")]
 position = Vector2(107, 69)
 points = PackedVector2Array(278, 541, 436, 774)
 skill_to = "heavy_bullets"
+skill_from = "max_bullet"
 
 [node name="SplitShotLine" parent="Lines" unique_id=914790881 instance=ExtResource("3_ht7cp")]
 position = Vector2(107, 69)
 points = PackedVector2Array(278, 541, 277, 318)
 skill_to = "split_shot"
+skill_from = "heavy_bullets"
 
 [node name="GhostShotLine" parent="Lines" unique_id=1686630892 instance=ExtResource("3_ht7cp")]
 position = Vector2(422, 64)
@@ -73,11 +76,13 @@ skill_to = "ghost_shot"
 position = Vector2(405, -160)
 points = PackedVector2Array(292, 536, 139, 315)
 skill_to = "bullet_size"
+skill_from = "ghost_shot"
 
 [node name="FastBulletsLine6" parent="Lines" unique_id=2046200679 instance=ExtResource("3_ht7cp")]
 position = Vector2(405, -160)
 points = PackedVector2Array(-20, 527, 139, 315)
 skill_to = "bullet_size"
+skill_from = "split_shot"
 
 [node name="LinesRight" type="Node2D" parent="." unique_id=1276780371]
 position = Vector2(913, 4)

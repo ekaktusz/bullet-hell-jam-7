@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cchhfbgm5cdrr"]
+
+[ext_resource type="Shader" uid="uid://cynprrp8pdwn3" path="res://Globals/global_shader_effect.gdshader" id="1_useb7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nugmo"]
+shader = ExtResource("1_useb7")
+shader_parameter/radius = 0.910000043225
+shader_parameter/softness = 0.4310000204725
+shader_parameter/strength = 0.8370000397575
+shader_parameter/ellipse_x = 2.44100011268762
+shader_parameter/ellipse_y = 1.3
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[node name="GlobalShaderEffect" type="CanvasLayer" unique_id=417315655]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=531495866]
+material = SubResource("ShaderMaterial_nugmo")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

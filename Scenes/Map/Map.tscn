@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drjbxrwgj3lo3" path="res://Scenes/SkillTree/skill_tree.tscn" id="4_yju8x"]
 [ext_resource type="Script" uid="uid://d1wpp081r8n1c" path="res://Scenes/Map/ui_canvas_layer.gd" id="5_lats3"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="7_eo4jh"]
+[ext_resource type="Script" path="res://Scenes/Map/camera.gd" id="8_ym3jq"]
 
 [node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_jolfa")
@@ -25,6 +26,7 @@ closed = true
 script = ExtResource("3_tuo0m")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2071232349]
+script = ExtResource("8_ym3jq")
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=975789396]
 process_mode = 3

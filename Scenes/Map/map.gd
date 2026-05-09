@@ -7,6 +7,7 @@ extends Node2D
 @onready var thoughts: Node2D = $Thoughts
 @onready var skill_tree: Control = $UICanvasLayer/SkillMenu/SkillTree
 @onready var skill_menu: Control = $UICanvasLayer/SkillMenu
+@onready var camera: Camera2D = $Camera2D
 
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
@@ -161,6 +162,7 @@ func _on_apply_impact(bullet) -> void:
 
 func spawn_bad_thought(thought_position: Vector2) -> void:
 	spawn_thought(thought_position, false)
+	camera.shake(0.15, 4.0)
 
 
 func spawn_thought(thought_position: Vector2, is_good: bool) -> void:

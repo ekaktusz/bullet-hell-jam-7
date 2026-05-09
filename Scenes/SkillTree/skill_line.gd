@@ -1,6 +1,7 @@
 extends Line2D
 
 @export var skill_to: String = "fast_bullets"
+@export var skill_from: String = "fast_bullets"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
