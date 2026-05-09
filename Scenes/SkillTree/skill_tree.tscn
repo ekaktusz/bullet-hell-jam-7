@@ -15,6 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://iw6gtma0i83x" path="res://Scenes/SkillTree/assets/unlocked/H.png" id="13_1cncr"]
 [ext_resource type="Texture2D" uid="uid://crebj4x8exh5h" path="res://Scenes/SkillTree/assets/gray/L.png" id="14_l1cso"]
 [ext_resource type="Texture2D" uid="uid://dwpu4h8vw2bua" path="res://Scenes/SkillTree/assets/unlocked/L.png" id="15_rmk6d"]
+[ext_resource type="Texture2D" uid="uid://big0pr76inwqw" path="res://Scenes/SkillTree/assets/gray/C.png" id="16_ht7cp"]
+[ext_resource type="Texture2D" uid="uid://do4nkkntwmb82" path="res://Scenes/SkillTree/assets/unlocked/C.png" id="17_34806"]
+[ext_resource type="Texture2D" uid="uid://bmct1ilbrnine" path="res://Scenes/SkillTree/assets/gray/B.png" id="18_nyx1s"]
+[ext_resource type="Texture2D" uid="uid://cni27vxqonuw3" path="res://Scenes/SkillTree/assets/unlocked/B.png" id="19_hj00m"]
+[ext_resource type="Texture2D" uid="uid://b8mcststfqfmx" path="res://Scenes/SkillTree/assets/gray/D.png" id="20_vcluc"]
+[ext_resource type="Texture2D" uid="uid://3s21vp7c1r0x" path="res://Scenes/SkillTree/assets/unlocked/D.png" id="21_guq8o"]
+[ext_resource type="Texture2D" uid="uid://cxfoky0bv8s4u" path="res://Scenes/SkillTree/assets/gray/E.png" id="22_xa3lu"]
+[ext_resource type="Texture2D" uid="uid://dwvsr2p8i2ka7" path="res://Scenes/SkillTree/assets/unlocked/E.png" id="23_usgaw"]
+[ext_resource type="Texture2D" uid="uid://cfwg6x41afie" path="res://Scenes/SkillTree/assets/gray/J.png" id="24_47ho6"]
+[ext_resource type="Texture2D" uid="uid://c8c13kiip0klq" path="res://Scenes/SkillTree/assets/unlocked/J.png" id="25_b3wmi"]
+[ext_resource type="Texture2D" uid="uid://bmk7h4ctw1iqr" path="res://Scenes/SkillTree/assets/gray/M.png" id="26_8tf56"]
+[ext_resource type="Texture2D" uid="uid://cb804gj1udq2w" path="res://Scenes/SkillTree/assets/unlocked/M.png" id="27_vbafa"]
 
 [node name="Control" type="Control" unique_id=1199055753 groups=["skill_tree"]]
 layout_mode = 3
@@ -177,7 +189,8 @@ offset_left = 1373.0
 offset_top = 784.0
 offset_right = 1700.0
 offset_bottom = 1043.0
-texture_hover = ExtResource("4_4sfqd")
+texture_normal = ExtResource("16_ht7cp")
+texture_hover = ExtResource("17_34806")
 skill_id = "reward"
 
 [node name="B" parent="Nodes" unique_id=22865391 instance=ExtResource("2_a2lps")]
@@ -185,8 +198,8 @@ offset_left = 1221.0
 offset_top = 544.0
 offset_right = 1548.0
 offset_bottom = 803.0
-texture_normal = ExtResource("6_2540e")
-texture_hover = ExtResource("7_spdp7")
+texture_normal = ExtResource("18_nyx1s")
+texture_hover = ExtResource("19_hj00m")
 skill_id = "wall_size"
 
 [node name="D" parent="Nodes" unique_id=1591846098 instance=ExtResource("2_a2lps")]
@@ -194,8 +207,8 @@ offset_left = 1533.0
 offset_top = 546.0
 offset_right = 1860.0
 offset_bottom = 805.0
-texture_normal = ExtResource("8_mivvg")
-texture_hover = ExtResource("9_g4esb")
+texture_normal = ExtResource("20_vcluc")
+texture_hover = ExtResource("21_guq8o")
 skill_id = "wall_speed"
 
 [node name="E" parent="Nodes" unique_id=135216414 instance=ExtResource("2_a2lps")]
@@ -203,8 +216,8 @@ offset_left = 1221.0
 offset_top = 320.0
 offset_right = 1548.0
 offset_bottom = 579.0
-texture_normal = ExtResource("10_gg070")
-texture_hover = ExtResource("11_sup52")
+texture_normal = ExtResource("22_xa3lu")
+texture_hover = ExtResource("23_usgaw")
 skill_id = "player_speed"
 
 [node name="J" parent="Nodes" unique_id=344870252 instance=ExtResource("2_a2lps")]
@@ -212,16 +225,16 @@ offset_left = 1533.0
 offset_top = 312.0
 offset_right = 1860.0
 offset_bottom = 571.0
-texture_normal = ExtResource("12_thxdk")
-texture_hover = ExtResource("13_1cncr")
+texture_normal = ExtResource("24_47ho6")
+texture_hover = ExtResource("25_b3wmi")
 
 [node name="M" parent="Nodes" unique_id=955676220 instance=ExtResource("2_a2lps")]
 offset_left = 1373.0
 offset_top = 88.0
 offset_right = 1700.0
 offset_bottom = 347.0
-texture_normal = ExtResource("14_l1cso")
-texture_hover = ExtResource("15_rmk6d")
+texture_normal = ExtResource("26_8tf56")
+texture_hover = ExtResource("27_vbafa")
 skill_id = "player_size"
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
