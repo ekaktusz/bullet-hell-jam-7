@@ -40,4 +40,11 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="LevelLabel" type="Label" parent="." unique_id=1554229435]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 11.0
+offset_right = 313.0
+offset_bottom = 34.0
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,0 +1,227 @@
+[gd_scene format=3 uid="uid://drjbxrwgj3lo3"]
+
+[ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
+[ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
+[ext_resource type="Texture2D" uid="uid://dsa651hq45m4b" path="res://Scenes/SkillTree/assets/skillfa_full.png" id="2_ceqrk"]
+[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
+[ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
+[ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
+[ext_resource type="Texture2D" uid="uid://qty72vxxm0v2" path="res://Scenes/SkillTree/assets/unlocked/F.png" id="7_spdp7"]
+[ext_resource type="Texture2D" uid="uid://dmmmfcfkux0y3" path="res://Scenes/SkillTree/assets/gray/G.png" id="8_mivvg"]
+[ext_resource type="Texture2D" uid="uid://b45ia08qhbwe3" path="res://Scenes/SkillTree/assets/unlocked/G.png" id="9_g4esb"]
+[ext_resource type="Texture2D" uid="uid://b18dd37fpvaem" path="res://Scenes/SkillTree/assets/gray/K.png" id="10_gg070"]
+[ext_resource type="Texture2D" uid="uid://b511pcgdqqo0n" path="res://Scenes/SkillTree/assets/unlocked/K.png" id="11_sup52"]
+[ext_resource type="Texture2D" uid="uid://cuce40kksb7vy" path="res://Scenes/SkillTree/assets/gray/H.png" id="12_thxdk"]
+[ext_resource type="Texture2D" uid="uid://iw6gtma0i83x" path="res://Scenes/SkillTree/assets/unlocked/H.png" id="13_1cncr"]
+[ext_resource type="Texture2D" uid="uid://crebj4x8exh5h" path="res://Scenes/SkillTree/assets/gray/L.png" id="14_l1cso"]
+[ext_resource type="Texture2D" uid="uid://dwpu4h8vw2bua" path="res://Scenes/SkillTree/assets/unlocked/L.png" id="15_rmk6d"]
+
+[node name="Control" type="Control" unique_id=1199055753 groups=["skill_tree"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycyhv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=913396009]
+visible = false
+position = Vector2(960, 544)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ceqrk")
+
+[node name="Restart" type="Button" parent="." unique_id=940318680]
+layout_mode = 0
+offset_left = 805.0
+offset_top = 909.0
+offset_right = 1002.0
+offset_bottom = 1045.0
+text = "Restart"
+icon = ExtResource("2_tq623")
+
+[node name="Lines" type="Node2D" parent="." unique_id=1927873348]
+
+[node name="Line2D2" type="Line2D" parent="Lines" unique_id=124646332]
+position = Vector2(184, 0)
+points = PackedVector2Array(467, 749, 436, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D" type="Line2D" parent="Lines" unique_id=2080205640]
+points = PackedVector2Array(427, 750, 461, 775)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D3" type="Line2D" parent="Lines" unique_id=506417624]
+position = Vector2(-60, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D4" type="Line2D" parent="Lines" unique_id=396270845]
+position = Vector2(262, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D5" type="Line2D" parent="Lines" unique_id=634714405]
+position = Vector2(-2, -474)
+points = PackedVector2Array(460, 750, 432, 776)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D6" type="Line2D" parent="Lines" unique_id=171947401]
+position = Vector2(194, -476)
+points = PackedVector2Array(444, 751, 473, 773)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="LinesRight" type="Node2D" parent="." unique_id=1276780371]
+position = Vector2(913, 4)
+
+[node name="Line2D2" type="Line2D" parent="LinesRight" unique_id=1235877509]
+position = Vector2(184, 0)
+points = PackedVector2Array(467, 749, 436, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D" type="Line2D" parent="LinesRight" unique_id=904577616]
+points = PackedVector2Array(427, 750, 461, 775)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D3" type="Line2D" parent="LinesRight" unique_id=110409864]
+position = Vector2(-60, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D4" type="Line2D" parent="LinesRight" unique_id=420212090]
+position = Vector2(262, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D5" type="Line2D" parent="LinesRight" unique_id=897298534]
+position = Vector2(-2, -474)
+points = PackedVector2Array(460, 750, 432, 776)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D6" type="Line2D" parent="LinesRight" unique_id=439933309]
+position = Vector2(194, -476)
+points = PackedVector2Array(444, 751, 473, 773)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Nodes" type="Node2D" parent="." unique_id=1213346974]
+
+[node name="A" parent="Nodes" unique_id=1889976147 instance=ExtResource("2_a2lps")]
+offset_left = 456.0
+offset_top = 784.0
+offset_right = 783.0
+offset_bottom = 1043.0
+texture_hover = ExtResource("4_4sfqd")
+skill_id = "max_bullet"
+
+[node name="F" parent="Nodes" unique_id=1665735525 instance=ExtResource("2_a2lps")]
+offset_left = 304.0
+offset_top = 544.0
+offset_right = 631.0
+offset_bottom = 803.0
+texture_normal = ExtResource("6_2540e")
+texture_hover = ExtResource("7_spdp7")
+skill_id = "heavy_bullets"
+
+[node name="G" parent="Nodes" unique_id=1097664895 instance=ExtResource("2_a2lps")]
+offset_left = 616.0
+offset_top = 544.0
+offset_right = 943.0
+offset_bottom = 803.0
+texture_normal = ExtResource("8_mivvg")
+texture_hover = ExtResource("9_g4esb")
+skill_id = "fast_bullets"
+
+[node name="K" parent="Nodes" unique_id=1332874412 instance=ExtResource("2_a2lps")]
+offset_left = 304.0
+offset_top = 320.0
+offset_right = 631.0
+offset_bottom = 579.0
+texture_normal = ExtResource("10_gg070")
+texture_hover = ExtResource("11_sup52")
+skill_id = "split_shot"
+
+[node name="H" parent="Nodes" unique_id=1314239911 instance=ExtResource("2_a2lps")]
+offset_left = 616.0
+offset_top = 312.0
+offset_right = 943.0
+offset_bottom = 571.0
+texture_normal = ExtResource("12_thxdk")
+texture_hover = ExtResource("13_1cncr")
+skill_id = "ghost_shot"
+
+[node name="L" parent="Nodes" unique_id=134752358 instance=ExtResource("2_a2lps")]
+offset_left = 456.0
+offset_top = 88.0
+offset_right = 783.0
+offset_bottom = 347.0
+texture_normal = ExtResource("14_l1cso")
+texture_hover = ExtResource("15_rmk6d")
+skill_id = "bullet_size"
+
+[node name="C" parent="Nodes" unique_id=98363722 instance=ExtResource("2_a2lps")]
+offset_left = 1373.0
+offset_top = 784.0
+offset_right = 1700.0
+offset_bottom = 1043.0
+texture_hover = ExtResource("4_4sfqd")
+skill_id = "reward"
+
+[node name="B" parent="Nodes" unique_id=22865391 instance=ExtResource("2_a2lps")]
+offset_left = 1221.0
+offset_top = 544.0
+offset_right = 1548.0
+offset_bottom = 803.0
+texture_normal = ExtResource("6_2540e")
+texture_hover = ExtResource("7_spdp7")
+skill_id = "wall_size"
+
+[node name="D" parent="Nodes" unique_id=1591846098 instance=ExtResource("2_a2lps")]
+offset_left = 1533.0
+offset_top = 546.0
+offset_right = 1860.0
+offset_bottom = 805.0
+texture_normal = ExtResource("8_mivvg")
+texture_hover = ExtResource("9_g4esb")
+skill_id = "wall_speed"
+
+[node name="E" parent="Nodes" unique_id=135216414 instance=ExtResource("2_a2lps")]
+offset_left = 1221.0
+offset_top = 320.0
+offset_right = 1548.0
+offset_bottom = 579.0
+texture_normal = ExtResource("10_gg070")
+texture_hover = ExtResource("11_sup52")
+skill_id = "player_speed"
+
+[node name="J" parent="Nodes" unique_id=344870252 instance=ExtResource("2_a2lps")]
+offset_left = 1533.0
+offset_top = 312.0
+offset_right = 1860.0
+offset_bottom = 571.0
+texture_normal = ExtResource("12_thxdk")
+texture_hover = ExtResource("13_1cncr")
+
+[node name="M" parent="Nodes" unique_id=955676220 instance=ExtResource("2_a2lps")]
+offset_left = 1373.0
+offset_top = 88.0
+offset_right = 1700.0
+offset_bottom = 347.0
+texture_normal = ExtResource("14_l1cso")
+texture_hover = ExtResource("15_rmk6d")
+skill_id = "player_size"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
