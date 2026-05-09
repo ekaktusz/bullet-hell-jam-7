@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_n62ux"]
+[ext_resource type="PackedScene" uid="uid://2y68ah7c67dv" path="res://Scenes/SkillTree/skill_line.tscn" id="3_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
 [ext_resource type="Texture2D" uid="uid://qty72vxxm0v2" path="res://Scenes/SkillTree/assets/unlocked/F.png" id="7_spdp7"]
@@ -50,40 +51,33 @@ text = "RESTART"
 
 [node name="Lines" type="Node2D" parent="." unique_id=1927873348]
 
-[node name="Line2D2" type="Line2D" parent="Lines" unique_id=124646332]
+[node name="FastBulletsLine" parent="Lines" unique_id=548036240 instance=ExtResource("3_ht7cp")]
 position = Vector2(107, 69)
-points = PackedVector2Array(596, 540, 436, 774)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
 
-[node name="Line2D" type="Line2D" parent="Lines" unique_id=2080205640]
-points = PackedVector2Array(385, 614, 536, 849)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="HeavyBulletsLine" parent="Lines" unique_id=377900794 instance=ExtResource("3_ht7cp")]
+position = Vector2(107, 69)
+points = PackedVector2Array(278, 541, 436, 774)
+skill_to = "heavy_bullets"
 
-[node name="Line2D3" type="Line2D" parent="Lines" unique_id=506417624]
-position = Vector2(-60, -244)
-points = PackedVector2Array(443, 632, 443, 862)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="SplitShotLine" parent="Lines" unique_id=914790881 instance=ExtResource("3_ht7cp")]
+position = Vector2(107, 69)
+points = PackedVector2Array(278, 541, 277, 318)
+skill_to = "split_shot"
 
-[node name="Line2D4" type="Line2D" parent="Lines" unique_id=396270845]
-position = Vector2(262, -244)
-points = PackedVector2Array(439, 622, 439, 848)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="GhostShotLine" parent="Lines" unique_id=1686630892 instance=ExtResource("3_ht7cp")]
+position = Vector2(422, 64)
+points = PackedVector2Array(278, 541, 277, 318)
+skill_to = "ghost_shot"
 
-[node name="Line2D5" type="Line2D" parent="Lines" unique_id=634714405]
-position = Vector2(-2, -474)
-points = PackedVector2Array(539, 625, 385, 853)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="FastBulletsLine5" parent="Lines" unique_id=598490690 instance=ExtResource("3_ht7cp")]
+position = Vector2(405, -160)
+points = PackedVector2Array(292, 536, 139, 315)
+skill_to = "bullet_size"
 
-[node name="Line2D6" type="Line2D" parent="Lines" unique_id=171947401]
-position = Vector2(194, -476)
-points = PackedVector2Array(346, 624, 507, 853)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="FastBulletsLine6" parent="Lines" unique_id=2046200679 instance=ExtResource("3_ht7cp")]
+position = Vector2(405, -160)
+points = PackedVector2Array(-20, 527, 139, 315)
+skill_to = "bullet_size"
 
 [node name="LinesRight" type="Node2D" parent="." unique_id=1276780371]
 position = Vector2(913, 4)
