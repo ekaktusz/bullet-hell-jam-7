@@ -217,7 +217,6 @@ func end_run() -> void:
 
 
 	print("EARNED:", earned)
-	SkillDatabase.refresh_tree.emit()
 	await get_tree().create_timer(0.1).timeout
 	get_tree().paused = true
 	skill_menu.show()

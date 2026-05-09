@@ -1,5 +1,6 @@
 extends Node
 
+signal player_size_skill_emitter
 
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
 const B_UNLOCKED = preload("uid://cni27vxqonuw3")
@@ -39,7 +40,7 @@ var reward_multiplier = 1
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
-	"costs": [10] as Array[int],
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
 	"max_level": 3,
@@ -50,7 +51,7 @@ var max_bullet_skill = Skill.new({
 var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Heavy Bullets",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
 	"max_level": 3,
@@ -66,7 +67,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
 	"name": "Fast Bullets",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
 	"max_level": 3,
@@ -82,7 +83,7 @@ var fast_bullets_skill = Skill.new({
 var split_shot_skill = Skill.new({
 	"id": "split_shot",
 	"name": "Split Shot",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
 	"max_level": 3,
@@ -98,7 +99,7 @@ var split_shot_skill = Skill.new({
 var ghost_shot_skill = Skill.new({
 	"id": "ghost_shot",
 	"name": "Ghost Bullet",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
 	"max_level": 3,
@@ -114,7 +115,7 @@ var ghost_shot_skill = Skill.new({
 var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
@@ -134,7 +135,7 @@ var bullet_size_skill = Skill.new({
 var reward_skill = Skill.new({
 	"id": "reward",
 	"name": "More Reward",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
 	"max_level": 3,
@@ -145,7 +146,7 @@ var reward_skill = Skill.new({
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
 	"name": "Wall Speed",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
 	"max_level": 3,
@@ -161,8 +162,7 @@ var wall_speed_skill = Skill.new({
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
-
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : B_GRAY,
 	"unlocked_image" : B_UNLOCKED,
 	"max_level": 3,
@@ -178,7 +178,7 @@ var wall_size_skill = Skill.new({
 var rapid_fire_skill = Skill.new({
 	"id": "rapid_fire",
 	"name": "Rapid Fire",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [30] as Array[int],
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
 	"max_level": 1,
@@ -194,7 +194,7 @@ var rapid_fire_skill = Skill.new({
 var player_speed_skill = Skill.new({
 	"id": "player_speed",
 	"name": "Player Speed",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
 	"max_level": 3,
@@ -210,7 +210,7 @@ var player_speed_skill = Skill.new({
 var player_size_skill = Skill.new({
 	"id": "player_size",
 	"name": "Player Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
