@@ -6,24 +6,28 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Gradient" id="Gradient_3mfif"]
+offsets = PackedFloat32Array(0, 0.0070422534, 0.02020202, 0.5915493, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.1130098, 0.011136932, 0.1884996, 1, 0.5738298, 0.37255603, 0.72940934, 1, 0.5915493, 0.5915493, 0.5915493, 1, 1, 1, 1, 1)
+
 [node name="BrainDeathEffect" type="CPUParticles2D" unique_id=269651796]
 emitting = false
 amount = 200
-lifetime = 0.62
+lifetime = 0.6
 one_shot = true
-speed_scale = 1.2
 explosiveness = 1.0
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 1200.0
-angular_velocity_min = -400.0
-angular_velocity_max = 400.0
-damping_min = 1.5
-damping_max = 2.5
-scale_amount_min = 20.0
-scale_amount_max = 40.0
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+damping_min = 0.2
+damping_max = 0.5
+scale_amount_min = 16.0
+scale_amount_max = 32.0
 scale_amount_curve = SubResource("Curve_bhe5d")
-color = Color(0.9, 0.45, 0.6, 1)
+color = Color(0.807103, 0.8467004, 0.91065097, 1)
+color_ramp = SubResource("Gradient_3mfif")
 script = ExtResource("1_bhe5d")

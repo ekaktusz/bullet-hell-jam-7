@@ -30,7 +30,7 @@ SoundManager="*res://Globals/SoundManager/sound_manager.tscn"
 GameEvents="*res://Globals/game_events.gd"
 SkillDatabase="*uid://cj06nus6aejf4"
 CommonGlobals="*uid://diqqpijn27qat"
-GlobalShaderEffect="*uid://cchhfbgm5cdrr"
+GlobalShaderEffect="*res://Globals/global_shader_effect.tscn"
 
 [display]
 

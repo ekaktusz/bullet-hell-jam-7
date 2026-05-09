@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bwue2nnl2f0rs" path="res://Scenes/Brain/brain_shot-Sheet.png" id="2_hdu4i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hdu4i"]
+radius = 80.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5bh3e"]
 atlas = ExtResource("2_hdu4i")

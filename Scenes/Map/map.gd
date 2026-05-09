@@ -47,6 +47,9 @@ func _process(delta: float) -> void:
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
 
+	var viewport_half_h := get_viewport_rect().size.y / 2.0
+	GlobalShaderEffect.set_vignette_radius(base_radius / viewport_half_h / 1.2)
+
 
 func generate_blob(time: float) -> void:
 	points.clear()
@@ -145,7 +148,7 @@ func check_brain_outside() -> void:
 					print("END RUN")
 					brain.hide()
 					play_brain_death()
-			else:
+			elif not brain_dead:
 				brain_outside_time = 0.0
 				brain.show()
 
@@ -169,12 +172,12 @@ func spawn_bad_thought(thought_position: Vector2) -> void:
 
 
 func play_brain_death() -> void:
-	camera.shake(0.5, 15.0)
-	var effect = BRAIN_DEATH_EFFECT.instantiate()
+	var effect = BRAIN_DEATH_EFFECT.instantiate() as CPUParticles2D
+	camera.shake(effect.lifetime, 30.0)
 	add_child(effect)
 	effect.global_position = brain.global_position
 	effect.play()
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(effect.lifetime).timeout
 	end_run()
 
 
