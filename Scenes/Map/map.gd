@@ -5,6 +5,7 @@ extends Node2D
 @onready var bullet_manager: BulletManager = $Bullets
 @onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var current_money_label: Label = $CanvasLayer/CurrencyLabel
+@onready var hp_label: Label = $CanvasLayer/HpLabel
 @onready var polygon_2d: Polygon2D = $Polygon2D
 @onready var skill_tree: Control = $SkillTree
 @onready var bullets: BulletManager = $Bullets
@@ -31,6 +32,8 @@ func _ready() -> void:
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	SkillDatabase.refresh_tree.connect(_on_update_tree)
+	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
+	GameEvents.reset_hp_emitter.connect(_on_update_hp_label)
 	skill_tree.restart_run.connect(_on_restart)
 	update_current_money_label()
 	noise.frequency = 2
@@ -219,5 +222,10 @@ func _on_restart():
 	brain.show()
 	time_label.text = "TIME: 0"
 	skill_tree.hide()
+	GameEvents.reset_hp()
 	get_tree().paused = false
 	
+func _on_update_hp_label():
+	if GameEvents.current_hp < 1:
+		end_run()
+	hp_label.text = "HP: " + str(GameEvents.current_hp)

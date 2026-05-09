@@ -11,7 +11,7 @@ const BULLET = preload("uid://cycafl512rjsx")
 @onready var bullets_label: Label = $"../CanvasLayer/BulletsLabel"
 
 var bullets: Array = []
-var shoot_cooldown := 0.2
+var shoot_cooldown := 0.15
 var shoot_timer := 0.0
 var can_shoot := true
 
@@ -78,6 +78,7 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 	bullet.apply_impact.connect(_on_apply_impact)
 	bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
 	add_child(bullet)
+	GameEvents.shoot.emit()
 
 
 func get_bullet_type(bullet_rng):
