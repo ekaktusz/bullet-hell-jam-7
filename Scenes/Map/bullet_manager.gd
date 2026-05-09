@@ -11,7 +11,7 @@ const BULLET = preload("uid://cycafl512rjsx")
 @onready var bullets_label: Label = $"../CanvasLayer/BulletsLabel"
 
 var bullets: Array = []
-var shoot_cooldown := 0.1
+var shoot_cooldown := 0.2
 var shoot_timer := 0.0
 var can_shoot := true
 
@@ -50,7 +50,7 @@ func spawn_bullet() -> void:
 		return
 
 	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - to_global(brain.position)).normalized()
+	var direction = (mouse_pos - brain.global_position -Vector2(0,-25)).normalized()
 	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var bullet_rng = rng.randf()
 	var bullet_type = get_bullet_type(bullet_rng)

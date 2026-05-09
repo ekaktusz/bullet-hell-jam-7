@@ -33,7 +33,7 @@ var current_money := 100
 
 ##skillekkel buffolhato global valtozok
 var max_bullet_count = 10
-var wall_speed = 100
+var wall_speed = 0
 var wall_size = 500
 var player_speed = 100
 var player_size = 1.0

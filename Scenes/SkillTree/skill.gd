@@ -55,7 +55,6 @@ func unlock() -> void:
 	if can_unlock(SkillDatabase.current_money):
 		SkillDatabase.current_money -= cost
 		level_up()
-		print(id)
 		match id:
 			"max_bullet":
 				handle_max_bullet_level_up()
