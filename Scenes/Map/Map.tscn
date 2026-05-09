@@ -39,11 +39,19 @@ text = "x / 10 "
 offset_top = 28.0
 offset_right = 46.0
 offset_bottom = 51.0
+text = "time"
 
 [node name="CurrencyLabel" type="Label" parent="CanvasLayer" unique_id=1884214471]
 offset_top = 56.0
 offset_right = 46.0
 offset_bottom = 79.0
+text = "money"
+
+[node name="HpLabel" type="Label" parent="CanvasLayer" unique_id=1260821453]
+offset_top = 83.0
+offset_right = 49.0
+offset_bottom = 106.0
+text = "HP: 10"
 
 [node name="SkillTree" parent="." unique_id=1199055753 instance=ExtResource("4_yju8x")]
 visible = false
