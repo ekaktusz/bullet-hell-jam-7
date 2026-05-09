@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
-[ext_resource type="Texture2D" uid="uid://bn0iw0800beeq" path="res://assets/bg_good_small.png" id="2_ht7cp"]
+[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="2_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]

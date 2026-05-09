@@ -35,11 +35,15 @@ func _ready() -> void:
 		"fast":
 			fast_bullet_chance()
 		"ghost":
-			pass
+			ghost_bullet_chance()
 		"heavy":
 			heavy_bullet_chance()
 		"split_shot":
 			pass	
+			
+func ghost_bullet_chance():
+	self.add_to_group("ghost")
+	sprite_2d.modulate = Color.DIM_GRAY
 			
 func fast_bullet_chance():
 	print("fast")

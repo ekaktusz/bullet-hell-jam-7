@@ -33,24 +33,28 @@ offset_right = 46.0
 offset_bottom = 23.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.9647059, 0.972549, 0.78431374, 1)
 text = "x / 10 "
 
 [node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1740172599]
 offset_top = 28.0
 offset_right = 46.0
 offset_bottom = 51.0
+theme_override_colors/font_color = Color(0.9647059, 0.972549, 0.78431374, 1)
 text = "time"
 
 [node name="CurrencyLabel" type="Label" parent="CanvasLayer" unique_id=1884214471]
 offset_top = 56.0
 offset_right = 46.0
 offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.9647059, 0.972549, 0.78431374, 1)
 text = "money"
 
 [node name="HpLabel" type="Label" parent="CanvasLayer" unique_id=1260821453]
 offset_top = 83.0
 offset_right = 49.0
 offset_bottom = 106.0
+theme_override_colors/font_color = Color(0.9647059, 0.972549, 0.78431374, 1)
 text = "HP: 10"
 
 [node name="SkillTree" parent="." unique_id=1199055753 instance=ExtResource("4_yju8x")]
