@@ -184,7 +184,7 @@ var rapid_fire_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
-	"max_level": 3,
+	"max_level": 1,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
