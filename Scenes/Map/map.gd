@@ -29,8 +29,6 @@ var brain_outside_time := 0.0
 const OUTSIDE_CONFIRM_TIME := 0.08
 const OUTSIDE_TOLERANCE := 3.0
 
-var split_shot_angle := deg_to_rad(15.0)
-
 
 func _ready() -> void:
 	Progression.currency_changed.connect(_on_currency_changed)
@@ -186,6 +184,7 @@ func end_run() -> void:
 		child.queue_free()
 	var earned = int(run_time)
 	Progression.currency += earned
+	update_currency_label()
 	print("EARNED:", earned)
 	get_tree().paused = true
 	skill_tree.show()
