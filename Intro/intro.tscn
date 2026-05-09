@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhd8r8ji7gn64"]
+[gd_scene format=3 uid="uid://dhd8r8ji7gn64"]
 
 [ext_resource type="Script" uid="uid://euk4ulube4jl" path="res://Intro/intro.gd" id="1_htspg"]
 [ext_resource type="VideoStream" uid="uid://cjlbmou8s0e13" path="res://Intro/gerappa.ogv" id="2_35gra"]
@@ -41,16 +41,16 @@ _data = {
 &"RESET": SubResource("Animation_w6o22")
 }
 
-[node name="IntroScene" type="Control"]
+[node name="IntroScene" type="Control" unique_id=1433832772]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -429.0
-offset_top = -240.0
-offset_right = -429.0
-offset_bottom = -240.0
+offset_left = -43.0
+offset_top = 4.0
+offset_right = -43.0
+offset_bottom = 4.0
 script = ExtResource("1_htspg")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=353736315]
 y_sort_enabled = true
 layout_mode = 0
 offset_left = -36.0
@@ -59,7 +59,7 @@ offset_right = 1995.0
 offset_bottom = 1124.0
 color = Color(0, 0, 0, 1)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1381571403]
 layout_mode = 0
 offset_left = 401.0
 offset_top = 230.0
@@ -67,17 +67,17 @@ offset_right = 2124.0
 offset_bottom = 1171.0
 scale = Vector2(0.7, 0.7)
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer" unique_id=330539112]
 layout_mode = 2
 stream = ExtResource("2_35gra")
 expand = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AspectRatioContainer/VideoStreamPlayer"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AspectRatioContainer/VideoStreamPlayer" unique_id=90121303]
 position = Vector2(414.714, -135.714)
 stream = ExtResource("3_3fnrq")
 bus = &"Music"
 
-[node name="FaderColor" type="ColorRect" parent="."]
+[node name="FaderColor" type="ColorRect" parent="." unique_id=1398106885]
 layout_mode = 0
 offset_left = -57.0
 offset_top = -55.0
@@ -85,13 +85,11 @@ offset_right = 2033.0
 offset_bottom = 1140.0
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_by7cr")
-}
-autoplay = "Fade"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=686208698]
+libraries/ = SubResource("AnimationLibrary_by7cr")
+autoplay = &"Fade"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=250770983]
 wait_time = 2.0
 one_shot = true
 autostart = true

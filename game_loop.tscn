@@ -1,20 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cp03gm3dbew5m"]
+[gd_scene format=3 uid="uid://cp03gm3dbew5m"]
 
 [ext_resource type="Script" uid="uid://dw8mem4hdxy6f" path="res://game_loop.gd" id="1_7f3si"]
 [ext_resource type="Script" uid="uid://co2jxcbqxd52u" path="res://UI/ui.gd" id="2_ksmgf"]
 [ext_resource type="PackedScene" uid="uid://inxv7ghoaf62" path="res://UI/Menus/PauseMenu/pause_menu.tscn" id="2_u3r3m"]
 [ext_resource type="PackedScene" uid="uid://c55vl17w7kkn0" path="res://UI/Menus/SettingsMenu/settings_menu.tscn" id="4_x7b5a"]
 
-[node name="GameLoop" type="Node2D"]
+[node name="GameLoop" type="Node2D" unique_id=539288343]
 script = ExtResource("1_7f3si")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=851557795]
 script = ExtResource("2_ksmgf")
 
-[node name="PauseMenu" parent="UI" instance=ExtResource("2_u3r3m")]
+[node name="PauseMenu" parent="UI" unique_id=733576318 instance=ExtResource("2_u3r3m")]
 visible = false
 
-[node name="SettingsMenu" parent="UI" instance=ExtResource("4_x7b5a")]
+[node name="SettingsMenu" parent="UI" unique_id=868237176 instance=ExtResource("4_x7b5a")]
 visible = false
 
 [connection signal="credits_menu_requested" from="UI/PauseMenu" to="UI" method="_on_pause_menu_credits_menu_requested"]
