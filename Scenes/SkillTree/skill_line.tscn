@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://2y68ah7c67dv"]
+
+[ext_resource type="Script" uid="uid://dv7sk7oyjdya8" path="res://Scenes/SkillTree/skill_line.gd" id="1_m6cwm"]
+
+[node name="Line2D2" type="Line2D" unique_id=548036240]
+points = PackedVector2Array(596, 540, 436, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("1_m6cwm")

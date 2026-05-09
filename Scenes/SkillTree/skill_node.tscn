@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c4ekg8tp87nwi" path="res://Scenes/SkillTree/assets/gray/A.png" id="1_6q81t"]
 [ext_resource type="Script" uid="uid://wstokp2ttubf" path="res://Scenes/SkillTree/skill_node.gd" id="1_kqr3m"]
+[ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="3_7w7dl"]
 
 [node name="TextureButton" type="TextureButton" unique_id=1889976147]
 custom_minimum_size = Vector2(250, 90)
@@ -33,6 +34,7 @@ offset_right = -19.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_7w7dl")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 40

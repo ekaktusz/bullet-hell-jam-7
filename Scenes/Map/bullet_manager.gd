@@ -18,9 +18,6 @@ var can_shoot := true
 var split_shot_angle := deg_to_rad(15.0)
 var rng = RandomNumberGenerator.new()
 
-func _ready() -> void:
-	update_bullet_label()
-
 
 func _process(delta: float) -> void:
 	if SkillDatabase.rapid_fire_skill.is_unlocked():
@@ -65,7 +62,6 @@ func spawn_bullet() -> void:
 		]
 	for shot_direction in directions.slice(0, SkillDatabase.max_bullet_count - bullets.size()):
 		spawn_single_bullet(spawn_pos, shot_direction, bullet_type)
-	update_bullet_label()
 
 
 func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: String) -> void:
@@ -132,15 +128,10 @@ func getGhostLevelRange() -> float:
 	return value
 
 
-func update_bullet_label() -> void:
-	bullets_label.text = str(bullets.size()) + " / " + str(SkillDatabase.max_bullet_count)
-
-
 func _on_bullet_remove(id: int) -> void:
 	for bullet in bullets:
 		if bullet.get_instance_id() == id:
 			bullets.erase(bullet)
-			update_bullet_label()
 			return
 
 

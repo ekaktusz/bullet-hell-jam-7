@@ -3,15 +3,17 @@ extends Node2D
 @onready var line_2d: Line2D = $Line2D
 @onready var brain: CharacterBody2D = $Brain
 @onready var bullet_manager: BulletManager = $Bullets
-@onready var time_label: Label = $CanvasLayer/TimeLabel
-@onready var current_money_label: Label = $CanvasLayer/CurrencyLabel
-@onready var hp_label: Label = $CanvasLayer/HpLabel
 @onready var polygon_2d: Polygon2D = $Polygon2D
-@onready var skill_tree: Control = $SkillTree
-@onready var bullets: BulletManager = $Bullets
 @onready var thoughts: Node2D = $Thoughts
+@onready var skill_tree: Control = $UICanvasLayer/SkillMenu/SkillTree
+@onready var skill_menu: Control = $UICanvasLayer/SkillMenu
+@onready var camera: Camera2D = $Camera2D
+
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
+const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
+const DEFAULT_BASE_RADIUS := 600.0
+
 const MIN_BASE_RADIUS := 100.0
 
 var noise = FastNoiseLite.new()
@@ -23,6 +25,7 @@ var segments := 512
 var velocities = []
 var run_time := 0.0
 var brain_outside_time := 0.0
+var brain_dead := false
 
 const OUTSIDE_CONFIRM_TIME := 0.08
 const OUTSIDE_TOLERANCE := 3.0
@@ -31,11 +34,10 @@ const OUTSIDE_TOLERANCE := 3.0
 func _ready() -> void:
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
-	SkillDatabase.refresh_tree.connect(_on_update_tree)
 	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
 	GameEvents.reset_hp_emitter.connect(_on_update_hp_label)
+
 	skill_tree.restart_run.connect(_on_restart)
-	update_current_money_label()
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
@@ -43,10 +45,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	run_time += delta
-	time_label.text = "TIME x reward multiplier: " + str(int(run_time * SkillDatabase.reward_multiplier))
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
+
+	var viewport_half_h := get_viewport_rect().size.y / 2.0
+	GlobalShaderEffect.set_vignette_radius(base_radius / viewport_half_h / 1.2)
 
 
 func generate_blob(time: float) -> void:
@@ -156,11 +160,12 @@ func check_brain_outside() -> void:
 
 			if !center_is_inside or overlaps_boundary:
 				brain_outside_time += get_process_delta_time()
-				if brain_outside_time >= OUTSIDE_CONFIRM_TIME:
+				if brain_outside_time >= OUTSIDE_CONFIRM_TIME and not brain_dead:
+					brain_dead = true
 					print("END RUN")
-					end_run()
 					brain.hide()
-			else:
+					play_brain_death()
+			elif not brain_dead:
 				brain_outside_time = 0.0
 				brain.show()
 
@@ -178,55 +183,58 @@ func _on_apply_impact(bullet) -> void:
 			
 
 
-func spawn_bad_thought(position: Vector2) -> void:
-	spawn_thought(position, false)
+func spawn_bad_thought(thought_position: Vector2) -> void:
+	spawn_thought(thought_position, false)
+	camera.shake(0.15, 4.0)
 
 
-func spawn_thought(position: Vector2, is_good: bool) -> void:
+func play_brain_death() -> void:
+	var effect = BRAIN_DEATH_EFFECT.instantiate() as CPUParticles2D
+	camera.shake(effect.lifetime, 30.0)
+	add_child(effect)
+	effect.global_position = brain.global_position
+	effect.play()
+	await get_tree().create_timer(effect.lifetime).timeout
+	end_run()
+
+
+func spawn_thought(thought_position: Vector2, is_good: bool) -> void:
 	var thought = THOUGHT.instantiate()
 	thought.is_good = is_good
-	thought.position = position
+	thought.position = thought_position
 	thoughts.add_child(thought)
 
 
 func end_run() -> void:
 	bullet_manager.bullets = []
-	for child in bullets.get_children():
+	for child in bullet_manager.get_children():
 		child.queue_free()
 	for child in thoughts.get_children():
 		child.queue_free()
 	var earned = int(run_time * SkillDatabase.reward_multiplier)
 
-	SkillDatabase.current_money += earned
-	update_current_money_label()
+	CommonGlobals.current_money += earned
+
 
 	print("EARNED:", earned)
-	SkillDatabase.refresh_tree.emit()
 	await get_tree().create_timer(0.1).timeout
 	get_tree().paused = true
-	skill_tree.show()
+	skill_menu.show()
 
-
-func _on_update_tree():
-	skill_tree.refresh_tree()
-	update_current_money_label()
-
-func update_current_money_label() -> void:
-	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)
 
 func _on_restart():
 	run_time = 0.0
 	brain_outside_time = 0.0
-	base_radius = SkillDatabase.wall_size
+	brain_dead = false
+	base_radius = DEFAULT_BASE_RADIUS
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()
-	time_label.text = "TIME: 0"
-	skill_tree.hide()
+	skill_menu.hide()
 	GameEvents.reset_hp()
 	get_tree().paused = false
 	
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
 		end_run()
-	hp_label.text = "HP: " + str(GameEvents.current_hp)
+	# TODO: hp_label.text = "HP: " + str(GameEvents.current_hp)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bh5ungrieylu3"]
 
 [ext_resource type="Script" uid="uid://6utcumaaassj" path="res://Scenes/Thought/thought.gd" id="1_3kms1"]
+[ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_mtyh6"]
 
 [sub_resource type="Animation" id="Animation_3kms1"]
 length = 0.001
@@ -83,6 +84,7 @@ script = ExtResource("1_3kms1")
 [node name="Label" type="Label" parent="." unique_id=589982492]
 offset_right = 144.0
 offset_bottom = 23.0
+theme = ExtResource("2_mtyh6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "ROSSZ GONDOLAT"
 

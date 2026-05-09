@@ -62,6 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://11k65c5o3ai6" path="res://Scenes/Brain/assets/brain_shooting_01.0012.png" id="60_qay5k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hdu4i"]
+radius = 80.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bn6f6"]
 animations = [{
@@ -262,7 +263,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bh3e"]
-radius = 61.008198
+radius = 73.00685
 
 [node name="Brain" type="CharacterBody2D" unique_id=1118878017 groups=["player"]]
 collision_layer = 8
@@ -284,6 +285,7 @@ animation = &"shoot"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=579428029]
+position = Vector2(-1, 9)
 shape = SubResource("CircleShape2D_5bh3e")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

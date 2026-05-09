@@ -1,6 +1,5 @@
 extends Node
 
-signal refresh_tree
 signal player_size_skill_emitter
 
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
@@ -28,9 +27,6 @@ const K_GRAY = preload("uid://b18dd37fpvaem")
 const L_GRAY = preload("uid://crebj4x8exh5h")
 const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
-
-var current_money := 1000
-
 ##skillekkel buffolhato global valtozok
 var max_bullet_count = 10
 var wall_speed = 100
@@ -40,10 +36,11 @@ var player_size = 1.0
 var bullet_size = 0.3
 var reward_multiplier = 1
 
+
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
-	"cost": 10,
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
 	"max_level": 3,
@@ -54,14 +51,14 @@ var max_bullet_skill = Skill.new({
 var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Heavy Bullets",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "max_bullet",
+			"id": max_bullet_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -70,14 +67,14 @@ var heavy_bullets_skill: Skill = Skill.new({
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
 	"name": "Fast Bullets",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "max_bullet",
+			"id": max_bullet_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -86,14 +83,14 @@ var fast_bullets_skill = Skill.new({
 var split_shot_skill = Skill.new({
 	"id": "split_shot",
 	"name": "Split Shot",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "heavy_bullets",
+			"id": heavy_bullets_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -102,14 +99,14 @@ var split_shot_skill = Skill.new({
 var ghost_shot_skill = Skill.new({
 	"id": "ghost_shot",
 	"name": "Ghost Bullet",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "fast_bullets",
+			"id": fast_bullets_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -118,9 +115,9 @@ var ghost_shot_skill = Skill.new({
 var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
-	"cost": 10,
-	"gray_image" : L_GRAY,
-	"unlocked_image" : L_UNLOCKED,
+	"costs": [10, 15, 20] as Array[int],
+	"gray_image" : M_GRAY,
+	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
@@ -138,7 +135,7 @@ var bullet_size_skill = Skill.new({
 var reward_skill = Skill.new({
 	"id": "reward",
 	"name": "More Reward",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
 	"max_level": 3,
@@ -149,14 +146,14 @@ var reward_skill = Skill.new({
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
 	"name": "Wall Speed",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "reward",
+			"id": reward_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -165,14 +162,14 @@ var wall_speed_skill = Skill.new({
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : B_GRAY,
 	"unlocked_image" : B_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "reward",
+			"id": reward_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -181,14 +178,14 @@ var wall_size_skill = Skill.new({
 var rapid_fire_skill = Skill.new({
 	"id": "rapid_fire",
 	"name": "Rapid Fire",
-	"cost": 10,
+	"costs": [30] as Array[int],
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
 	"max_level": 1,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "wall_speed",
+			"id": wall_speed_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -197,14 +194,14 @@ var rapid_fire_skill = Skill.new({
 var player_speed_skill = Skill.new({
 	"id": "player_speed",
 	"name": "Player Speed",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "wall_size",
+			"id": wall_size_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]
@@ -213,18 +210,18 @@ var player_speed_skill = Skill.new({
 var player_size_skill = Skill.new({
 	"id": "player_size",
 	"name": "Player Size",
-	"cost": 10,
+	"costs": [10, 15, 20] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "player_speed",
+			"id": player_speed_skill.id,
 			"level": 1
 		}),
 		SkillRequirement.new({
-			"id": "rapid_fire",
+			"id": rapid_fire_skill.id,
 			"level": 1
 		})
 	] as Array[SkillRequirement]

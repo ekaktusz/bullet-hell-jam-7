@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
-[ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_n62ux"]
-[ext_resource type="PackedScene" uid="uid://2y68ah7c67dv" path="res://Scenes/SkillTree/skill_line.tscn" id="3_ht7cp"]
-[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="2_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
@@ -41,90 +38,87 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ycyhv")
 
-[node name="background" type="Sprite2D" parent="." unique_id=115584573]
-position = Vector2(960, 540)
-texture = ExtResource("2_ht7cp")
-
 [node name="Restart" type="Button" parent="." unique_id=940318680]
 layout_mode = 0
-offset_left = 893.0
-offset_top = 901.0
-offset_right = 1090.0
-offset_bottom = 1037.0
-theme = ExtResource("2_n62ux")
-theme_override_font_sizes/font_size = 40
-text = "RESTART"
+offset_left = 805.0
+offset_top = 909.0
+offset_right = 1002.0
+offset_bottom = 1045.0
+text = "Restart"
+icon = ExtResource("2_tq623")
 
 [node name="Lines" type="Node2D" parent="." unique_id=1927873348]
 
-[node name="FastBulletsLine" parent="Lines" unique_id=548036240 instance=ExtResource("3_ht7cp")]
-position = Vector2(107, 69)
-skill_from = "max_bullet"
+[node name="Line2D2" type="Line2D" parent="Lines" unique_id=124646332]
+position = Vector2(184, 1)
+points = PackedVector2Array(467, 749, 436, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="HeavyBulletsLine" parent="Lines" unique_id=377900794 instance=ExtResource("3_ht7cp")]
-position = Vector2(107, 69)
-points = PackedVector2Array(278, 541, 436, 774)
-skill_to = "heavy_bullets"
-skill_from = "max_bullet"
+[node name="Line2D" type="Line2D" parent="Lines" unique_id=2080205640]
+points = PackedVector2Array(427, 750, 461, 775)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="SplitShotLine" parent="Lines" unique_id=914790881 instance=ExtResource("3_ht7cp")]
-position = Vector2(107, 69)
-points = PackedVector2Array(278, 541, 277, 318)
-skill_to = "split_shot"
-skill_from = "heavy_bullets"
+[node name="Line2D3" type="Line2D" parent="Lines" unique_id=506417624]
+position = Vector2(-60, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="GhostShotLine" parent="Lines" unique_id=1686630892 instance=ExtResource("3_ht7cp")]
-position = Vector2(422, 64)
-points = PackedVector2Array(278, 541, 277, 318)
-skill_to = "ghost_shot"
+[node name="Line2D4" type="Line2D" parent="Lines" unique_id=396270845]
+position = Vector2(262, -244)
+points = PackedVector2Array(444, 751, 444, 774)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="FastBulletsLine5" parent="Lines" unique_id=598490690 instance=ExtResource("3_ht7cp")]
-position = Vector2(405, -160)
-points = PackedVector2Array(292, 536, 139, 315)
-skill_to = "bullet_size"
-skill_from = "ghost_shot"
+[node name="Line2D5" type="Line2D" parent="Lines" unique_id=634714405]
+position = Vector2(-2, -474)
+points = PackedVector2Array(460, 750, 432, 776)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="FastBulletsLine6" parent="Lines" unique_id=2046200679 instance=ExtResource("3_ht7cp")]
-position = Vector2(405, -160)
-points = PackedVector2Array(-20, 527, 139, 315)
-skill_to = "bullet_size"
-skill_from = "split_shot"
+[node name="Line2D6" type="Line2D" parent="Lines" unique_id=171947401]
+position = Vector2(194, -476)
+points = PackedVector2Array(444, 751, 473, 773)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
 
 [node name="LinesRight" type="Node2D" parent="." unique_id=1276780371]
 position = Vector2(913, 4)
 
 [node name="Line2D2" type="Line2D" parent="LinesRight" unique_id=1235877509]
 position = Vector2(184, 0)
-points = PackedVector2Array(516, 614, 366, 839)
+points = PackedVector2Array(467, 749, 436, 774)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D" type="Line2D" parent="LinesRight" unique_id=904577616]
-points = PackedVector2Array(384, 603, 538, 843)
+points = PackedVector2Array(427, 750, 461, 775)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D3" type="Line2D" parent="LinesRight" unique_id=110409864]
 position = Vector2(-60, -244)
-points = PackedVector2Array(444, 618, 444, 837)
+points = PackedVector2Array(444, 751, 444, 774)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D4" type="Line2D" parent="LinesRight" unique_id=420212090]
 position = Vector2(262, -244)
-points = PackedVector2Array(445, 612, 445, 851)
+points = PackedVector2Array(444, 751, 444, 774)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D5" type="Line2D" parent="LinesRight" unique_id=897298534]
 position = Vector2(-2, -474)
-points = PackedVector2Array(547, 619, 389, 860)
+points = PackedVector2Array(460, 750, 432, 776)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D6" type="Line2D" parent="LinesRight" unique_id=439933309]
 position = Vector2(194, -476)
-points = PackedVector2Array(357, 622, 519, 856)
+points = PackedVector2Array(444, 751, 473, 773)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
