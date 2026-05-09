@@ -28,9 +28,9 @@ var correction_strength = 0.4
 var has_bounced = false
 
 func _ready() -> void:
-	if bullet_rng < 0.1 && Progression.has_skill("heavy_bullets"):
+	if bullet_rng < 0.1 && SkillDatabase.is_skill_unlocked("heavy_bullets"):
 		big_bullet_chance()
-	elif bullet_rng > 0.9 && Progression.has_skill("fast_bullets"):
+	elif bullet_rng > 0.9 && SkillDatabase.is_skill_unlocked("fast_bullets"):
 		fast_bullet_chance()
 	
 	

@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if SkillDatabase.has_skill("rapid_fire"):
+	if SkillDatabase.is_skill_unlocked("rapid_fire"):
 		shoot_timer -= delta
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and shoot_timer <= 0.0:
 			spawn_bullet()
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if SkillDatabase.has_skill("rapid_fire"):
+	if SkillDatabase.is_skill_unlocked("rapid_fire"):
 		return
 	if event is InputEventMouseButton and event.pressed and can_shoot:
 		can_shoot = false
@@ -53,7 +53,7 @@ func spawn_bullet() -> void:
 	var direction = (mouse_pos - to_global(brain.position)).normalized()
 	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var directions = [direction]
-	if SkillDatabase.has_skill("split_shot"):
+	if SkillDatabase.is_skill_unlocked("split_shot"):
 		directions = [
 			direction,
 			direction.rotated(-split_shot_angle),
@@ -61,9 +61,9 @@ func spawn_bullet() -> void:
 		]
 
 	var modifiers = []
-	if SkillDatabase.has_skill("heavy_bullets"):
+	if SkillDatabase.is_skill_unlocked("heavy_bullets"):
 		modifiers.append("heavy")
-	if SkillDatabase.has_skill("fast_bullets"):
+	if SkillDatabase.is_skill_unlocked("fast_bullets"):
 		modifiers.append("fast")
 
 	var bullet_rng = rng.randf()

@@ -236,7 +236,7 @@ var skills_map := {
 	"player_size": player_size_skill
 }
 
-func has_skill(skill_id: String) -> bool:
+func is_skill_unlocked(skill_id: String) -> bool:
 	return skills_map.has(skill_id) and skills_map[skill_id].current_level > 0
 
 # not used yet

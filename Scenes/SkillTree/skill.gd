@@ -24,6 +24,14 @@ func _init(config := {}):
 func level_up() -> void:
 	if current_level < max_level:
 		current_level += 1
+		
+func pre_skill_requirement_satisfied() -> bool:
+	for requirement in requirements:
+		var id_required_skill: String = requirement.id
+		var current_level_of_required_skill: int = SkillDatabase.skills_map[id_required_skill].current_level
+		if current_level_of_required_skill < requirement.level:
+			return false
+	return true
 
 func can_unlock(current_money: int) -> bool:
 	if current_level >= max_level:
@@ -31,9 +39,6 @@ func can_unlock(current_money: int) -> bool:
 	if current_money < cost:
 		return false
 	# Check all requirements
-	for requirement in requirements:
-		var id_required_skill: String = requirement.id
-		var current_level_of_required_skill: int = SkillDatabase.skills_map[id_required_skill].current_level
-		if current_level_of_required_skill < requirement.level:
-			return false
+	if not pre_skill_requirement_satisfied():
+		return false
 	return true
