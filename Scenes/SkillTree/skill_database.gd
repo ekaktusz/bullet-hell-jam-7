@@ -37,7 +37,7 @@ var max_bullet_skill = Skill.new({
 	"cost": 10,
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
-	"max_level": 5,
+	"max_level": 1,
 	"current_level": 0,
 	"requirements": [] as Array[SkillRequirement]
 })
@@ -101,7 +101,7 @@ var ghost_shot_skill = Skill.new({
 	"requirements": [
 		SkillRequirement.new({
 			"id": "fast_bullets",
-			"level": 1
+			"level": 5
 		})
 	] as Array[SkillRequirement]
 })
@@ -116,8 +116,12 @@ var bullet_size_skill = Skill.new({
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": "max_bullet",
-			"level": 1
+			"id": split_shot_skill.id,
+			"level": 5
+		}),
+		SkillRequirement.new({
+			"id": ghost_shot_skill.id,
+			"level": 5
 		})
 	] as Array[SkillRequirement]
 })
@@ -234,9 +238,18 @@ var skills_map := {
 
 func has_skill(skill_id: String) -> bool:
 	return skills_map.has(skill_id) and skills_map[skill_id].current_level > 0
+
+# not used yet
+func get_current_skill_level(skill_id: String) -> int:
+	if not skills_map.has(skill_id):
+		return 0
+	return skills_map[skill_id].current_level
 	
 func can_unlock_skill(skill_id: String) -> bool:
-	return skills_map.has(skill_id) and skills_map[skill_id].can_unlock
+	return skills_map.has(skill_id) and skills_map[skill_id].can_unlock(current_money)
+	
+func skill_maxed(skill_id: String) -> bool:
+	return skills_map.has(skill_id) and skills_map[skill_id].current_level == skills_map[skill_id].max_level 
 
 func unlock_skill(skill: Skill):
 	if not skill:

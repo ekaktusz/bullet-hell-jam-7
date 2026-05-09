@@ -16,15 +16,20 @@ func _ready():
 	update_visual()
 
 func update_visual():
-	self.texture_normal = skill_data.unlocked_image
+	#self.texture_normal = skill_data.unlocked_image
 	level_label.text = str(skill_data.current_level) + "/" + str(skill_data.max_level)
 	disabled = true
 	if SkillDatabase.can_unlock_skill(skill_id):
-		self.texture_normal = skill_data.gray_image
+		self.texture_normal = skill_data.unlocked_image
 		self.texture_hover = skill_data.unlocked_image
 		disabled = false
+	elif SkillDatabase.skill_maxed(skill_id):
+		self.texture_normal = skill_data.unlocked_image
+		self.texture_hover = skill_data.unlocked_image
+		disabled = true
 	else:
 		self.texture_normal = skill_data.gray_image
+		self.texture_hover = skill_data.gray_image
 		disabled = true
 
 func _on_pressed() -> void:
