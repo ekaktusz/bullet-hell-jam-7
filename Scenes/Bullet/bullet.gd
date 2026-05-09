@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2d
 signal remove_bullet
 signal apply_impact
 signal spawn_bad_though
@@ -43,7 +43,7 @@ func _ready() -> void:
 			
 func ghost_bullet_chance():
 	self.add_to_group("ghost")
-	sprite_2d.modulate = Color.DIM_GRAY
+	sprite_2d.modulate = Color("A4DAFD")
 			
 func fast_bullet_chance():
 	print("fast")
@@ -51,14 +51,14 @@ func fast_bullet_chance():
 	impact_radius = impact_radius
 	velocity = velocity * 2
 	max_bounce = 10
-	sprite_2d.modulate = Color.YELLOW
+	sprite_2d.modulate = Color("F1FCD7")
 	
 func heavy_bullet_chance():
 	print("heacy")
 	impact_force *= double_hit * 2
 	impact_radius *= 1.5
 	velocity = velocity / 2
-	sprite_2d.modulate = Color.FIREBRICK
+	sprite_2d.modulate = Color("D0AAC2")
 	
 
 func bounce_bullet(normal: Vector2):
