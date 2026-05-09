@@ -83,12 +83,16 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 
 func get_bullet_type(bullet_rng):
 	print(bullet_rng)
-	if bullet_rng < 0.1 && SkillDatabase.heavy_bullets_skill.is_unlocked():
+
+	#ezek most a lvl 3 rangek, a rangeket majd csökkenthetjük amikor bekerülnek a lvl-ek
+	if bullet_rng < 0.15 && SkillDatabase.heavy_bullets_skill.is_unlocked():
 		return "heavy"
-	elif bullet_rng > 0.9 && SkillDatabase.fast_bullets_skill.is_unlocked():
+	elif bullet_rng > 0.15 && bullet_rng < 0.3 && SkillDatabase.fast_bullets_skill.is_unlocked():
 		return "fast"
-	elif bullet_rng > 0.6 && bullet_rng < 0.8 && SkillDatabase.split_shot_skill.is_unlocked():
+	elif bullet_rng > 0.3 && bullet_rng < 0.45 && SkillDatabase.split_shot_skill.is_unlocked():
 		return "split"
+	elif bullet_rng > 0.45 && bullet_rng < 0.85 && SkillDatabase.ghost_shot_skill.is_unlocked():
+		return "ghost"
 	else: return "normal"
 
 
