@@ -14,8 +14,6 @@ const THOUGHT = preload("uid://bh5ungrieylu3")
 const DEFAULT_BASE_RADIUS := 600.0
 const MIN_BASE_RADIUS := 100.0
 
-var map_speed = 100
-
 var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
@@ -73,7 +71,7 @@ func update_blob(delta: float) -> void:
 	for i in range(points.size()):
 		var point = points[i]
 		var velocity = velocities[i]
-		var inward = -point.normalized() * map_speed
+		var inward = -point.normalized() * SkillDatabase.map_speed
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
 		var center = (prev + next) * 0.5

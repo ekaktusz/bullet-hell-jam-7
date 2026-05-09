@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://7ju5e2863kvy"]
+
+[ext_resource type="Script" uid="uid://dd85av81hor4g" path="res://Scenes/Map/map.gd" id="1_jolfa"]
+[ext_resource type="PackedScene" uid="uid://bitvbcwrjf4ek" path="res://Scenes/Brain/Brain.tscn" id="2_03x5g"]
+[ext_resource type="PackedScene" uid="uid://6ql7orc87pyo" path="res://Scenes/Background/Background.tscn" id="2_urk12"]
+[ext_resource type="Texture2D" uid="uid://bn0iw0800beeq" path="res://assets/bg_good_small.png" id="3_lats3"]
+[ext_resource type="Script" uid="uid://ce8kxmo4af7g6" path="res://Scenes/Map/bullet_manager.gd" id="3_tuo0m"]
+[ext_resource type="PackedScene" uid="uid://drjbxrwgj3lo3" path="res://Scenes/SkillTree/skill_tree.tscn" id="4_yju8x"]
+
+[node name="Map" type="Node2D" unique_id=63672224]
+script = ExtResource("1_jolfa")
+
+[node name="Background" parent="." unique_id=7939586 instance=ExtResource("2_urk12")]
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1770936711]
+texture = ExtResource("3_lats3")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1471212257]
+closed = true
+default_color = Color(0.32156864, 0.1764706, 0.4509804, 1)
+
+[node name="Brain" parent="." unique_id=1118878017 instance=ExtResource("2_03x5g")]
+
+[node name="Bullets" type="Node2D" parent="." unique_id=2094394624]
+script = ExtResource("3_tuo0m")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2071232349]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=975789396]
+
+[node name="BulletsLabel" type="Label" parent="CanvasLayer" unique_id=2101833982]
+offset_right = 46.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "x / 10 "
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1740172599]
+offset_top = 28.0
+offset_right = 46.0
+offset_bottom = 51.0
+
+[node name="CurrencyLabel" type="Label" parent="CanvasLayer" unique_id=1884214471]
+offset_top = 56.0
+offset_right = 46.0
+offset_bottom = 79.0
+
+[node name="SkillTree" parent="." unique_id=1199055753 instance=ExtResource("4_yju8x")]
+visible = false
+
+[node name="Thoughts" type="Node2D" parent="." unique_id=997611035]

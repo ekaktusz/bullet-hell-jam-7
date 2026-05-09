@@ -14,7 +14,7 @@ var bullets: Array = []
 var shoot_cooldown := 0.1
 var shoot_timer := 0.0
 var can_shoot := true
-var max_bullet_count := 100
+
 var split_shot_angle := deg_to_rad(15.0)
 var rng = RandomNumberGenerator.new()
 
@@ -46,7 +46,7 @@ func get_bullets() -> Array:
 func spawn_bullet() -> void:
 	if !brain:
 		return
-	if bullets.size() >= max_bullet_count:
+	if bullets.size() >= SkillDatabase.max_bullet_count:
 		return
 
 	var mouse_pos = get_global_mouse_position()
@@ -64,7 +64,7 @@ func spawn_bullet() -> void:
 			direction.rotated(split_shot_angle)
 		]
 
-	for shot_direction in directions.slice(0, max_bullet_count - bullets.size()):
+	for shot_direction in directions.slice(0, SkillDatabase.max_bullet_count - bullets.size()):
 		spawn_single_bullet(spawn_pos, shot_direction, bullet_type)
 	update_bullet_label()
 
@@ -97,7 +97,7 @@ func get_bullet_type(bullet_rng):
 
 
 func update_bullet_label() -> void:
-	bullets_label.text = str(bullets.size()) + " / " + str(max_bullet_count)
+	bullets_label.text = str(bullets.size()) + " / " + str(SkillDatabase.max_bullet_count)
 
 
 func _on_bullet_remove(id: int) -> void:
