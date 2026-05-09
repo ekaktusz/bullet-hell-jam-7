@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://6ql7orc87pyo"]
+
+[ext_resource type="Texture2D" uid="uid://x5wri66rc4e3" path="res://assets/bg_cloud_1_small.png" id="1_8bmej"]
+[ext_resource type="Texture2D" uid="uid://vb1j6drxiaqb" path="res://assets/bg_cloud_2_small.png" id="2_m0ouw"]
+[ext_resource type="Texture2D" uid="uid://iaa31ys8q2qm" path="res://assets/bg_cloud_3_small.png" id="3_dyxss"]
+
+[sub_resource type="Animation" id="Animation_8bmej"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m0ouw"]
+resource_name = "pulse"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyxss"]
+_data = {
+&"RESET": SubResource("Animation_8bmej"),
+&"pulse": SubResource("Animation_m0ouw")
+}
+
+[node name="Background" type="Node2D" unique_id=7939586]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1986080815]
+texture = ExtResource("1_8bmej")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2125574849]
+texture = ExtResource("2_m0ouw")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=474794205]
+texture = ExtResource("3_dyxss")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=727934434]
+libraries/ = SubResource("AnimationLibrary_dyxss")
+autoplay = &"pulse"

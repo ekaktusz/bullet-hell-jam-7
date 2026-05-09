@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dd85av81hor4g" path="res://Scenes/Map/map.gd" id="1_jolfa"]
 [ext_resource type="PackedScene" uid="uid://bitvbcwrjf4ek" path="res://Scenes/Brain/Brain.tscn" id="2_03x5g"]
+[ext_resource type="PackedScene" uid="uid://6ql7orc87pyo" path="res://Scenes/Background/Background.tscn" id="2_urk12"]
 [ext_resource type="Script" uid="uid://ce8kxmo4af7g6" path="res://Scenes/Map/bullet_manager.gd" id="3_tuo0m"]
 [ext_resource type="PackedScene" uid="uid://drjbxrwgj3lo3" path="res://Scenes/SkillTree/skill_tree.tscn" id="4_yju8x"]
 
 [node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_jolfa")
+
+[node name="Background" parent="." unique_id=7939586 instance=ExtResource("2_urk12")]
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1770936711]
 color = Color(0.41625053, 0.61317456, 0.96004814, 1)
