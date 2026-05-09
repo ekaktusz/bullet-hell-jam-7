@@ -27,7 +27,7 @@ func update_visual():
 		self.texture_normal = skill_data.unlocked_image
 		self.texture_hover = skill_data.unlocked_image
 		should_be_disabled = false
-	elif skill_data.is_on_max_level():
+	elif skill_data.is_on_max_level() or skill_data.is_unlocked():
 		self.texture_normal = skill_data.unlocked_image
 		self.texture_hover = skill_data.unlocked_image
 	else:

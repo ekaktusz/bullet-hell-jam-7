@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_n62ux"]
 [ext_resource type="PackedScene" uid="uid://2y68ah7c67dv" path="res://Scenes/SkillTree/skill_line.tscn" id="3_ht7cp"]
+[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="2_ht7cp"]
+[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_tq623"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
 [ext_resource type="Texture2D" uid="uid://qty72vxxm0v2" path="res://Scenes/SkillTree/assets/unlocked/F.png" id="7_spdp7"]
@@ -38,6 +40,10 @@ offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ycyhv")
+
+[node name="background" type="Sprite2D" parent="." unique_id=115584573]
+position = Vector2(960, 540)
+texture = ExtResource("2_ht7cp")
 
 [node name="Restart" type="Button" parent="." unique_id=940318680]
 layout_mode = 0

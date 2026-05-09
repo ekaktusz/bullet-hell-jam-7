@@ -11,10 +11,10 @@ const BULLET = preload("uid://cycafl512rjsx")
 @onready var bullets_label: Label = $"../CanvasLayer/BulletsLabel"
 
 var bullets: Array = []
-var shoot_cooldown := 0.1
+var shoot_cooldown := 0.15
 var shoot_timer := 0.0
 var can_shoot := true
-var max_bullet_count := 100
+
 var split_shot_angle := deg_to_rad(15.0)
 var rng = RandomNumberGenerator.new()
 
@@ -43,11 +43,11 @@ func get_bullets() -> Array:
 func spawn_bullet() -> void:
 	if !brain:
 		return
-	if bullets.size() >= max_bullet_count:
+	if bullets.size() >= SkillDatabase.max_bullet_count:
 		return
 
 	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - to_global(brain.position)).normalized()
+	var direction = (mouse_pos - brain.global_position -Vector2(0,-25)).normalized()
 	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var bullet_rng = rng.randf()
 	var bullet_type = get_bullet_type(bullet_rng)
@@ -60,8 +60,7 @@ func spawn_bullet() -> void:
 			direction.rotated(-split_shot_angle),
 			direction.rotated(split_shot_angle)
 		]
-
-	for shot_direction in directions.slice(0, max_bullet_count - bullets.size()):
+	for shot_direction in directions.slice(0, SkillDatabase.max_bullet_count - bullets.size()):
 		spawn_single_bullet(spawn_pos, shot_direction, bullet_type)
 
 
@@ -75,22 +74,58 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 	bullet.apply_impact.connect(_on_apply_impact)
 	bullet.spawn_bad_though.connect(_on_spawn_bad_thought)
 	add_child(bullet)
+	GameEvents.shoot.emit()
 
 
 func get_bullet_type(bullet_rng):
 	print(bullet_rng)
 
 	#ezek most a lvl 3 rangek, a rangeket majd csökkenthetjük amikor bekerülnek a lvl-ek
-	if bullet_rng < 0.15 && SkillDatabase.heavy_bullets_skill.is_unlocked():
+	if SkillDatabase.heavy_bullets_skill.is_unlocked() && bullet_rng < getHeavyLevelRange():
 		return "heavy"
-	elif bullet_rng > 0.15 && bullet_rng < 0.3 && SkillDatabase.fast_bullets_skill.is_unlocked():
+	elif SkillDatabase.fast_bullets_skill.is_unlocked() && bullet_rng > 0.15 && bullet_rng < getFastLevelRange():
 		return "fast"
-	elif bullet_rng > 0.3 && bullet_rng < 0.45 && SkillDatabase.split_shot_skill.is_unlocked():
+	elif SkillDatabase.split_shot_skill.is_unlocked() && bullet_rng > 0.3 && bullet_rng < getSplitLevelRange():
 		return "split"
-	elif bullet_rng > 0.45 && bullet_rng < 0.85 && SkillDatabase.ghost_shot_skill.is_unlocked():
+	elif SkillDatabase.ghost_shot_skill.is_unlocked() && bullet_rng > 0.45 && bullet_rng < getGhostLevelRange():
 		return "ghost"
 	else: return "normal"
 
+func getHeavyLevelRange() -> float:
+	var current_level = SkillDatabase.heavy_bullets_skill.current_level
+	var value = 0.0
+	match current_level:
+		1: value = 0.05
+		2: value = 0.10
+		3: value = 0.15
+	return value
+
+func getFastLevelRange() -> float:
+	var current_level = SkillDatabase.fast_bullets_skill.current_level
+	var value = 0.0
+	match current_level:
+		1: value = 0.20
+		2: value = 0.25
+		3: value = 0.30
+	return value
+
+func getSplitLevelRange() -> float:
+	var current_level = SkillDatabase.split_shot_skill.current_level
+	var value = 0.0
+	match current_level:
+		1: value = 0.35
+		2: value = 0.40
+		3: value = 0.45
+	return value
+
+func getGhostLevelRange() -> float:
+	var current_level = SkillDatabase.ghost_shot_skill.current_level
+	var value = 0.0
+	match current_level:
+		1: value = 0.60
+		2: value = 0.75
+		3: value = 0.90
+	return value
 
 
 func _on_bullet_remove(id: int) -> void:

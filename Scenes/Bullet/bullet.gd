@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2d
 signal remove_bullet
 signal apply_impact
 signal spawn_bad_though
@@ -8,8 +8,6 @@ signal spawn_bad_though
 var type
 
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
-var body_size_x = 16
-var body_size_y = 16
 var impact_force = 300
 var impact_radius = 100
 var bullet_speed = 500
@@ -31,16 +29,21 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _ready() -> void:
+	scale = Vector2(SkillDatabase.bullet_size,SkillDatabase.bullet_size)
 	print(type)
 	match type:
 		"fast":
 			fast_bullet_chance()
 		"ghost":
-			pass
+			ghost_bullet_chance()
 		"heavy":
 			heavy_bullet_chance()
 		"split_shot":
 			pass	
+			
+func ghost_bullet_chance():
+	self.add_to_group("ghost")
+	sprite_2d.modulate = Color("A4DAFD")
 			
 func fast_bullet_chance():
 	print("fast")
@@ -48,14 +51,14 @@ func fast_bullet_chance():
 	impact_radius = impact_radius
 	velocity = velocity * 2
 	max_bounce = 10
-	sprite_2d.modulate = Color.YELLOW
+	sprite_2d.modulate = Color("F1FCD7")
 	
 func heavy_bullet_chance():
 	print("heacy")
 	impact_force *= double_hit * 2
 	impact_radius *= 1.5
 	velocity = velocity / 2
-	sprite_2d.modulate = Color.FIREBRICK
+	sprite_2d.modulate = Color("D0AAC2")
 	
 
 func bounce_bullet(normal: Vector2):
@@ -97,6 +100,7 @@ func start_cooldown():
 	can_bounce = true
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player") and has_bounced:
+	if area.is_in_group("player") and has_bounced && type != "ghost":
+		GameEvents.hit_player()
 		spawn_bad_though.emit()
 		trigger_bullet_remove()

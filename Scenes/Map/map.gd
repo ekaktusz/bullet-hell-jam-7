@@ -13,15 +13,14 @@ extends Node2D
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
 const DEFAULT_BASE_RADIUS := 600.0
-const MIN_BASE_RADIUS := 100.0
 
-var map_speed = 100
+const MIN_BASE_RADIUS := 100.0
 
 var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
 var points = []
-var base_radius = DEFAULT_BASE_RADIUS
+var base_radius = SkillDatabase.wall_size
 var segments := 512
 var velocities = []
 var run_time := 0.0
@@ -35,6 +34,9 @@ const OUTSIDE_TOLERANCE := 3.0
 func _ready() -> void:
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
+	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
+	GameEvents.reset_hp_emitter.connect(_on_update_hp_label)
+
 	skill_tree.restart_run.connect(_on_restart)
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
@@ -54,13 +56,27 @@ func _process(delta: float) -> void:
 func generate_blob(time: float) -> void:
 	points.clear()
 	velocities.clear()
+
+	var radius_x = base_radius * 1.6  # stretch horizontally
+	var radius_y = base_radius * 1  # slightly squash vertically
+
 	for i in range(segments):
 		var angle = TAU * i / segments
 		var n = noise.get_noise_2d(cos(angle) + time, sin(angle) + time)
+
 		var radius = base_radius + n * spike_size
-		var point = Vector2(cos(angle), sin(angle)) * radius
+
+		var dir = Vector2(cos(angle), sin(angle))
+
+		# apply ellipse scaling
+		var point = Vector2(
+			dir.x * radius * radius_x / base_radius,
+			dir.y * radius * radius_y / base_radius
+		) * radius / base_radius
+
 		points.append(point)
 		velocities.append(Vector2.ZERO)
+
 	line_2d.points = points
 	polygon_2d.polygon = points
 
@@ -74,7 +90,8 @@ func update_blob(delta: float) -> void:
 	for i in range(points.size()):
 		var point = points[i]
 		var velocity = velocities[i]
-		var inward = -point.normalized() * map_speed
+		var inward = -point.normalized() * SkillDatabase.wall_speed
+
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
 		var center = (prev + next) * 0.5
@@ -194,11 +211,14 @@ func end_run() -> void:
 		child.queue_free()
 	for child in thoughts.get_children():
 		child.queue_free()
-	var earned = int(run_time)
+	var earned = int(run_time * SkillDatabase.reward_multiplier)
 
 	CommonGlobals.current_money += earned
 
+
 	print("EARNED:", earned)
+	SkillDatabase.refresh_tree.emit()
+	await get_tree().create_timer(0.1).timeout
 	get_tree().paused = true
 	skill_menu.show()
 
@@ -212,5 +232,10 @@ func _on_restart():
 	brain.position = Vector2.ZERO
 	brain.show()
 	skill_menu.hide()
+	GameEvents.reset_hp()
 	get_tree().paused = false
 	
+func _on_update_hp_label():
+	if GameEvents.current_hp < 1:
+		end_run()
+	# TODO: hp_label.text = "HP: " + str(GameEvents.current_hp)
