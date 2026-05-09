@@ -109,8 +109,8 @@ var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
 	"cost": 10,
-	"gray_image" : M_GRAY,
-	"unlocked_image" : M_UNLOCKED,
+	"gray_image" : L_GRAY,
+	"unlocked_image" : L_UNLOCKED,
 	"max_level": 5,
 	"current_level": 0,
 	"requirements": [
@@ -156,8 +156,8 @@ var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
 	"cost": 10,
-	"gray_image" : E_GRAY,
-	"unlocked_image" : E_UNLOCKED,
+	"gray_image" : B_GRAY,
+	"unlocked_image" : B_UNLOCKED,
 	"max_level": 5,
 	"current_level": 0,
 	"requirements": [
