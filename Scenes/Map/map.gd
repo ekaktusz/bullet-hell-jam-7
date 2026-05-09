@@ -5,7 +5,9 @@ extends Node2D
 @onready var bullet_manager: BulletManager = $Bullets
 @onready var polygon_2d: Polygon2D = $Polygon2D
 @onready var thoughts: Node2D = $Thoughts
-@onready var skill_tree: Control = $UICanvasLayer/SkillTree
+@onready var skill_tree: Control = $UICanvasLayer/SkillMenu/SkillTree
+@onready var skill_menu: Control = $UICanvasLayer/SkillMenu
+
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const DEFAULT_BASE_RADIUS := 600.0
@@ -176,11 +178,11 @@ func end_run() -> void:
 		child.queue_free()
 	var earned = int(run_time)
 
-	SkillDatabase.current_money += earned
+	CommonGlobals.current_money += earned
 
 	print("EARNED:", earned)
 	get_tree().paused = true
-	skill_tree.show()
+	skill_menu.show()
 
 
 func _on_restart():
@@ -190,6 +192,6 @@ func _on_restart():
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()
-	skill_tree.hide()
+	skill_menu.hide()
 	get_tree().paused = false
 	

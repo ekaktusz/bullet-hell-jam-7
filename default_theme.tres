@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://bkb6212lj7nmj"]
+
+[ext_resource type="FontFile" uid="uid://bmebmgqi48cb7" path="res://assets/Jua-Regular.ttf" id="1_e7bfs"]
+
+[resource]
+default_font = ExtResource("1_e7bfs")

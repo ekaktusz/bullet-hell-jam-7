@@ -23,7 +23,7 @@ func update_visual():
 		cost_label.text = str(skill_data.costs[skill_data.current_level])
 
 	var should_be_disabled := true
-	if skill_data.can_unlock(SkillDatabase.current_money):
+	if skill_data.can_unlock():
 		self.texture_normal = skill_data.unlocked_image
 		self.texture_hover = skill_data.unlocked_image
 		should_be_disabled = false

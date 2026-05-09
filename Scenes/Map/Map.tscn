@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ce8kxmo4af7g6" path="res://Scenes/Map/bullet_manager.gd" id="3_tuo0m"]
 [ext_resource type="PackedScene" uid="uid://drjbxrwgj3lo3" path="res://Scenes/SkillTree/skill_tree.tscn" id="4_yju8x"]
 [ext_resource type="Script" uid="uid://d1wpp081r8n1c" path="res://Scenes/Map/ui_canvas_layer.gd" id="5_lats3"]
+[ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="7_eo4jh"]
 
 [node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_jolfa")
@@ -29,28 +30,45 @@ script = ExtResource("3_tuo0m")
 process_mode = 3
 script = ExtResource("5_lats3")
 
+[node name="SkillMenu" type="Control" parent="UICanvasLayer" unique_id=1595562489]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="UICanvasLayer/SkillMenu" unique_id=460321464]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.6745098)
+
+[node name="SkillTree" parent="UICanvasLayer/SkillMenu" unique_id=1199055753 instance=ExtResource("4_yju8x")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -38.0
+offset_bottom = -38.0
+
 [node name="BulletsLabel" type="Label" parent="UICanvasLayer" unique_id=2101833982]
 offset_right = 46.0
 offset_bottom = 23.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("7_eo4jh")
 text = "x / 10 "
 
 [node name="TimeLabel" type="Label" parent="UICanvasLayer" unique_id=1740172599]
 offset_top = 28.0
 offset_right = 46.0
 offset_bottom = 51.0
+theme = ExtResource("7_eo4jh")
 
 [node name="CurrentMoneyLabel" type="Label" parent="UICanvasLayer" unique_id=1884214471]
 offset_top = 56.0
 offset_right = 46.0
 offset_bottom = 79.0
-
-[node name="SkillTree" parent="UICanvasLayer" unique_id=1199055753 instance=ExtResource("4_yju8x")]
-visible = false
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -1918.0
-offset_bottom = -1078.0
+theme = ExtResource("7_eo4jh")
 
 [node name="Thoughts" type="Node2D" parent="." unique_id=997611035]

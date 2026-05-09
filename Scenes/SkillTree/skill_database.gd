@@ -25,9 +25,6 @@ const K_GRAY = preload("uid://b18dd37fpvaem")
 const L_GRAY = preload("uid://crebj4x8exh5h")
 const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
-
-var current_money := 100
-
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
