@@ -46,7 +46,11 @@ func get_bullets() -> Array:
 func spawn_bullet() -> void:
 	if !brain:
 		return
+<<<<<<< Updated upstream
 	if bullets.size() >= SkillDatabase.max_bullet_count:
+=======
+	if bullets.size() >= Progression.max_bullet_count:
+>>>>>>> Stashed changes
 		return
 
 	var mouse_pos = get_global_mouse_position()
@@ -63,8 +67,12 @@ func spawn_bullet() -> void:
 			direction.rotated(-split_shot_angle),
 			direction.rotated(split_shot_angle)
 		]
+<<<<<<< Updated upstream
 
 	for shot_direction in directions.slice(0, SkillDatabase.max_bullet_count - bullets.size()):
+=======
+	for shot_direction in directions.slice(0, Progression.max_bullet_count - bullets.size()):
+>>>>>>> Stashed changes
 		spawn_single_bullet(spawn_pos, shot_direction, bullet_type)
 	update_bullet_label()
 
@@ -97,7 +105,11 @@ func get_bullet_type(bullet_rng):
 
 
 func update_bullet_label() -> void:
+<<<<<<< Updated upstream
 	bullets_label.text = str(bullets.size()) + " / " + str(SkillDatabase.max_bullet_count)
+=======
+	bullets_label.text = str(bullets.size()) + " / " + str(Progression.max_bullet_count)
+>>>>>>> Stashed changes
 
 
 func _on_bullet_remove(id: int) -> void:

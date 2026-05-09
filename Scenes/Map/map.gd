@@ -71,7 +71,11 @@ func update_blob(delta: float) -> void:
 	for i in range(points.size()):
 		var point = points[i]
 		var velocity = velocities[i]
+<<<<<<< Updated upstream
 		var inward = -point.normalized() * SkillDatabase.map_speed
+=======
+		var inward = -point.normalized() * Progression.map_speed
+>>>>>>> Stashed changes
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
 		var center = (prev + next) * 0.5
