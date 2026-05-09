@@ -161,6 +161,7 @@ offset_right = 943.0
 offset_bottom = 571.0
 texture_normal = ExtResource("12_thxdk")
 texture_hover = ExtResource("13_1cncr")
+skill_id = "ghost_shot"
 
 [node name="L" parent="Nodes" unique_id=134752358 instance=ExtResource("2_a2lps")]
 offset_left = 456.0
@@ -169,13 +170,15 @@ offset_right = 783.0
 offset_bottom = 347.0
 texture_normal = ExtResource("14_l1cso")
 texture_hover = ExtResource("15_rmk6d")
+skill_id = "bullet_size"
 
-[node name="J" parent="Nodes" unique_id=98363722 instance=ExtResource("2_a2lps")]
+[node name="C" parent="Nodes" unique_id=98363722 instance=ExtResource("2_a2lps")]
 offset_left = 1373.0
 offset_top = 784.0
 offset_right = 1700.0
 offset_bottom = 1043.0
 texture_hover = ExtResource("4_4sfqd")
+skill_id = "reward"
 
 [node name="B" parent="Nodes" unique_id=22865391 instance=ExtResource("2_a2lps")]
 offset_left = 1221.0
@@ -184,6 +187,7 @@ offset_right = 1548.0
 offset_bottom = 803.0
 texture_normal = ExtResource("6_2540e")
 texture_hover = ExtResource("7_spdp7")
+skill_id = "wall_size"
 
 [node name="D" parent="Nodes" unique_id=1591846098 instance=ExtResource("2_a2lps")]
 offset_left = 1533.0
@@ -192,6 +196,7 @@ offset_right = 1860.0
 offset_bottom = 805.0
 texture_normal = ExtResource("8_mivvg")
 texture_hover = ExtResource("9_g4esb")
+skill_id = "wall_speed"
 
 [node name="E" parent="Nodes" unique_id=135216414 instance=ExtResource("2_a2lps")]
 offset_left = 1221.0
@@ -200,8 +205,9 @@ offset_right = 1548.0
 offset_bottom = 579.0
 texture_normal = ExtResource("10_gg070")
 texture_hover = ExtResource("11_sup52")
+skill_id = "player_speed"
 
-[node name="C" parent="Nodes" unique_id=344870252 instance=ExtResource("2_a2lps")]
+[node name="J" parent="Nodes" unique_id=344870252 instance=ExtResource("2_a2lps")]
 offset_left = 1533.0
 offset_top = 312.0
 offset_right = 1860.0
@@ -216,5 +222,6 @@ offset_right = 1700.0
 offset_bottom = 347.0
 texture_normal = ExtResource("14_l1cso")
 texture_hover = ExtResource("15_rmk6d")
+skill_id = "player_size"
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

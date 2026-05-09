@@ -3,7 +3,7 @@ extends TextureButton
 @onready var label: Label = $Label
 @onready var cost_label = $CostLabel
 
-@export var skill_id:String = "kamu"
+@export var skill_id:String = "rapid_fire"
 var skill_data = ""
 func _ready():
 	skill_data = Progression.skills[skill_id]

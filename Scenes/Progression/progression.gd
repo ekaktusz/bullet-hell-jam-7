@@ -56,25 +56,67 @@ var skills := {
 	},
 	"split_shot": {
 		"name": "Split Shot",
-		"requires": ["fast_bullets", "heavy_bullets"],
+		"requires": ["heavy_bullets"],
 		"cost": 10,
 		"gray_image" : K_GRAY,
 		"unlocked_image" : K_UNLOCKED
+	},
+	"ghost_shot": {
+		"name": "Ghost Bullet",
+		"requires": ["fast_bullets"],
+		"cost": 10,
+		"gray_image" : H_GRAY,
+		"unlocked_image" : H_UNLOCKED
+	},
+	"bullet_size": {
+		"name": "Bullet size",
+		"requires": ["ghost_shot","split_shot"],
+		"cost": 10,
+		"gray_image" : L_GRAY,
+		"unlocked_image" : L_UNLOCKED
+	},
+	"reward": {
+		"name": "More Reward",
+		"requires": [],
+		"cost": 10,
+		"gray_image" : C_GRAY,
+		"unlocked_image" : C_UNLOCKED
+	},
+	"wall_speed": {
+		"name": "Wall Speed",
+		"requires": ["reward"],
+		"cost": 10,
+		"gray_image" : D_GRAY,
+		"unlocked_image" : D_UNLOCKED
+	},
+	"wall_size": {
+		"name": "Wall Size",
+		"requires": ["reward"],
+		"cost": 10,
+		"gray_image" : B_GRAY,
+		"unlocked_image" : B_UNLOCKED
 	},
 	"rapid_fire": {
 		"name": "Rapid Fire",
-		"requires": [],
+		"requires": ["wall_speed"],
 		"cost": 10,
-		"gray_image" : K_GRAY,
-		"unlocked_image" : K_UNLOCKED
+		"gray_image" : J_GRAY,
+		"unlocked_image" : J_UNLOCKED
 	},
-	"kamu": {
-		"name": "Kamu",
-		"requires": ["fast_bullets", "heavy_bullets"],
+	"player_speed": {
+		"name": "Player Speed",
+		"requires": ["wall_size"],
 		"cost": 10,
-		"gray_image" : K_GRAY,
-		"unlocked_image" : K_UNLOCKED
-	}
+		"gray_image" : E_GRAY,
+		"unlocked_image" : E_UNLOCKED
+	},
+	"player_size": {
+		"name": "Player Size",
+		"requires": ["player_speed","rapid_fire"],
+		"cost": 10,
+		"gray_image" : M_GRAY,
+		"unlocked_image" : M_UNLOCKED
+	},
 }
 
 func has_skill(id: String) -> bool:
