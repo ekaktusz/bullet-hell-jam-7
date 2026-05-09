@@ -11,6 +11,7 @@ extends Node2D
 
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
+const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
 const DEFAULT_BASE_RADIUS := 600.0
 const MIN_BASE_RADIUS := 100.0
 
@@ -25,6 +26,7 @@ var segments := 512
 var velocities = []
 var run_time := 0.0
 var brain_outside_time := 0.0
+var brain_dead := false
 
 const OUTSIDE_CONFIRM_TIME := 0.08
 const OUTSIDE_TOLERANCE := 3.0
@@ -138,10 +140,11 @@ func check_brain_outside() -> void:
 
 			if !center_is_inside or overlaps_boundary:
 				brain_outside_time += get_process_delta_time()
-				if brain_outside_time >= OUTSIDE_CONFIRM_TIME:
+				if brain_outside_time >= OUTSIDE_CONFIRM_TIME and not brain_dead:
+					brain_dead = true
 					print("END RUN")
-					end_run()
 					brain.hide()
+					play_brain_death()
 			else:
 				brain_outside_time = 0.0
 				brain.show()
@@ -163,6 +166,16 @@ func _on_apply_impact(bullet) -> void:
 func spawn_bad_thought(thought_position: Vector2) -> void:
 	spawn_thought(thought_position, false)
 	camera.shake(0.15, 4.0)
+
+
+func play_brain_death() -> void:
+	camera.shake(0.5, 15.0)
+	var effect = BRAIN_DEATH_EFFECT.instantiate()
+	add_child(effect)
+	effect.global_position = brain.global_position
+	effect.play()
+	await get_tree().create_timer(1.0).timeout
+	end_run()
 
 
 func spawn_thought(thought_position: Vector2, is_good: bool) -> void:
@@ -190,6 +203,7 @@ func end_run() -> void:
 func _on_restart():
 	run_time = 0.0
 	brain_outside_time = 0.0
+	brain_dead = false
 	base_radius = DEFAULT_BASE_RADIUS
 	generate_blob(0)
 	brain.position = Vector2.ZERO
