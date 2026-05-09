@@ -11,6 +11,8 @@ extends Node2D
 @onready var thoughts: Node2D = $Thoughts
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
+const DEFAULT_BASE_RADIUS := 600.0
+const MIN_BASE_RADIUS := 100.0
 
 var map_speed = 100
 
@@ -18,7 +20,7 @@ var noise = FastNoiseLite.new()
 var damping = 0.97
 var spike_size = 250
 var points = []
-var base_radius = 600
+var base_radius = DEFAULT_BASE_RADIUS
 var segments := 512
 var velocities = []
 var run_time := 0.0
@@ -47,7 +49,7 @@ func _process(delta: float) -> void:
 	time_label.text = "TIME: " + str(int(run_time))
 	currency_label.text = "Currency: " + str(Progression.currency)
 	base_radius -= delta * 20.0
-	base_radius = max(base_radius, 100.0)
+	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
 
 
@@ -201,7 +203,13 @@ func update_currency_label() -> void:
 	currency_label.text = "Currency: " + str(Progression.currency)
 
 func _on_restart():
+	run_time = 0.0
+	brain_outside_time = 0.0
+	base_radius = DEFAULT_BASE_RADIUS
 	generate_blob(0)
-	brain.position = Vector2(0,0)
+	brain.position = Vector2.ZERO
+	brain.show()
+	time_label.text = "TIME: 0"
 	skill_tree.hide()
+	get_tree().paused = false
 	
