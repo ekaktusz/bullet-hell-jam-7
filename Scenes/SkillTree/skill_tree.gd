@@ -11,14 +11,6 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	#build_tree()
 
-func get_depth(skill_id: String) -> int:
-	var skill = Progression.skills[skill_id]
-	if skill["requires"].is_empty():
-		return 0
-	var max_depth = 0
-	for req in skill["requires"]:
-		max_depth = max(max_depth, get_depth(req) + 1)
-	return max_depth
 
 func refresh_tree():
 	for node in nodes.get_children():

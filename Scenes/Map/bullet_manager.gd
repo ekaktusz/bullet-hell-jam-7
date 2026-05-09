@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Progression.has_skill("rapid_fire"):
+	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		shoot_timer -= delta
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and shoot_timer <= 0.0:
 			spawn_bullet()
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Progression.has_skill("rapid_fire"):
+	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		return
 	if event is InputEventMouseButton and event.pressed and can_shoot:
 		can_shoot = false
@@ -56,12 +56,14 @@ func spawn_bullet() -> void:
 	var bullet_type = get_bullet_type(bullet_rng)
 	
 	var directions = [direction]
+
 	if bullet_type == "split":
 		directions = [
 			direction,
 			direction.rotated(-split_shot_angle),
 			direction.rotated(split_shot_angle)
 		]
+
 	for shot_direction in directions.slice(0, max_bullet_count - bullets.size()):
 		spawn_single_bullet(spawn_pos, shot_direction, bullet_type)
 	update_bullet_label()
@@ -81,14 +83,15 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 
 func get_bullet_type(bullet_rng):
 	print(bullet_rng)
+
 	#ezek most a lvl 3 rangek, a rangeket majd csökkenthetjük amikor bekerülnek a lvl-ek
-	if bullet_rng < 0.15 && Progression.has_skill("heavy_bullets"):
+	if bullet_rng < 0.15 && SkillDatabase.heavy_bullets_skill.is_unlocked():
 		return "heavy"
-	elif bullet_rng > 0.15 && bullet_rng < 0.3 && Progression.has_skill("fast_bullets"):
+	elif bullet_rng > 0.15 && bullet_rng < 0.3 && SkillDatabase.fast_bullets_skill.is_unlocked():
 		return "fast"
-	elif bullet_rng > 0.3 && bullet_rng < 0.45 && Progression.has_skill("split_shot"):
+	elif bullet_rng > 0.3 && bullet_rng < 0.45 && SkillDatabase.split_shot_skill.is_unlocked():
 		return "split"
-	elif bullet_rng > 0.45 && bullet_rng < 0.85 && Progression.has_skill("ghost_shot"):
+	elif bullet_rng > 0.45 && bullet_rng < 0.85 && SkillDatabase.ghost_shot_skill.is_unlocked():
 		return "ghost"
 	else: return "normal"
 
