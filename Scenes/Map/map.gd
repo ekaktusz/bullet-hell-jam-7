@@ -6,7 +6,7 @@ extends Node2D
 @onready var time_label: Label = $CanvasLayer/TimeLabel
 @onready var current_money_label: Label = $CanvasLayer/CurrencyLabel
 @onready var polygon_2d: Polygon2D = $Polygon2D
-@onready var skill_tree: Control = $SkillTree
+@onready var skill_tree: Control = $CanvasLayer/SkillTree
 @onready var bullets: BulletManager = $Bullets
 @onready var thoughts: Node2D = $Thoughts
 
@@ -164,14 +164,14 @@ func _on_apply_impact(bullet) -> void:
 			
 
 
-func spawn_bad_thought(position: Vector2) -> void:
-	spawn_thought(position, false)
+func spawn_bad_thought(thought_position: Vector2) -> void:
+	spawn_thought(thought_position, false)
 
 
-func spawn_thought(position: Vector2, is_good: bool) -> void:
+func spawn_thought(thought_position: Vector2, is_good: bool) -> void:
 	var thought = THOUGHT.instantiate()
 	thought.is_good = is_good
-	thought.position = position
+	thought.position = thought_position
 	thoughts.add_child(thought)
 
 
@@ -192,6 +192,8 @@ func end_run() -> void:
 
 func _on_update_tree():
 	skill_tree.refresh_tree()
+
+
 
 func update_current_money_label() -> void:
 	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)

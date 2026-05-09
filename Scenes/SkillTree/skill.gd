@@ -2,7 +2,7 @@ class_name Skill
 
 var id: String
 var name: String
-var cost: int
+var costs: Array[int]
 var gray_image: Resource
 var unlocked_image: Resource
 var max_level: int
@@ -12,7 +12,7 @@ var requirements: Array[SkillRequirement]
 func _init(config := {}):
 	id = config.get("id", id)
 	name = config.get("name", name)
-	cost = config.get("cost", cost)
+	costs = config.get("costs", costs) as Array[int]
 	gray_image = config.get("gray_image", gray_image)
 	unlocked_image = config.get("unlocked_image", unlocked_image)
 	max_level = config.get("max_level", max_level)
@@ -43,7 +43,7 @@ func pre_skill_requirement_satisfied() -> bool:
 func can_unlock(current_money: int) -> bool:
 	if current_level >= max_level:
 		return false
-	if current_money < cost:
+	if current_money < costs[current_level]:
 		return false
 	# Check all requirements
 	if not pre_skill_requirement_satisfied():
@@ -52,5 +52,5 @@ func can_unlock(current_money: int) -> bool:
 
 func unlock() -> void:
 	if can_unlock(SkillDatabase.current_money):
-		SkillDatabase.current_money -= cost
+		SkillDatabase.current_money -= costs[current_level]
 		level_up()

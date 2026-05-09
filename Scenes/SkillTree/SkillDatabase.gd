@@ -1,5 +1,6 @@
 extends Node
 
+signal current_money_changed(value)
 signal refresh_tree
 
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
@@ -33,18 +34,18 @@ var current_money := 100
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
-	"costs": [10] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
-	"max_level": 1,
+	"max_level": 5,
 	"current_level": 0,
 	"requirements": [] as Array[SkillRequirement]
 })
 
-var heavy_bullets_skill: Skill = Skill.new({
+var heavy_bullets_skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Heavy Bullets",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
 	"max_level": 5,
@@ -60,7 +61,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
 	"name": "Fast Bullets",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
 	"max_level": 5,
@@ -76,7 +77,7 @@ var fast_bullets_skill = Skill.new({
 var split_shot_skill = Skill.new({
 	"id": "split_shot",
 	"name": "Split Shot",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
 	"max_level": 5,
@@ -92,7 +93,7 @@ var split_shot_skill = Skill.new({
 var ghost_shot_skill = Skill.new({
 	"id": "ghost_shot",
 	"name": "Ghost Bullet",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
 	"max_level": 5,
@@ -100,7 +101,7 @@ var ghost_shot_skill = Skill.new({
 	"requirements": [
 		SkillRequirement.new({
 			"id": fast_bullets_skill.id,
-			"level": 5
+			"level": 1
 		})
 	] as Array[SkillRequirement]
 })
@@ -108,19 +109,15 @@ var ghost_shot_skill = Skill.new({
 var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 5,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
-			"id": split_shot_skill.id,
-			"level": 5
-		}),
-		SkillRequirement.new({
-			"id": ghost_shot_skill.id,
-			"level": 5
+			"id": max_bullet_skill.id,
+			"level": 1
 		})
 	] as Array[SkillRequirement]
 })
@@ -128,7 +125,7 @@ var bullet_size_skill = Skill.new({
 var reward_skill = Skill.new({
 	"id": "reward",
 	"name": "More Reward",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
 	"max_level": 5,
@@ -139,7 +136,7 @@ var reward_skill = Skill.new({
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
 	"name": "Wall Speed",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
 	"max_level": 5,
@@ -155,10 +152,10 @@ var wall_speed_skill = Skill.new({
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
-	"max_level": 5,
+	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
 		SkillRequirement.new({
@@ -171,7 +168,7 @@ var wall_size_skill = Skill.new({
 var rapid_fire_skill = Skill.new({
 	"id": "rapid_fire",
 	"name": "Rapid Fire",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
 	"max_level": 5,
@@ -187,7 +184,7 @@ var rapid_fire_skill = Skill.new({
 var player_speed_skill = Skill.new({
 	"id": "player_speed",
 	"name": "Player Speed",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
 	"max_level": 5,
@@ -203,7 +200,7 @@ var player_speed_skill = Skill.new({
 var player_size_skill = Skill.new({
 	"id": "player_size",
 	"name": "Player Size",
-	"costs": [10, 15, 20, 25, 30] as Array[int],
+	"costs": [10, 15, 20, 25, 30],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 5,
@@ -234,3 +231,27 @@ var skills_map := {
 	"player_speed": player_speed_skill,
 	"player_size": player_size_skill
 }
+
+func has_skill(skill_id: String) -> bool:
+	return skills_map.has(skill_id) and skills_map[skill_id].current_level > 0
+	
+func can_unlock_skill(skill_id: String) -> bool:
+	return skills_map.has(skill_id) and skills_map[skill_id].can_unlock(current_money)
+
+func skill_maxed(skill_id: String) -> bool:
+	return skills_map.has(skill_id) and skills_map[skill_id].current_level == skills_map[skill_id].max_level 
+
+func unlock_skill(skill: Skill):
+	if not skill:
+		return
+	if not skill.can_unlock(current_money):
+		return
+		
+	current_money -= skill.cost
+	skill.level_up()
+	print("skill level up", skill.current_level, "/", skill.max_level)
+	current_money_changed.emit(current_money)
+
+func add_current_money(amount: int):
+	current_money += amount
+	current_money_changed.emit(current_money)
