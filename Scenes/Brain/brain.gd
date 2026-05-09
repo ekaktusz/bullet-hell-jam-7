@@ -12,4 +12,5 @@ func _physics_process(delta: float) -> void:
 		#velocity = Vector2.ZERO
 		velocity = velocity.move_toward(Vector2.ZERO, STOP_SPEED * delta)
 
+	rotation = (get_global_mouse_position() - global_position).angle() + PI / 2
 	move_and_slide()
