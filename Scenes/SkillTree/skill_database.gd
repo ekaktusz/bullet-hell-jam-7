@@ -1,6 +1,5 @@
 extends Node
 
-signal current_money_changed(value)
 signal refresh_tree
 
 const A_UNLOCKED = preload("uid://bfg08aghjvm4j")
@@ -42,7 +41,7 @@ var max_bullet_skill = Skill.new({
 	"requirements": [] as Array[SkillRequirement]
 })
 
-var heavy_bullets_skill = Skill.new({
+var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Heavy Bullets",
 	"cost": 10,
@@ -235,33 +234,3 @@ var skills_map := {
 	"player_speed": player_speed_skill,
 	"player_size": player_size_skill
 }
-
-func is_skill_unlocked(skill_id: String) -> bool:
-	return skills_map.has(skill_id) and skills_map[skill_id].current_level > 0
-
-# not used yet
-func get_current_skill_level(skill_id: String) -> int:
-	if not skills_map.has(skill_id):
-		return 0
-	return skills_map[skill_id].current_level
-	
-func can_unlock_skill(skill_id: String) -> bool:
-	return skills_map.has(skill_id) and skills_map[skill_id].can_unlock(current_money)
-	
-func skill_maxed(skill_id: String) -> bool:
-	return skills_map.has(skill_id) and skills_map[skill_id].current_level == skills_map[skill_id].max_level 
-
-func unlock_skill(skill: Skill):
-	if not skill:
-		return
-	if not skill.can_unlock(current_money):
-		return
-		
-	current_money -= skill.cost
-	skill.level_up()
-	print("skill level up", skill.current_level, "/", skill.max_level)
-	current_money_changed.emit(current_money)
-
-func add_current_money(amount: int):
-	current_money += amount
-	current_money_changed.emit(current_money)

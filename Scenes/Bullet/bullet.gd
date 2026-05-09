@@ -28,9 +28,9 @@ var correction_strength = 0.4
 var has_bounced = false
 
 func _ready() -> void:
-	if bullet_rng < 0.1 && SkillDatabase.is_skill_unlocked("heavy_bullets"):
+	if bullet_rng < 0.1 && SkillDatabase.heavy_bullets_skill.is_unlocked():
 		big_bullet_chance()
-	elif bullet_rng > 0.9 && SkillDatabase.is_skill_unlocked("fast_bullets"):
+	elif bullet_rng > 0.9 && SkillDatabase.fast_bullets_skill.is_unlocked():
 		fast_bullet_chance()
 	
 	

@@ -31,7 +31,6 @@ const OUTSIDE_TOLERANCE := 3.0
 
 
 func _ready() -> void:
-	SkillDatabase.current_money_changed.connect(_on_current_money_changed)
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	SkillDatabase.refresh_tree.connect(_on_update_tree)
@@ -45,7 +44,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	run_time += delta
 	time_label.text = "TIME: " + str(int(run_time))
-	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)
+	update_current_money_label()
 	base_radius -= delta * 20.0
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
@@ -193,11 +192,6 @@ func end_run() -> void:
 
 func _on_update_tree():
 	skill_tree.refresh_tree()
-	
-	
-func _on_current_money_changed(value) -> void:
-	current_money_label.text = "current_money: " + str(value)
-
 
 func update_current_money_label() -> void:
 	current_money_label.text = "current_money: " + str(SkillDatabase.current_money)

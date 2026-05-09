@@ -19,11 +19,18 @@ func _init(config := {}):
 	current_level = config.get("current_level", current_level)
 	var reqs: Array = config.get("requirements", [])
 	requirements = reqs as Array[SkillRequirement]
-	
+
+func is_on_max_level() -> bool:
+	return current_level >= max_level
 	
 func level_up() -> void:
-	if current_level < max_level:
+	if not is_on_max_level():
 		current_level += 1
+	
+	print("skill level up", current_level, "/", max_level)
+		
+func is_unlocked() -> bool:
+	return current_level > 0
 		
 func pre_skill_requirement_satisfied() -> bool:
 	for requirement in requirements:
@@ -42,3 +49,8 @@ func can_unlock(current_money: int) -> bool:
 	if not pre_skill_requirement_satisfied():
 		return false
 	return true
+
+func unlock() -> void:
+	if can_unlock(SkillDatabase.current_money):
+		SkillDatabase.current_money -= cost
+		level_up()
