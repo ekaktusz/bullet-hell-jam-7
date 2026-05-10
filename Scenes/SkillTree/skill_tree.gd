@@ -3,7 +3,7 @@ extends Control
 signal restart_run
 
 const SKILL_NODE = preload("res://Scenes/SkillTree/skill_node.tscn")
-@onready var current_money_label: Label = $CurrentMoneyLabel
+@onready var current_money_label: Label = $HBoxContainer/CurrentMoneyLabel
 
 @onready var left_skill_1: TextureButton = $Nodes/A
 @onready var left_skill_2a: TextureButton = $Nodes/F
