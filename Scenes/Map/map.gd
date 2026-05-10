@@ -34,6 +34,7 @@ const OUTSIDE_TOLERANCE := 3.0
 
 
 func _ready() -> void:
+	MusicPlayer.play_hard_music()
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
@@ -226,11 +227,13 @@ func end_run() -> void:
 
 	print("EARNED:", earned)
 	await get_tree().create_timer(0.1).timeout
+	MusicPlayer.play_chill_music()
 	get_tree().paused = true
 	skill_menu.show()
 
 
 func _on_restart():
+	MusicPlayer.play_hard_music()
 	run_time = 0.0
 	brain_outside_time = 0.0
 	brain_dead = false
