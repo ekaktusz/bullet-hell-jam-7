@@ -50,8 +50,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	run_time += delta
-	base_radius -= delta * 20.0
-	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
 
 	var total_dist := 0.0
