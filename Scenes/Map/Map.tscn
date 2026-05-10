@@ -8,7 +8,20 @@
 [ext_resource type="PackedScene" uid="uid://drjbxrwgj3lo3" path="res://Scenes/SkillTree/skill_tree.tscn" id="4_yju8x"]
 [ext_resource type="Script" uid="uid://d1wpp081r8n1c" path="res://Scenes/Map/ui_canvas_layer.gd" id="5_lats3"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="7_eo4jh"]
+[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="8_2brea"]
+[ext_resource type="Shader" uid="uid://bkb7hr84pbhb7" path="res://Scenes/Map/test_shader.gdshader" id="8_lfsem"]
 [ext_resource type="Script" uid="uid://dc4ilfdj350o3" path="res://Scenes/Map/camera.gd" id="8_ym3jq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3geo5"]
+shader = ExtResource("8_lfsem")
+shader_parameter/noise_tex = ExtResource("8_2brea")
+shader_parameter/swirl_strength = 0.37600001786
+shader_parameter/swirl_speed = 0.0150000007125
+shader_parameter/wave_strength = 0.0390000018525
+shader_parameter/wave_speed = 0.4610000218975
+shader_parameter/zoom = 1.59000007226512
+shader_parameter/flow_direction = Vector2(0.2, 0.05)
+shader_parameter/chromatic_aberration = 0.00800000038
 
 [node name="Map" type="Node2D" unique_id=63672224]
 script = ExtResource("1_jolfa")
@@ -41,12 +54,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="TextureRect" type="TextureRect" parent="UICanvasLayer/SkillMenu" unique_id=1246961787]
+material = SubResource("ShaderMaterial_3geo5")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_lats3")
+expand_mode = 1
+stretch_mode = 6
+flip_h = true
+
 [node name="ColorRect" type="ColorRect" parent="UICanvasLayer/SkillMenu" unique_id=460321464]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-color = Color(0, 0, 0, 0.6745098)
+color = Color(0, 0, 0, 0.16862746)
 
 [node name="SkillTree" parent="UICanvasLayer/SkillMenu" unique_id=1199055753 instance=ExtResource("4_yju8x")]
 layout_mode = 1
