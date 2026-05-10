@@ -43,6 +43,7 @@ func spawn_bullet() -> void:
 	if !brain:
 		return
 	if bullets.size() >= SkillDatabase.max_bullet_count:
+		SoundManager.play_sound_by_id(SoundManager.Sound.NO_MORE_BALLS)
 		return
 
 	var mouse_pos = get_global_mouse_position()
