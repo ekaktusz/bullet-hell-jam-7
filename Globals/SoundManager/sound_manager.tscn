@@ -1,11 +1,35 @@
 [gd_scene format=3 uid="uid://dib0vlorvjnxt"]
 
 [ext_resource type="Script" uid="uid://d4l6f8aontqqb" path="res://Globals/SoundManager/sound_manager.gd" id="1_b8xpl"]
-[ext_resource type="AudioStream" uid="uid://denngjyjcolki" path="res://assets/mouse_click.wav" id="2_ojf7o"]
+[ext_resource type="AudioStream" uid="uid://dsh5svp4ci5ro" path="res://assets/sfx/single_shot.ogg" id="2_tu2c3"]
+[ext_resource type="AudioStream" uid="uid://bee8hk3te46bl" path="res://assets/sfx/spread_shot.ogg" id="3_rxchx"]
+[ext_resource type="AudioStream" uid="uid://bfuatyh1ilnd5" path="res://assets/sfx/big_shot.ogg" id="4_uivhd"]
+[ext_resource type="AudioStream" uid="uid://ccju2m53rpwb5" path="res://assets/sfx/small_shot.ogg" id="5_pxcne"]
+[ext_resource type="AudioStream" uid="uid://bxaybmsk607i5" path="res://assets/sfx/skill_pickup.ogg" id="6_00kan"]
+[ext_resource type="AudioStream" uid="uid://dmugwatdwk8ad" path="res://assets/sfx/death.ogg" id="7_voo08"]
+[ext_resource type="AudioStream" uid="uid://byys7dl8jkkgt" path="res://assets/sfx/reward_pickup.ogg" id="8_veefb"]
+[ext_resource type="AudioStream" uid="uid://cs7y10sbb5w01" path="res://assets/sfx/no_more_balls.ogg" id="9_fup8g"]
+[ext_resource type="AudioStream" uid="uid://drxgbopuf5iye" path="res://assets/sfx/no_money_skill_pickup_fail.ogg" id="10_2wqa8"]
+[ext_resource type="AudioStream" uid="uid://dfatu256red1j" path="res://assets/sfx/movement.ogg" id="11_qmvff"]
+[ext_resource type="AudioStream" uid="uid://uqoq1lakln8v" path="res://assets/sfx/brain_damage_hit.ogg" id="12_6r1qg"]
+[ext_resource type="AudioStream" uid="uid://bmuxhmdo2shf7" path="res://assets/sfx/ball_bounce_traditional.ogg" id="13_eyqnm"]
+[ext_resource type="AudioStream" uid="uid://bb5mdgwkcbbqy" path="res://assets/sfx/ball_bounce_fun.ogg" id="14_ytn7r"]
 
 [node name="SoundManager" type="Node" unique_id=346939503]
 script = ExtResource("1_b8xpl")
-click_sound = ExtResource("2_ojf7o")
+normal_bullet_sound = ExtResource("2_tu2c3")
+spread_bullet_sound = ExtResource("3_rxchx")
+heavy_bullet_sound = ExtResource("4_uivhd")
+fast_bullet_sound = ExtResource("5_pxcne")
+skill_pickup_sound = ExtResource("6_00kan")
+death_sound = ExtResource("7_voo08")
+reward_pickup_sound = ExtResource("8_veefb")
+no_more_balls_sound = ExtResource("9_fup8g")
+no_money_sound = ExtResource("10_2wqa8")
+movement_sound = ExtResource("11_qmvff")
+brain_dmg_sound = ExtResource("12_6r1qg")
+ball_bounce_sound = ExtResource("13_eyqnm")
+ball_bounce_fun_sound = ExtResource("14_ytn7r")
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=910229467]
 process_mode = 3

@@ -200,12 +200,14 @@ func spawn_bad_thought(thought_position: Vector2) -> void:
 
 
 func play_brain_death() -> void:
+	SoundManager.play_sound_by_id(SoundManager.Sound.DEATH)
 	var effect = BRAIN_DEATH_EFFECT.instantiate() as CPUParticles2D
 	camera.shake(effect.lifetime, 30.0)
 	add_child(effect)
 	effect.global_position = brain.global_position
 	effect.play()
-	await get_tree().create_timer(effect.lifetime).timeout
+	#1.3 a death sound hossza azért lett ez berakva
+	await get_tree().create_timer(1.3).timeout
 	end_run()
 
 
@@ -235,7 +237,7 @@ func end_run() -> void:
 
 
 func _on_restart():
-	MusicPlayer.play_hard_music()
+	#MusicPlayer.play_hard_music()
 	run_time = 0.0
 	brain_outside_time = 0.0
 	brain_dead = false
