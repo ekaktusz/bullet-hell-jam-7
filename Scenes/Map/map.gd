@@ -54,6 +54,12 @@ func _process(delta: float) -> void:
 	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
 
+	var total_dist := 0.0
+	for p in points:
+		total_dist += p.length()
+	base_radius = total_dist / points.size()
+	base_radius = max(base_radius, MIN_BASE_RADIUS)
+
 	var viewport_half_h := get_viewport_rect().size.y / 2.0
 	GlobalShaderEffect.set_vignette_radius(base_radius / viewport_half_h / 1.2)
 
@@ -244,7 +250,6 @@ func _on_restart():
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
 		end_run()
-	# TODO: 
 
 func start_reward_timer() -> void:
 	reward_spawn_timer.start(randf_range(1.0, 6.0))
