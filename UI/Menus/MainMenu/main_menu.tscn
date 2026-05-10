@@ -29,9 +29,9 @@ texture = ExtResource("2_8frdl")
 [node name="TitleLabel" type="Label" parent="." unique_id=1413494263]
 layout_mode = 0
 offset_left = 693.0
-offset_top = 345.0
+offset_top = 154.0
 offset_right = 1151.0
-offset_bottom = 445.0
+offset_bottom = 254.0
 theme = ExtResource("3_ex7bm")
 theme_override_font_sizes/font_size = 100
 text = "BRAINROT"
@@ -40,14 +40,29 @@ vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="." unique_id=216675826]
 layout_mode = 0
-offset_left = 777.0
-offset_top = 615.0
-offset_right = 1086.0
-offset_bottom = 724.0
+offset_left = 775.0
+offset_top = 620.0
+offset_right = 1084.0
+offset_bottom = 729.0
 theme = ExtResource("3_ex7bm")
 theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxFlat_16sb5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qluod")
 text = "START"
 
+[node name="CheckButton" type="CheckButton" parent="." unique_id=257323163]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.023000002
+anchor_bottom = 0.10300001
+offset_left = 785.0
+offset_top = 530.0
+offset_right = 1035.84
+offset_bottom = 476.76
+tooltip_text = "if you turn it on mouse support is turned off"
+theme = ExtResource("3_ex7bm")
+theme_override_font_sizes/font_size = 30
+text = "controller support"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]

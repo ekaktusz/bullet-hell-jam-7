@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	if aim_vector.length() > AIM_DEADZONE:
 		rotation = aim_vector.angle() + PI / 2
 		last_mouse_position = current_mouse_position
-	elif current_mouse_position != last_mouse_position:
+	elif not CommonGlobals.controller_support_on and current_mouse_position != last_mouse_position:
 		rotation = (current_mouse_position - global_position).angle() + PI / 2
 		last_mouse_position = current_mouse_position
 	move_and_slide()
