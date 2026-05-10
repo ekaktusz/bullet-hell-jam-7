@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="gerappa-games-template"
-run/main_scene="uid://7ju5e2863kvy"
+run/main_scene="uid://c64idl1pun738"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
