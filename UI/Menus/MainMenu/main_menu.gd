@@ -1,5 +1,6 @@
 extends Control
 
+var bus_idx = AudioServer.get_bus_index("Master")
 const MAP_SCENE = preload("res://Scenes/Map/Map.tscn")
 
 @onready var start_button: Button = $StartButton
@@ -16,3 +17,8 @@ func _on_start_button_pressed() -> void:
 
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	CommonGlobals.controller_support_on = toggled_on
+
+
+func _on_master_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value))
+	AudioServer.set_bus_mute(bus_idx, value < 0.01)
