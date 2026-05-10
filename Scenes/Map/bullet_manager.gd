@@ -57,13 +57,7 @@ func spawn_bullet() -> void:
 	if bullets.size() >= SkillDatabase.max_bullet_count:
 		return
 
-	var direction: Vector2
-	var aim_vector := Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
-	if aim_vector.length() > 0.3:
-		direction = aim_vector.normalized()
-	else:
-		var mouse_pos = get_global_mouse_position()
-		direction = (mouse_pos - brain.global_position - Vector2(0, -25)).normalized()
+	var direction := Vector2.UP.rotated(brain.rotation)
 	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var bullet_rng = rng.randf()
 	var bullet_type = get_bullet_type(bullet_rng)
