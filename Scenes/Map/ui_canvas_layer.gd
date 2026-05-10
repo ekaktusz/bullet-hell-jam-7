@@ -4,7 +4,6 @@ extends CanvasLayer
 @onready var time_label: Label = $TimeLabel
 @onready var current_money_label: Label = $CurrentMoneyLabel
 @onready var bullets_label: Label = $BulletsLabel
-@onready var hp_label: Label = $HpLabel
 @onready var hp_1: Sprite2D = $Health/hp1
 @onready var hp_2: Sprite2D = $Health/hp2
 @onready var hp_3: Sprite2D = $Health/hp3

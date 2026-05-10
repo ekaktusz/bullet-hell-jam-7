@@ -8,6 +8,10 @@ const MAP_SCENE = preload("res://Scenes/Map/Map.tscn")
 
 
 func _ready() -> void:
+	var cursor = load("res://assets/cursor.png").get_image()
+	cursor.resize(32, 32)
+	var tex = ImageTexture.create_from_image(cursor)
+	Input.set_custom_mouse_cursor(tex)
 	MusicPlayer.play_chill_music()
 
 

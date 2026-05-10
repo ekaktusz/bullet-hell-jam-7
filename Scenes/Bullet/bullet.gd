@@ -36,7 +36,7 @@ func _ready() -> void:
 			SoundManager.play_sound_by_id(SoundManager.Sound.FAST_BULLET)
 			fast_bullet_chance()
 		"ghost":
-			SoundManager.play_sound_by_id(SoundManager.Sound.GHOST_BULLET)
+			#SoundManager.play_sound_by_id(SoundManager.Sound.GHOST_BULLET)
 			ghost_bullet_chance()
 		"heavy":
 			SoundManager.play_sound_by_id(SoundManager.Sound.HEAVY_BULLET)

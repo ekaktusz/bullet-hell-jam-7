@@ -47,11 +47,6 @@ func _ready() -> void:
 	generate_blob(0)
 	start_reward_timer()
 	
-	var cursor = load("res://assets/cursor.png").get_image()
-	cursor.resize(32, 32)
-	var tex = ImageTexture.create_from_image(cursor)
-	Input.set_custom_mouse_cursor(tex)
-
 
 func _process(delta: float) -> void:
 	run_time += delta
