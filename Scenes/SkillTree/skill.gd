@@ -83,11 +83,11 @@ func handle_max_bullet_level_up():
 				
 func handle_wall_speed_level_up():
 	if current_level == 1:
-			SkillDatabase.wall_speed = 80
+			SkillDatabase.wall_speed = 60
 	if current_level == 2:
-			SkillDatabase.wall_speed = 60	
-	if current_level == 3:
 			SkillDatabase.wall_speed = 50	
+	if current_level == 3:
+			SkillDatabase.wall_speed = 40	
 
 func handle_wall_size_level_up():
 	if current_level == 1:

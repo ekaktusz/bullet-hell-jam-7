@@ -8,8 +8,8 @@ signal spawn_bad_though
 var type
 
 #ha kell később változatosság akkor egy setterben ezeket majd lehet változtatgatni
-var impact_force = 300
-var impact_radius = 100
+var impact_force = 400
+var impact_radius = 120
 var bullet_speed = 500
 var max_bounce = 2
 var double_hit = 2
