@@ -252,7 +252,7 @@ func _on_update_hp_label():
 		end_run()
 
 func start_reward_timer() -> void:
-	reward_spawn_timer.start(randf_range(1.0, 6.0))
+	reward_spawn_timer.start(randf_range(0.0, 3.0))
 
 func _on_reward_spawn_timer_timeout() -> void:
 	spawn_reward()

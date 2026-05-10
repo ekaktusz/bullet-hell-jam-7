@@ -20,9 +20,8 @@ func _process(_delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if not area.is_in_group("player"):
 		return
-	var amount := int(base_value * SkillDatabase.reward_multiplier)
-	CommonGlobals.current_money += amount
-	print("REWARD PICKED:", amount)
+	print("REWARD PICKED:")
+	GameEvents.reset_hp()
 	animation.play("pickup")
 	animation.animation_finished.connect(_on_anim_finished)
 	
