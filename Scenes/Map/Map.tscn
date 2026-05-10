@@ -12,6 +12,7 @@
 [ext_resource type="Shader" uid="uid://bkb7hr84pbhb7" path="res://Scenes/Map/test_shader.gdshader" id="8_lfsem"]
 [ext_resource type="Script" uid="uid://dc4ilfdj350o3" path="res://Scenes/Map/camera.gd" id="8_ym3jq"]
 [ext_resource type="Texture2D" uid="uid://b6kfi637cokkd" path="res://assets/health.png" id="12_alfaa"]
+[ext_resource type="Texture2D" uid="uid://tvlgveqvmnln" path="res://Scenes/Bullet/assets/blue/projectile_blue_0001.png" id="12_mxgwm"]
 [ext_resource type="Texture2D" uid="uid://dbuuo2jtckd2s" path="res://assets/health_empty.png" id="13_mxgwm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3geo5"]
@@ -50,7 +51,6 @@ process_mode = 3
 script = ExtResource("5_lats3")
 
 [node name="SkillMenu" type="Control" parent="UICanvasLayer" unique_id=1595562489]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -81,12 +81,22 @@ offset_right = -67.0
 offset_bottom = -31.0
 
 [node name="BulletsLabel" type="Label" parent="UICanvasLayer" unique_id=2101833982]
-offset_right = 46.0
-offset_bottom = 23.0
+offset_left = 76.0
+offset_top = 48.0
+offset_right = 163.0
+offset_bottom = 78.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("7_eo4jh")
 text = "x / 10 "
+
+[node name="BulletIndicator" type="TextureRect" parent="UICanvasLayer" unique_id=653003892]
+offset_left = 6.0
+offset_top = 31.0
+offset_right = 73.0
+offset_bottom = 98.0
+texture = ExtResource("12_mxgwm")
+expand_mode = 1
 
 [node name="TimeLabel" type="Label" parent="UICanvasLayer" unique_id=1740172599]
 offset_left = 949.0
