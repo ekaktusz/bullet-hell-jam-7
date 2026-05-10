@@ -55,9 +55,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.023000002
 anchor_bottom = 0.10300001
-offset_left = 785.0
+offset_left = 778.0
 offset_top = 530.0
-offset_right = 1035.84
+offset_right = 1028.84
 offset_bottom = 476.76
 tooltip_text = "if you turn it on mouse support is turned off"
 theme = ExtResource("3_ex7bm")
@@ -66,10 +66,11 @@ text = "controller support"
 
 [node name="MasterVolumeLabel" type="Label" parent="." unique_id=2132475187]
 layout_mode = 0
-offset_left = 887.0
-offset_top = 422.0
-offset_right = 942.0
-offset_bottom = 445.0
+offset_left = 861.0
+offset_top = 418.0
+offset_right = 972.0
+offset_bottom = 448.0
+theme = ExtResource("3_ex7bm")
 text = "VOLUME"
 horizontal_alignment = 1
 
@@ -82,6 +83,17 @@ offset_bottom = 469.0
 max_value = 1.0
 step = 0.005
 value = 0.5
+
+[node name="warning" type="Label" parent="." unique_id=1249279276]
+layout_mode = 0
+offset_left = 623.0
+offset_top = 517.0
+offset_right = 1265.0
+offset_bottom = 548.0
+theme = ExtResource("3_ex7bm")
+theme_override_colors/font_color = Color(0.67481464, 0.67481464, 0.6748146, 1)
+theme_override_font_sizes/font_size = 20
+text = "⚠️ if you turn on controller support keyboard + mouse won't work! ⚠️"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]

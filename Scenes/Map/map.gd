@@ -12,6 +12,7 @@ extends Node2D
 @onready var reward_spawn_timer: Timer = $RewardSpawnTimer
 @onready var settings_menu: Control = $UICanvasLayer/SettingsMenu
 
+
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
 const COLLECTIBLE = preload("res://Scenes/Collectible/collectible.tscn")
@@ -243,6 +244,7 @@ func end_run() -> void:
 	MusicPlayer.play_chill_music()
 	get_tree().paused = true
 	skill_menu.show()
+	
 	skill_tree.opened()
 
 

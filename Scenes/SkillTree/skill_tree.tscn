@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://c8c13kiip0klq" path="res://Scenes/SkillTree/assets/unlocked/J.png" id="25_b3wmi"]
 [ext_resource type="Texture2D" uid="uid://bmk7h4ctw1iqr" path="res://Scenes/SkillTree/assets/gray/M.png" id="26_8tf56"]
 [ext_resource type="Texture2D" uid="uid://cb804gj1udq2w" path="res://Scenes/SkillTree/assets/unlocked/M.png" id="27_vbafa"]
+[ext_resource type="Texture2D" uid="uid://b76yugchr52fv" path="res://assets/money.png" id="28_34806"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34806"]
 bg_color = Color(0.1254902, 0.20784314, 0.42352942, 1)
@@ -293,6 +294,39 @@ theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("26_8tf56")
 texture_hover = ExtResource("27_vbafa")
 skill_id = "player_size"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1598795610]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 951.0
+offset_top = 460.0
+offset_right = 1051.0
+offset_bottom = 510.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CurrentMoneyLabel" type="Label" parent="HBoxContainer" unique_id=838582155]
+layout_mode = 2
+theme = ExtResource("2_n62ux")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer" unique_id=567342671]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/AspectRatioContainer" unique_id=903919468]
+layout_mode = 2
+texture = ExtResource("28_34806")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SellSkills" to="." method="_on_sell_skills_pressed"]
