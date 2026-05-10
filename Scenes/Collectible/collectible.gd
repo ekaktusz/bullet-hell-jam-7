@@ -23,6 +23,7 @@ func _on_area_entered(area: Area2D) -> void:
 	print("REWARD PICKED:")
 	GameEvents.reset_hp()
 	animation.play("pickup")
+	SoundManager.play_sound_by_id(SoundManager.Sound.REWARD_PICKUP)
 	animation.animation_finished.connect(_on_anim_finished)
 	
 func _on_anim_finished() -> void:

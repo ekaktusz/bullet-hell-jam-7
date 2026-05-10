@@ -22,7 +22,7 @@ var rng = RandomNumberGenerator.new()
 func _process(delta: float) -> void:
 	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		shoot_timer -= delta
-		var shooting := (not CommonGlobals.controller_support_on and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.get_joy_axis(0, JOY_AXIS_TRIGGER_RIGHT) > 0.5
+		var shooting = (not CommonGlobals.controller_support_on and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.get_joy_axis(0, JOY_AXIS_TRIGGER_RIGHT) > 0.5
 		if shooting and shoot_timer <= 0.0:
 			spawn_bullet()
 			shoot_timer = shoot_cooldown
