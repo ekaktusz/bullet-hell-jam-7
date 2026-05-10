@@ -51,7 +51,7 @@ func update_visual() -> void:
 	if skill_data.is_on_max_level():
 		cost_label.text = "MAX"
 	else:
-		cost_label.text = str(skill_data.costs[skill_data.current_level]) + " pts"
+		cost_label.text = "$" + str(skill_data.costs[skill_data.current_level])
 
 	texture_normal   = skill_data.unlocked_image
 	texture_hover    = skill_data.unlocked_image
@@ -129,6 +129,7 @@ func _on_mouse_exited() -> void:
 
 
 func _on_pressed() -> void:
-	print("pressed")
 	SoundManager.play_sound_by_id(SoundManager.Sound.SKILL_PICKUP)
 	skill_data.unlock()
+	if SkillDatabase.is_all_skills_max():
+		GameEvents.show_thank_you.emit()

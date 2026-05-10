@@ -10,7 +10,10 @@ extends Node2D
 @onready var camera: Camera2D = $Camera2D
 @onready var rewards: Node2D = $Rewards
 @onready var reward_spawn_timer: Timer = $RewardSpawnTimer
-@onready var settings_menu: Control = $UICanvasLayer/SettingsMenu
+@onready var bullets_label: Label = $UICanvasLayer/BulletsLabel
+@onready var bullet_indicator: TextureRect = $UICanvasLayer/BulletIndicator
+@onready var time_label: Label = $UICanvasLayer/TimeLabel
+@onready var health: Control = $UICanvasLayer/Health
 
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
@@ -42,7 +45,7 @@ func _ready() -> void:
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
 	GameEvents.reset_hp_emitter.connect(_on_update_hp_label)
-	GameEvents.pause_emitter.connect(_on_unpause)
+	GameEvents.keep_playing.connect(_on_restart)
 
 	reward_spawn_timer.timeout.connect(spawn_reward)
 	skill_tree.restart_run.connect(_on_restart)
@@ -50,16 +53,7 @@ func _ready() -> void:
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
 	start_reward_timer()
-	
-func _on_unpause():
-	settings_menu.hide()
-	get_tree().paused = false
-	
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		settings_menu.show()
-		get_tree().paused = true
-		
+
 
 func _process(delta: float) -> void:
 	run_time += delta
@@ -242,13 +236,29 @@ func end_run() -> void:
 	print("EARNED:", earned)
 	await get_tree().create_timer(0.1).timeout
 	MusicPlayer.play_chill_music()
+	hide_labels()
 	get_tree().paused = true
 	skill_menu.show()
 	
 	skill_tree.opened()
 
 
+func hide_labels():
+	bullets_label.hide()
+	bullet_indicator.hide()
+	time_label.hide()
+	health.hide()
+	
+	
+func show_labels():
+	bullets_label.show()
+	bullet_indicator.show()
+	time_label.show()
+	health.show()
+	
+	
 func _on_restart():
+	show_labels()
 	MusicPlayer.play_hard_music()
 	run_time = 0.0
 	brain_outside_time = 0.0

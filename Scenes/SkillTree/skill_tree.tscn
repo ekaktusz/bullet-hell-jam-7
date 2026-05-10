@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3n7etk5qj57m" path="res://Scenes/SkillTree/skill_tree.gd" id="1_ycyhv"]
 [ext_resource type="PackedScene" uid="uid://0e0xxjii0xn1" path="res://Scenes/SkillTree/skill_node.tscn" id="2_a2lps"]
+[ext_resource type="PackedScene" uid="uid://cf5i1hscbvllp" path="res://Scenes/ThankYou/ThankYou.tscn" id="2_hj00m"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_n62ux"]
 [ext_resource type="PackedScene" uid="uid://2y68ah7c67dv" path="res://Scenes/SkillTree/skill_line.tscn" id="3_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
@@ -28,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://c8c13kiip0klq" path="res://Scenes/SkillTree/assets/unlocked/J.png" id="25_b3wmi"]
 [ext_resource type="Texture2D" uid="uid://bmk7h4ctw1iqr" path="res://Scenes/SkillTree/assets/gray/M.png" id="26_8tf56"]
 [ext_resource type="Texture2D" uid="uid://cb804gj1udq2w" path="res://Scenes/SkillTree/assets/unlocked/M.png" id="27_vbafa"]
-[ext_resource type="Texture2D" uid="uid://b76yugchr52fv" path="res://assets/money.png" id="28_34806"]
+[ext_resource type="Texture2D" uid="uid://cl8p3n3q2r5me" path="res://assets/money.png" id="28_34806"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34806"]
 bg_color = Color(0.1254902, 0.20784314, 0.42352942, 1)
@@ -58,6 +59,8 @@ offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ycyhv")
+metadata/_edit_vertical_guides_ = [989.0]
+metadata/_edit_horizontal_guides_ = [478.0]
 
 [node name="Restart" type="Button" parent="." unique_id=940318680]
 layout_mode = 0
@@ -158,7 +161,7 @@ offset_left = 456.0
 offset_top = 784.0
 offset_right = 783.0
 offset_bottom = 1043.0
-tooltip_text = "Positive Self Talk
+tooltip_text = "Max Bullet
 Have more positive thoughts"
 theme = SubResource("Theme_nyx1s")
 texture_hover = ExtResource("4_4sfqd")
@@ -169,7 +172,7 @@ offset_left = 304.0
 offset_top = 544.0
 offset_right = 631.0
 offset_bottom = 803.0
-tooltip_text = "Assertivity
+tooltip_text = "Heavy Bullets
 More impactful thoughts will appear"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("6_2540e")
@@ -181,7 +184,7 @@ offset_left = 616.0
 offset_top = 544.0
 offset_right = 943.0
 offset_bottom = 803.0
-tooltip_text = "Keeping boundaries	
+tooltip_text = "Fast Bullets
 Some thoughts will have a chance to keep on giving you strenght"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("8_mivvg")
@@ -193,7 +196,7 @@ offset_left = 304.0
 offset_top = 320.0
 offset_right = 631.0
 offset_bottom = 579.0
-tooltip_text = "Mindfullness	
+tooltip_text = "Split Shot
 Be present, you'll find a way to spread your understanding"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("10_gg070")
@@ -205,7 +208,7 @@ offset_left = 616.0
 offset_top = 312.0
 offset_right = 943.0
 offset_bottom = 571.0
-tooltip_text = "Emotional Intimacy
+tooltip_text = "Ghost Bullet
 Hit back without hurting yourself"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("12_thxdk")
@@ -217,7 +220,7 @@ offset_left = 456.0
 offset_top = 88.0
 offset_right = 783.0
 offset_bottom = 347.0
-tooltip_text = "Dopamine Detox
+tooltip_text = "Bullet Size
 You'll get less intimidating negative thoughts coming back at you"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("14_l1cso")
@@ -229,7 +232,7 @@ offset_left = 1373.0
 offset_top = 784.0
 offset_right = 1700.0
 offset_bottom = 1043.0
-tooltip_text = "Acceptance
+tooltip_text = "More Reward
 Be more productive"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("16_ht7cp")
@@ -241,7 +244,7 @@ offset_left = 1221.0
 offset_top = 544.0
 offset_right = 1548.0
 offset_bottom = 803.0
-tooltip_text = "Self Image
+tooltip_text = "Wall Size
 The negative thoughts will start from greater distance"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("18_nyx1s")
@@ -253,7 +256,7 @@ offset_left = 1533.0
 offset_top = 546.0
 offset_right = 1860.0
 offset_bottom = 805.0
-tooltip_text = "Resilience
+tooltip_text = "Wall Speed
 The negative thoughts will attack you slower"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("20_vcluc")
@@ -265,7 +268,7 @@ offset_left = 1221.0
 offset_top = 320.0
 offset_right = 1548.0
 offset_bottom = 579.0
-tooltip_text = "Long Walks
+tooltip_text = "Player Speed
 Walk around faster, it'll help to avoid negative thoughts"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("22_xa3lu")
@@ -277,7 +280,7 @@ offset_left = 1533.0
 offset_top = 312.0
 offset_right = 1860.0
 offset_bottom = 571.0
-tooltip_text = "Overthinking
+tooltip_text = "Rapid Fire
 Keep your thoughts flow constantly"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("24_47ho6")
@@ -288,7 +291,7 @@ offset_left = 1373.0
 offset_top = 88.0
 offset_right = 1700.0
 offset_bottom = 347.0
-tooltip_text = "Working Out
+tooltip_text = "Player Size
 Get in a better shape, it'll help with avoiding the negative thoughts"
 theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("26_8tf56")
@@ -301,20 +304,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 951.0
+offset_left = 885.0
 offset_top = 460.0
-offset_right = 1051.0
+offset_right = 985.0
 offset_bottom = 510.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 alignment = 1
-
-[node name="CurrentMoneyLabel" type="Label" parent="HBoxContainer" unique_id=838582155]
-layout_mode = 2
-theme = ExtResource("2_n62ux")
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer" unique_id=567342671]
 custom_minimum_size = Vector2(32, 32)
@@ -327,6 +324,18 @@ layout_mode = 2
 texture = ExtResource("28_34806")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="CurrentMoneyLabel" type="Label" parent="HBoxContainer" unique_id=838582155]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_n62ux")
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThankYou" parent="." unique_id=2110841643 instance=ExtResource("2_hj00m")]
+visible = false
+position = Vector2(0, 4)
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SellSkills" to="." method="_on_sell_skills_pressed"]

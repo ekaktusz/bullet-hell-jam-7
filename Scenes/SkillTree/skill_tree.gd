@@ -18,6 +18,7 @@ const SKILL_NODE = preload("res://Scenes/SkillTree/skill_node.tscn")
 @onready var right_skill_3a: TextureButton = $Nodes/E
 @onready var right_skill_3b: TextureButton = $Nodes/J
 @onready var right_skill_4: TextureButton = $Nodes/M
+@onready var thank_you: Node2D = $ThankYou
 
 @onready var restart_button: Button = $Restart
 
@@ -25,6 +26,8 @@ const SKILL_NODE = preload("res://Scenes/SkillTree/skill_node.tscn")
 @onready var sell_skills: Button = $SellSkills
 
 func _ready() -> void:
+	GameEvents.show_thank_you.connect(_on_show_thank_you)
+	GameEvents.keep_playing.connect(_on_keep_playing)
 	# --- restart ---
 	restart_button.focus_neighbor_left  = left_skill_1.get_path()
 	restart_button.focus_neighbor_right = right_skill_1.get_path()
@@ -122,6 +125,11 @@ func _on_restart_pressed():
 	get_tree().paused = false
 	restart_run.emit()
 
+func _on_show_thank_you():
+	thank_you.show()
+
+func _on_keep_playing():
+	thank_you.hide()
 
 func _on_sell_skills_pressed() -> void:
 	SkillDatabase.sell_all_skills()

@@ -46,7 +46,7 @@ var reward_multiplier = default_reward_multiplier
 
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
-	"name": "Max Bullet",
+	"name": "Meditation",
 	"costs": [5, 10, 20] as Array[int],
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
@@ -57,7 +57,7 @@ var max_bullet_skill = Skill.new({
 
 var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
-	"name": "Heavy Bullets",
+	"name": "Assertivity",
 	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
@@ -73,7 +73,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
-	"name": "Fast Bullets",
+	"name": "Boundaries",
 	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
@@ -89,7 +89,7 @@ var fast_bullets_skill = Skill.new({
 
 var split_shot_skill = Skill.new({
 	"id": "split_shot",
-	"name": "Split Shot",
+	"name": "Mindfullness",
 	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
@@ -105,7 +105,7 @@ var split_shot_skill = Skill.new({
 
 var ghost_shot_skill = Skill.new({
 	"id": "ghost_shot",
-	"name": "Ghost Bullet",
+	"name": "Acceptance",
 	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
@@ -121,10 +121,10 @@ var ghost_shot_skill = Skill.new({
 
 var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
-	"name": "Bullet Size",
+	"name": "Dopamine Detox",
 	"costs": [10, 20, 40] as Array[int],
-	"gray_image" : M_GRAY,
-	"unlocked_image" : M_UNLOCKED,
+	"gray_image" : L_GRAY,
+	"unlocked_image" : L_UNLOCKED,
 	"max_level": 3,
 	"current_level": 0,
 	"requirements": [
@@ -141,7 +141,7 @@ var bullet_size_skill = Skill.new({
 
 var reward_skill = Skill.new({
 	"id": "reward",
-	"name": "More Reward",
+	"name": "Motivation",
 	"costs": [5, 15, 20] as Array[int],
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
@@ -152,7 +152,7 @@ var reward_skill = Skill.new({
 
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
-	"name": "Wall Speed",
+	"name": "Resilience",
 	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
@@ -168,7 +168,7 @@ var wall_speed_skill = Skill.new({
 
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
-	"name": "Wall Size",
+	"name": "Self Image",
 	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : B_GRAY,
 	"unlocked_image" : B_UNLOCKED,
@@ -184,7 +184,7 @@ var wall_size_skill = Skill.new({
 
 var rapid_fire_skill = Skill.new({
 	"id": "rapid_fire",
-	"name": "Rapid Fire",
+	"name": "Flow State",
 	"costs": [30] as Array[int],
 	"gray_image" : J_GRAY,
 	"unlocked_image" : J_UNLOCKED,
@@ -200,7 +200,7 @@ var rapid_fire_skill = Skill.new({
 
 var player_speed_skill = Skill.new({
 	"id": "player_speed",
-	"name": "Player Speed",
+	"name": "Long Walks",
 	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
@@ -216,7 +216,7 @@ var player_speed_skill = Skill.new({
 
 var player_size_skill = Skill.new({
 	"id": "player_size",
-	"name": "Player Size",
+	"name": "Working Out",
 	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
@@ -249,6 +249,13 @@ var skills_map := {
 	"player_size": player_size_skill
 }
 
+func is_all_skills_max() -> bool:
+	for skill in skills_map.values():
+		if !skill.is_on_max_level():
+			return false
+	return true
+	
+	
 func sell_all_skills() -> void:
 	CommonGlobals.has_at_least_one_skill = false
 	

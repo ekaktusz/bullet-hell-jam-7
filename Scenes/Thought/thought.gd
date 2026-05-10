@@ -73,11 +73,12 @@ var bad_thoughts = ["I'm fat",
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var value = randi_range(0, 2)
 	if is_good:
+		var value = randi_range(0, good_thoughts.size()-1)
 		label.text = good_thoughts[value]
 		label.add_theme_color_override("font_color", Color("A4DAFD"))
 	else:
+		var value = randi_range(0, bad_thoughts.size()-1)
 		label.text = bad_thoughts[value]
 		label.add_theme_color_override("font_color", Color("522D73"))
 

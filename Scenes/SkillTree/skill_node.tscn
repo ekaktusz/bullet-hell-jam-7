@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://wstokp2ttubf" path="res://Scenes/SkillTree/skill_node.gd" id="1_kqr3m"]
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="3_7w7dl"]
 [ext_resource type="Texture2D" uid="uid://bn0iw0800beeq" path="res://assets/bg_good_small.png" id="4_5ea0i"]
+[ext_resource type="Texture2D" uid="uid://cl8p3n3q2r5me" path="res://assets/money.png" id="5_2ydat"]
 
 [node name="TextureButton" type="TextureButton" unique_id=1889976147]
 custom_minimum_size = Vector2(250, 90)
@@ -22,6 +23,7 @@ scale = Vector2(0.5, 0.5)
 tooltip_text = "ez a skill leirasa"
 texture_normal = ExtResource("1_6q81t")
 script = ExtResource("1_kqr3m")
+metadata/_edit_horizontal_guides_ = [536.0]
 
 [node name="Label" type="Label" parent="." unique_id=680391085]
 layout_mode = 1
@@ -30,29 +32,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -92.5
-offset_top = -18.5
-offset_right = 81.5
-offset_bottom = 21.5
+offset_left = -86.5
+offset_top = -112.5
+offset_right = 87.5
+offset_bottom = -72.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_7w7dl")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 44
 text = "Skill Name"
 vertical_alignment = 1
 
 [node name="CostLabel" type="Label" parent="." unique_id=198817538]
 layout_mode = 0
-offset_left = 185.0
-offset_top = 193.0
-offset_right = 302.0
-offset_bottom = 248.0
+offset_left = 13.0
+offset_top = 199.0
+offset_right = 130.0
+offset_bottom = 254.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 40
-text = "10 pts"
+text = "$10"
+vertical_alignment = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=252073533]
 visible = false
@@ -63,10 +66,10 @@ texture = ExtResource("4_5ea0i")
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=395725431]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 11.0
-offset_right = 319.0
-offset_bottom = 61.0
+offset_left = 9.0
+offset_top = 201.0
+offset_right = 317.0
+offset_bottom = 251.0
 mouse_filter = 2
 max_value = 3.0
 step = 1.0
@@ -75,13 +78,20 @@ show_percentage = false
 
 [node name="LevelLabel" type="Label" parent="." unique_id=1554229435]
 layout_mode = 0
-offset_left = 139.0
-offset_top = 7.0
-offset_right = 200.0
-offset_bottom = 62.0
+offset_left = 247.0
+offset_top = 199.0
+offset_right = 308.0
+offset_bottom = 254.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 40
 text = "1/3"
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=572323534]
+visible = false
+position = Vector2(33.000004, 227)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_2ydat")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

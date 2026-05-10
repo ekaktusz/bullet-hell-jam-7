@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cf5i1hscbvllp"]
+
+[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="1_06l77"]
+[ext_resource type="Script" uid="uid://cq5ms5fap3qq0" path="res://Scenes/ThankYou/thank_you.gd" id="1_g1444"]
+[ext_resource type="FontFile" uid="uid://bmebmgqi48cb7" path="res://assets/Jua-Regular.ttf" id="2_g1444"]
+[ext_resource type="Texture2D" uid="uid://b6kfi637cokkd" path="res://assets/health.png" id="3_ddwjv"]
+[ext_resource type="Texture2D" uid="uid://dbuuo2jtckd2s" path="res://assets/health_empty.png" id="4_bub8o"]
+
+[node name="ThankYou" type="Node2D" unique_id=2110841643]
+script = ExtResource("1_g1444")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=357156189]
+position = Vector2(960, 540)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_06l77")
+
+[node name="Label2" type="Label" parent="." unique_id=221081567]
+offset_left = 68.0
+offset_top = 42.0
+offset_right = 1856.0
+offset_bottom = 395.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_g1444")
+theme_override_font_sizes/font_size = 128
+text = "Enjoy your free state of mind"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="." unique_id=18152141]
+offset_left = 602.0
+offset_top = 666.0
+offset_right = 1272.0
+offset_bottom = 738.0
+theme_override_font_sizes/font_size = 32
+text = "Click here to keep thinking"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1933144356]
+offset_left = 815.99994
+offset_top = 446.0
+offset_right = 2087.0
+offset_bottom = 1563.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("3_ddwjv")
+texture_hover = ExtResource("4_bub8o")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
