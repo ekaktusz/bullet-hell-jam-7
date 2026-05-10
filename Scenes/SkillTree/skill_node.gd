@@ -56,4 +56,5 @@ func _draw():
 
 func _on_pressed() -> void:
 	print("pressed")
+	SoundManager.play_sound_by_id(SoundManager.Sound.SKILL_PICKUP)
 	skill_data.unlock()

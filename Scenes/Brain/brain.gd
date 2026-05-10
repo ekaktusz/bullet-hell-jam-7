@@ -43,4 +43,5 @@ func _on_shoot():
 
 
 func _on_hit_player():
+	SoundManager.play_sound_by_id(SoundManager.Sound.BRAIN_DMG)
 	animated_sprite_2d.play("hit")

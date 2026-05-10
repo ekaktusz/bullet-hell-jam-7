@@ -76,10 +76,10 @@ func _ready() -> void:
 	var value = randi_range(0, 2)
 	if is_good:
 		label.text = good_thoughts[value]
-		label.add_theme_color_override("font_color", Color.CHARTREUSE)
+		label.add_theme_color_override("font_color", Color("A4DAFD"))
 	else:
 		label.text = bad_thoughts[value]
-		label.add_theme_color_override("font_color", Color.CRIMSON)
+		label.add_theme_color_override("font_color", Color("522D73"))
 
 func remove():
 	queue_free()

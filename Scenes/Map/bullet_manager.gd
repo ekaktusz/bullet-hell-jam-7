@@ -22,7 +22,7 @@ var rng = RandomNumberGenerator.new()
 func _process(delta: float) -> void:
 	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		shoot_timer -= delta
-		var shooting := (not CommonGlobals.controller_support_on and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.get_joy_axis(0, JOY_AXIS_TRIGGER_RIGHT) > 0.5
+		var shooting = (not CommonGlobals.controller_support_on and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.get_joy_axis(0, JOY_AXIS_TRIGGER_RIGHT) > 0.5
 		if shooting and shoot_timer <= 0.0:
 			spawn_bullet()
 			shoot_timer = shoot_cooldown
@@ -55,6 +55,7 @@ func spawn_bullet() -> void:
 	if !brain:
 		return
 	if bullets.size() >= SkillDatabase.max_bullet_count:
+		SoundManager.play_sound_by_id(SoundManager.Sound.NO_MORE_BALLS)
 		return
 
 	var direction := Vector2.UP.rotated(brain.rotation)

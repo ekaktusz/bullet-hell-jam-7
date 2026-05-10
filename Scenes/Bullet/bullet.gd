@@ -11,7 +11,7 @@ var type
 var impact_force = 300
 var impact_radius = 100
 var bullet_speed = 500
-var max_bounce = 3
+var max_bounce = 2
 var double_hit = 2
 var can_bounce := true
 
@@ -33,25 +33,32 @@ func _ready() -> void:
 	print(type)
 	match type:
 		"fast":
+			SoundManager.play_sound_by_id(SoundManager.Sound.FAST_BULLET)
 			fast_bullet_chance()
 		"ghost":
+			SoundManager.play_sound_by_id(SoundManager.Sound.GHOST_BULLET)
 			ghost_bullet_chance()
 		"heavy":
+			SoundManager.play_sound_by_id(SoundManager.Sound.HEAVY_BULLET)
 			heavy_bullet_chance()
-		"split_shot":
-			pass	
+		"split":
+			SoundManager.play_sound_by_id(SoundManager.Sound.SPREAD_BULLET)
+		"normal":
+			SoundManager.play_sound_by_id(SoundManager.Sound.NORMAL_BULLET)
+			
 			
 func ghost_bullet_chance():
 	self.add_to_group("ghost")
 	sprite_2d.play("bullet_blue")
 	sprite_2d.modulate = Color("0000007f")
+	max_bounce = 5
 			
 func fast_bullet_chance():
 	print("fast")
 	impact_force = impact_force / 2
 	impact_radius = impact_radius
 	velocity = velocity * 2
-	max_bounce = 10
+	max_bounce = 5
 	sprite_2d.play("bullet_green")
 	#sprite_2d.modulate = Color("F1FCD7")
 	
@@ -60,11 +67,13 @@ func heavy_bullet_chance():
 	impact_force *= double_hit * 2
 	impact_radius *= 1.5
 	velocity = velocity / 2
+	max_bounce = 1
 	sprite_2d.play("bullet_red")
 	#sprite_2d.modulate = Color("D0AAC2")
 	
 
 func bounce_bullet(normal: Vector2):
+	play_bounce_sound()
 	max_bounce -= 1
 	has_bounced = true
 	if max_bounce <= 0:
@@ -107,3 +116,16 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		GameEvents.hit_player()
 		spawn_bad_though.emit()
 		trigger_bullet_remove()
+
+func play_bounce_sound():
+	match type:
+		"fast":
+			SoundManager.play_sound_by_id(SoundManager.Sound.BALL_BOUNCE_FUN)
+		"ghost":
+			SoundManager.play_sound_by_id(SoundManager.Sound.BALL_BOUNCE)
+		"heavy":
+			SoundManager.play_sound_by_id(SoundManager.Sound.BALL_BOUNCE)
+		"split":
+			SoundManager.play_sound_by_id(SoundManager.Sound.BALL_BOUNCE_FUN)
+		"normal":
+			SoundManager.play_sound_by_id(SoundManager.Sound.BALL_BOUNCE)

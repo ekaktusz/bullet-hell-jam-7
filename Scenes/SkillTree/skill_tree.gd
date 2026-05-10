@@ -113,7 +113,6 @@ func opened() -> void:
 		restart_button.grab_focus()
 
 func _process(delta: float) -> void:
-	print(CommonGlobals.has_at_least_one_skill)
 	sell_skills.disabled = not CommonGlobals.has_at_least_one_skill
 
 func _on_restart_pressed():
