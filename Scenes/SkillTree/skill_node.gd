@@ -11,19 +11,22 @@ extends TextureButton
 var skill_data: Skill
 var _base_scale: Vector2
 
-const PULSE_PERIOD    := 1.7   # seconds for one full pulse cycle
-const PULSE_MIN_ALPHA := 0.6   # darkest point of the pulse (0.0–1.0)
-const PULSE_MAX_ALPHA := 1.0   # brightest point of the pulse (0.0–1.0)
+const PULSE_PERIOD    := 1.7
+const PULSE_MIN_ALPHA := 0.6
+const PULSE_MAX_ALPHA := 1.0
 
-const COLOR_MAXED     := Color(1.00, 0.85, 0.25, 1.0)  # warm gold
-const COLOR_AVAILABLE := Color(1.00, 1.00, 1.00, 1.0)  # white (alpha driven by pulse)
-const COLOR_UNLOCKED  := Color(0.55, 0.80, 0.95, 1.0)  # muted cyan
-const COLOR_LOCKED    := Color(0.18, 0.18, 0.22, 1.0)  # near-black
+const COLOR_MAXED     := Color(1.00, 0.85, 0.25, 1.0)
+const COLOR_AVAILABLE := Color(1.00, 1.00, 1.00, 1.0)
+const COLOR_UNLOCKED  := Color(0.55, 0.80, 0.95, 1.0)
+const COLOR_LOCKED    := Color(0.18, 0.18, 0.22, 1.0)
 
-const LIGHT_COLOR_MAXED     := Color(1.0, 0.75, 0.15)  # gold glow
-const LIGHT_COLOR_AVAILABLE := Color(0.3, 0.60, 1.00)  # blue glow
+const LIGHT_COLOR_MAXED     := Color(1.0, 0.75, 0.15)
+const LIGHT_COLOR_AVAILABLE := Color(0.3, 0.60, 1.00)
 const LIGHT_ENERGY_MAXED     := 0.9
 const LIGHT_ENERGY_AVAILABLE := 0.5
+
+const LABEL_SCALE_NORMAL := Vector2(1.0, 1.0)
+const LABEL_SCALE_HOVER  := Vector2(1.15, 1.15)
 
 
 func _ready():
@@ -33,6 +36,11 @@ func _ready():
 	label.text = skill_data.name
 	focus_entered.connect(queue_redraw)
 	focus_exited.connect(queue_redraw)
+
+	label.pivot_offset = label.size / 2
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
 	update_visual()
 
 
@@ -109,6 +117,15 @@ func _draw():
 			false,
 			2.0
 		)
+
+
+func _on_mouse_entered() -> void:
+	label.pivot_offset = label.size / 2
+	create_tween().tween_property(label, "scale", LABEL_SCALE_HOVER, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _on_mouse_exited() -> void:
+	create_tween().tween_property(label, "scale", LABEL_SCALE_NORMAL, 0.10).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _on_pressed() -> void:

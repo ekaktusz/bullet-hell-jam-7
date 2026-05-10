@@ -19,6 +19,7 @@ offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+tooltip_text = "ez a skill leirasa"
 texture_normal = ExtResource("1_6q81t")
 script = ExtResource("1_kqr3m")
 
@@ -29,16 +30,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = -19.0
-offset_bottom = 11.5
+offset_left = -92.5
+offset_top = -18.5
+offset_right = 81.5
+offset_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_7w7dl")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 40
+text = "Skill Name"
 vertical_alignment = 1
 
 [node name="CostLabel" type="Label" parent="." unique_id=198817538]
