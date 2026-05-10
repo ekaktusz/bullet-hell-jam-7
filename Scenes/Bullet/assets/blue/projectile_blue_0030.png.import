@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rr3ctcuynn35"
-path="res://.godot/imported/shot-Sheet.png-354088bf690552588464fd2c79fdf947.ctex"
+uid="uid://cf3td33uncmuq"
+path="res://.godot/imported/projectile_blue_0030.png-6b2ee108bdc0a1ff143653f19f022a0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Bullet/assets/shot-Sheet.png"
-dest_files=["res://.godot/imported/shot-Sheet.png-354088bf690552588464fd2c79fdf947.ctex"]
+source_file="res://Scenes/Bullet/assets/blue/projectile_blue_0030.png"
+dest_files=["res://.godot/imported/projectile_blue_0030.png-6b2ee108bdc0a1ff143653f19f022a0d.ctex"]
 
 [params]
 
