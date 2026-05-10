@@ -5,6 +5,7 @@ var name: String
 var costs: Array[int]
 var gray_image: Resource
 var unlocked_image: Resource
+var locked_image: Resource
 var max_level: int
 var current_level: int
 var requirements: Array[SkillRequirement]
@@ -16,6 +17,7 @@ func _init(config := {}):
 	costs = config.get("costs", costs) as Array[int]
 	gray_image = config.get("gray_image", gray_image)
 	unlocked_image = config.get("unlocked_image", unlocked_image)
+	locked_image = config.get("locked_image", locked_image)
 	max_level = config.get("max_level", max_level)
 	current_level = config.get("current_level", current_level)
 	var reqs: Array = config.get("requirements", [])
@@ -42,7 +44,7 @@ func pre_skill_requirement_satisfied() -> bool:
 	return true
 
 func can_unlock() -> bool:
-	if current_level >= max_level:
+	if is_on_max_level():
 		return false
 	if CommonGlobals.current_money < costs[current_level]:
 		return false
