@@ -49,6 +49,15 @@ theme = ExtResource("2_n62ux")
 theme_override_font_sizes/font_size = 40
 text = "RESTART"
 
+[node name="SellSkills" type="Button" parent="." unique_id=1325755328]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 48.0
+offset_right = 1102.0
+offset_bottom = 107.0
+theme = ExtResource("2_n62ux")
+text = "SELL ALL SKILLS"
+
 [node name="Lines" type="Node2D" parent="." unique_id=1927873348]
 
 [node name="FastBulletsLine" parent="Lines" unique_id=548036240 instance=ExtResource("3_ht7cp")]
@@ -231,3 +240,4 @@ texture_hover = ExtResource("27_vbafa")
 skill_id = "player_size"
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="SellSkills" to="." method="_on_sell_skills_pressed"]
