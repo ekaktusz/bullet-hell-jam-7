@@ -109,7 +109,8 @@ func _ready() -> void:
 	right_skill_4.focus_neighbor_right  = right_skill_4.get_path()   # edge
 	
 func opened() -> void:
-	restart_button.grab_focus()
+	if CommonGlobals.controller_support_on:
+		restart_button.grab_focus()
 
 func _process(delta: float) -> void:
 	print(CommonGlobals.has_at_least_one_skill)
