@@ -13,7 +13,6 @@ extends Node2D
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
-const DEFAULT_BASE_RADIUS := 600.0
 const COLLECTIBLE = preload("res://Scenes/Collectible/collectible.tscn")
 
 const MIN_BASE_RADIUS := 100.0
@@ -35,6 +34,7 @@ const OUTSIDE_TOLERANCE := 3.0
 
 
 func _ready() -> void:
+	MusicPlayer.play_hard_music()
 	bullet_manager.bullet_impact.connect(_on_apply_impact)
 	bullet_manager.bad_thought_requested.connect(spawn_bad_thought)
 	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
@@ -50,8 +50,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	run_time += delta
-	base_radius -= delta * 20.0
-	base_radius = max(base_radius, MIN_BASE_RADIUS)
 	update_blob(delta)
 
 	var total_dist := 0.0
@@ -229,15 +227,17 @@ func end_run() -> void:
 
 	print("EARNED:", earned)
 	await get_tree().create_timer(0.1).timeout
+	MusicPlayer.play_chill_music()
 	get_tree().paused = true
 	skill_menu.show()
 
 
 func _on_restart():
+	MusicPlayer.play_hard_music()
 	run_time = 0.0
 	brain_outside_time = 0.0
 	brain_dead = false
-	base_radius = DEFAULT_BASE_RADIUS
+	base_radius = SkillDatabase.wall_size
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()
@@ -250,7 +250,6 @@ func _on_restart():
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
 		end_run()
-	# : hp_label.text = "HP: " + str(GameEvents.current_hp)
 
 func start_reward_timer() -> void:
 	reward_spawn_timer.start(randf_range(1.0, 6.0))

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chkq28tmv0oxc"
+path="res://.godot/imported/brainrot 002 hard.ogg-10116dec6e33cdee89d04bd94faee9b8.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/brainrot 002 hard.ogg"
+dest_files=["res://.godot/imported/brainrot 002 hard.ogg-10116dec6e33cdee89d04bd94faee9b8.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

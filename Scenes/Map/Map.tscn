@@ -103,6 +103,14 @@ offset_bottom = 29.0
 theme = ExtResource("7_eo4jh")
 text = "current money: 200"
 
+[node name="HpLabel" type="Label" parent="UICanvasLayer" unique_id=1882776167]
+offset_left = 1621.0
+offset_top = 39.0
+offset_right = 1881.0
+offset_bottom = 69.0
+theme = ExtResource("7_eo4jh")
+text = "brain health: 10"
+
 [node name="Thoughts" type="Node2D" parent="." unique_id=997611035]
 
 [node name="RewardSpawnTimer" type="Timer" parent="." unique_id=800258304]
