@@ -239,5 +239,15 @@ texture_normal = ExtResource("26_8tf56")
 texture_hover = ExtResource("27_vbafa")
 skill_id = "player_size"
 
+[node name="CurrentMoneyLabel" type="Label" parent="." unique_id=838582155]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 483.0
+offset_right = 1140.0
+offset_bottom = 546.0
+theme = ExtResource("2_n62ux")
+text = "current_money: 100
+"
+
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SellSkills" to="." method="_on_sell_skills_pressed"]
