@@ -115,7 +115,7 @@ func opened() -> void:
 
 func _process(delta: float) -> void:
 	sell_skills.disabled = not CommonGlobals.has_at_least_one_skill
-	current_money_label.text = "current_money: " + str(CommonGlobals.current_money)
+	current_money_label.text = str(CommonGlobals.current_money)
 
 func _on_restart_pressed():
 	print("RESTART CLICKED")
