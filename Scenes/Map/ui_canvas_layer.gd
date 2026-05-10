@@ -4,9 +4,11 @@ extends CanvasLayer
 @onready var time_label: Label = $TimeLabel
 @onready var current_money_label: Label = $CurrentMoneyLabel
 @onready var bullets_label: Label = $BulletsLabel
+@onready var hp_label: Label = $HpLabel
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	time_label.text = "TIME: " + str(int(map.run_time * SkillDatabase.reward_multiplier))
 	current_money_label.text = "current_money: " + str(CommonGlobals.current_money)
 	bullets_label.text = str(map.bullet_manager.bullets.size()) + " / " + str(SkillDatabase.max_bullet_count)
+	hp_label.text = "brain health: " + str(GameEvents.current_hp)
