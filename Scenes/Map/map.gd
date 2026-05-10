@@ -230,6 +230,7 @@ func end_run() -> void:
 	MusicPlayer.play_chill_music()
 	get_tree().paused = true
 	skill_menu.show()
+	skill_tree.opened()
 
 
 func _on_restart():
