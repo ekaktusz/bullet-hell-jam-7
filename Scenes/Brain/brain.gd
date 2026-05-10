@@ -12,6 +12,7 @@ func _ready() -> void:
 	last_mouse_position = get_global_mouse_position()
 
 const AIM_DEADZONE = 0.3
+const AIM_SMOOTHING = 12.0
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -24,7 +25,8 @@ func _physics_process(delta: float) -> void:
 	var current_mouse_position := get_global_mouse_position()
 	var aim_vector := Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
 	if aim_vector.length() > AIM_DEADZONE:
-		rotation = aim_vector.angle() + PI / 2
+		var target_rotation := aim_vector.angle() + PI / 2
+		rotation = lerp_angle(rotation, target_rotation, AIM_SMOOTHING * delta)
 		last_mouse_position = current_mouse_position
 	elif not CommonGlobals.controller_support_on and current_mouse_position != last_mouse_position:
 		rotation = (current_mouse_position - global_position).angle() + PI / 2
