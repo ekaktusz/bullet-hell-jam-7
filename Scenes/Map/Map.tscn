@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="8_2brea"]
 [ext_resource type="Shader" uid="uid://bkb7hr84pbhb7" path="res://Scenes/Map/test_shader.gdshader" id="8_lfsem"]
 [ext_resource type="Script" uid="uid://dc4ilfdj350o3" path="res://Scenes/Map/camera.gd" id="8_ym3jq"]
+[ext_resource type="Texture2D" uid="uid://b6kfi637cokkd" path="res://assets/health.png" id="12_alfaa"]
+[ext_resource type="Texture2D" uid="uid://dbuuo2jtckd2s" path="res://assets/health_empty.png" id="13_mxgwm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3geo5"]
 shader = ExtResource("8_lfsem")
@@ -103,13 +105,61 @@ offset_bottom = 29.0
 theme = ExtResource("7_eo4jh")
 text = "current money: 200"
 
-[node name="HpLabel" type="Label" parent="UICanvasLayer" unique_id=1882776167]
-offset_left = 1621.0
-offset_top = 39.0
-offset_right = 1881.0
-offset_bottom = 69.0
-theme = ExtResource("7_eo4jh")
-text = "brain health: 10"
+[node name="Health" type="Control" parent="UICanvasLayer" unique_id=1589973964]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="hp1" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=1544336235]
+position = Vector2(1875, 63.999996)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_alfaa")
+
+[node name="hp1b" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=1179989090]
+position = Vector2(1875, 63.999996)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_mxgwm")
+
+[node name="hp2" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=1754476899]
+position = Vector2(1798.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_alfaa")
+
+[node name="hpb" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=115739530]
+position = Vector2(1798.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_mxgwm")
+
+[node name="hp3" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=102150295]
+position = Vector2(1721, 63.999996)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_alfaa")
+
+[node name="hp3b" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=495150476]
+position = Vector2(1721, 63.999996)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_mxgwm")
+
+[node name="hp4" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=525717752]
+position = Vector2(1644.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_alfaa")
+
+[node name="hp4b" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=901545209]
+position = Vector2(1644.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_mxgwm")
+
+[node name="hp5" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=491370851]
+position = Vector2(1570.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_alfaa")
+
+[node name="hp5b" type="Sprite2D" parent="UICanvasLayer/Health" unique_id=1110485913]
+position = Vector2(1570.775, 63.925)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_mxgwm")
 
 [node name="Thoughts" type="Node2D" parent="." unique_id=997611035]
 
