@@ -244,7 +244,7 @@ func _on_restart():
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
 		end_run()
-	# TODO: hp_label.text = "HP: " + str(GameEvents.current_hp)
+	# TODO: 
 
 func start_reward_timer() -> void:
 	reward_spawn_timer.start(randf_range(1.0, 6.0))

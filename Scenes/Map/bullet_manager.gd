@@ -8,7 +8,6 @@ signal bad_thought_requested(position: Vector2)
 const BULLET = preload("uid://cycafl512rjsx")
 
 @onready var brain: CharacterBody2D = $"../Brain"
-@onready var bullets_label: Label = $"../CanvasLayer/BulletsLabel"
 
 var bullets: Array = []
 var shoot_cooldown := 0.15
