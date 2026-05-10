@@ -29,7 +29,7 @@ const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
 ##skillekkel buffolhato global valtozok
 var max_bullet_count = 10
-var wall_speed = 100
+var wall_speed = 0
 var wall_size = 500
 var player_speed = 100
 var player_size = 1.0

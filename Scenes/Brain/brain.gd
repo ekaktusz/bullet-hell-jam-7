@@ -8,16 +8,21 @@ func _ready() -> void:
 	GameEvents.hit_player_emitter.connect(_on_hit_player)
 	GameEvents.shoot.connect(_on_shoot)
 	
+const AIM_DEADZONE = 0.3
+
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
 	if direction != Vector2.ZERO:
 		velocity = direction * SkillDatabase.player_speed
 	else:
-		#velocity = Vector2.ZERO
 		velocity = velocity.move_toward(Vector2.ZERO, STOP_SPEED * delta)
 
-	rotation = (get_global_mouse_position() - global_position).angle() + PI / 2
+	var aim_vector := Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+	if aim_vector.length() > AIM_DEADZONE:
+		rotation = aim_vector.angle() + PI / 2
+	else:
+		rotation = (get_global_mouse_position() - global_position).angle() + PI / 2
 	move_and_slide()
 
 
