@@ -51,6 +51,7 @@ process_mode = 3
 script = ExtResource("5_lats3")
 
 [node name="SkillMenu" type="Control" parent="UICanvasLayer" unique_id=1595562489]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -99,12 +100,12 @@ texture = ExtResource("12_mxgwm")
 expand_mode = 1
 
 [node name="TimeLabel" type="Label" parent="UICanvasLayer" unique_id=1740172599]
-offset_left = 949.0
-offset_top = 1.0
-offset_right = 997.0
-offset_bottom = 31.0
+offset_left = 905.0
+offset_top = 42.0
+offset_right = 1015.0
+offset_bottom = 72.0
 theme = ExtResource("7_eo4jh")
-text = "12"
+text = "TIME: 12"
 horizontal_alignment = 1
 
 [node name="Health" type="Control" parent="UICanvasLayer" unique_id=1589973964]
