@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="2_n62ux"]
 [ext_resource type="PackedScene" uid="uid://2y68ah7c67dv" path="res://Scenes/SkillTree/skill_line.tscn" id="3_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://bfg08aghjvm4j" path="res://Scenes/SkillTree/assets/unlocked/A.png" id="4_4sfqd"]
+[ext_resource type="FontFile" uid="uid://bmebmgqi48cb7" path="res://assets/Jua-Regular.ttf" id="5_34806"]
 [ext_resource type="Texture2D" uid="uid://bmw4qutns4ldd" path="res://Scenes/SkillTree/assets/gray/F.png" id="6_2540e"]
 [ext_resource type="Texture2D" uid="uid://qty72vxxm0v2" path="res://Scenes/SkillTree/assets/unlocked/F.png" id="7_spdp7"]
 [ext_resource type="Texture2D" uid="uid://dmmmfcfkux0y3" path="res://Scenes/SkillTree/assets/gray/G.png" id="8_mivvg"]
@@ -27,6 +28,24 @@
 [ext_resource type="Texture2D" uid="uid://c8c13kiip0klq" path="res://Scenes/SkillTree/assets/unlocked/J.png" id="25_b3wmi"]
 [ext_resource type="Texture2D" uid="uid://bmk7h4ctw1iqr" path="res://Scenes/SkillTree/assets/gray/M.png" id="26_8tf56"]
 [ext_resource type="Texture2D" uid="uid://cb804gj1udq2w" path="res://Scenes/SkillTree/assets/unlocked/M.png" id="27_vbafa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34806"]
+bg_color = Color(0.1254902, 0.20784314, 0.42352942, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_nyx1s"]
+default_font = ExtResource("5_34806")
+default_font_size = 32
+Panel/colors/font = Color(0.9647059, 0.972549, 0.78431374, 1)
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_34806")
 
 [node name="Control" type="Control" unique_id=1199055753 groups=["skill_tree"]]
 layout_mode = 3
@@ -138,6 +157,9 @@ offset_left = 456.0
 offset_top = 784.0
 offset_right = 783.0
 offset_bottom = 1043.0
+tooltip_text = "Positive Self Talk
+Have more positive thoughts"
+theme = SubResource("Theme_nyx1s")
 texture_hover = ExtResource("4_4sfqd")
 skill_id = "max_bullet"
 
@@ -146,6 +168,9 @@ offset_left = 304.0
 offset_top = 544.0
 offset_right = 631.0
 offset_bottom = 803.0
+tooltip_text = "Assertivity
+More impactful thoughts will appear"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("6_2540e")
 texture_hover = ExtResource("7_spdp7")
 skill_id = "heavy_bullets"
@@ -155,6 +180,9 @@ offset_left = 616.0
 offset_top = 544.0
 offset_right = 943.0
 offset_bottom = 803.0
+tooltip_text = "Keeping boundaries	
+Some thoughts will have a chance to keep on giving you strenght"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("8_mivvg")
 texture_hover = ExtResource("9_g4esb")
 skill_id = "fast_bullets"
@@ -164,6 +192,9 @@ offset_left = 304.0
 offset_top = 320.0
 offset_right = 631.0
 offset_bottom = 579.0
+tooltip_text = "Mindfullness	
+Be present, you'll find a way to spread your understanding"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("10_gg070")
 texture_hover = ExtResource("11_sup52")
 skill_id = "split_shot"
@@ -173,6 +204,9 @@ offset_left = 616.0
 offset_top = 312.0
 offset_right = 943.0
 offset_bottom = 571.0
+tooltip_text = "Emotional Intimacy
+Hit back without hurting yourself"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("12_thxdk")
 texture_hover = ExtResource("13_1cncr")
 skill_id = "ghost_shot"
@@ -182,6 +216,9 @@ offset_left = 456.0
 offset_top = 88.0
 offset_right = 783.0
 offset_bottom = 347.0
+tooltip_text = "Dopamine Detox
+You'll get less intimidating negative thoughts coming back at you"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("14_l1cso")
 texture_hover = ExtResource("15_rmk6d")
 skill_id = "bullet_size"
@@ -191,6 +228,9 @@ offset_left = 1373.0
 offset_top = 784.0
 offset_right = 1700.0
 offset_bottom = 1043.0
+tooltip_text = "Acceptance
+Be more productive"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("16_ht7cp")
 texture_hover = ExtResource("17_34806")
 skill_id = "reward"
@@ -200,6 +240,9 @@ offset_left = 1221.0
 offset_top = 544.0
 offset_right = 1548.0
 offset_bottom = 803.0
+tooltip_text = "Self Image
+The negative thoughts will start from greater distance"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("18_nyx1s")
 texture_hover = ExtResource("19_hj00m")
 skill_id = "wall_size"
@@ -209,6 +252,9 @@ offset_left = 1533.0
 offset_top = 546.0
 offset_right = 1860.0
 offset_bottom = 805.0
+tooltip_text = "Resilience
+The negative thoughts will attack you slower"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("20_vcluc")
 texture_hover = ExtResource("21_guq8o")
 skill_id = "wall_speed"
@@ -218,6 +264,9 @@ offset_left = 1221.0
 offset_top = 320.0
 offset_right = 1548.0
 offset_bottom = 579.0
+tooltip_text = "Long Walks
+Walk around faster, it'll help to avoid negative thoughts"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("22_xa3lu")
 texture_hover = ExtResource("23_usgaw")
 skill_id = "player_speed"
@@ -227,6 +276,9 @@ offset_left = 1533.0
 offset_top = 312.0
 offset_right = 1860.0
 offset_bottom = 571.0
+tooltip_text = "Overthinking
+Keep your thoughts flow constantly"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("24_47ho6")
 texture_hover = ExtResource("25_b3wmi")
 
@@ -235,6 +287,9 @@ offset_left = 1373.0
 offset_top = 88.0
 offset_right = 1700.0
 offset_bottom = 347.0
+tooltip_text = "Working Out
+Get in a better shape, it'll help with avoiding the negative thoughts"
+theme = SubResource("Theme_nyx1s")
 texture_normal = ExtResource("26_8tf56")
 texture_hover = ExtResource("27_vbafa")
 skill_id = "player_size"

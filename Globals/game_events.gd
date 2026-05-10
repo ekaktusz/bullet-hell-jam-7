@@ -8,7 +8,7 @@ signal menu_back_pressed
 signal hit_player_emitter
 signal reset_hp_emitter
 signal shoot
-
+signal pause_emitter
 
 func hit_player():
 	print("hit player")
@@ -19,3 +19,5 @@ func reset_hp():
 	current_hp = max_hp
 	reset_hp_emitter.emit()
 	
+func pause():
+	pause_emitter.emit()

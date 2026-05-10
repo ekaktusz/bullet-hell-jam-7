@@ -1,83 +1,81 @@
-[gd_scene load_steps=2 format=3 uid="uid://c55vl17w7kkn0"]
+[gd_scene format=3 uid="uid://c55vl17w7kkn0"]
 
-[ext_resource type="Script" uid="uid://dsvskgp7o2k5d" path="res://UI/Menus/SettingsMenu/settings_menu.gd" id="1_f2bdn"]
+[ext_resource type="Script" uid="uid://dncba0cvv34kx" path="res://UI/Menus/SettingsMenu/pause_menu.gd" id="1_fnf7r"]
+[ext_resource type="Texture2D" uid="uid://dusuxv434s6dx" path="res://assets/bg_small.png" id="2_xn2t7"]
+[ext_resource type="Theme" uid="uid://bkb6212lj7nmj" path="res://default_theme.tres" id="3_m7jnk"]
 
-[node name="SettingsMenu" type="Control"]
+[node name="PauseMenu" type="Control" unique_id=633550636]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_f2bdn")
+script = ExtResource("1_fnf7r")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=346447596]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("2_xn2t7")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1413494263]
+layout_mode = 0
+offset_left = 693.0
+offset_top = 154.0
+offset_right = 1151.0
+offset_bottom = 254.0
+theme = ExtResource("3_m7jnk")
+theme_override_font_sizes/font_size = 100
+text = "BRAINROT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel2" type="Label" parent="." unique_id=582291358]
+layout_mode = 0
+offset_left = 693.0
+offset_top = 289.0
+offset_right = 1151.0
+offset_bottom = 389.0
+theme = ExtResource("3_m7jnk")
+theme_override_font_sizes/font_size = 100
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=257323163]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -68.5
-offset_right = 53.0
-offset_bottom = 68.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_right = 0.023000002
+anchor_bottom = 0.10300001
+offset_left = 785.0
+offset_top = 530.0
+offset_right = 1035.84
+offset_bottom = 476.76
+tooltip_text = "if you turn it on mouse support is turned off"
+theme = ExtResource("3_m7jnk")
+theme_override_font_sizes/font_size = 30
+text = "controller support"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="VolumeSettingsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Volume Settings"
-
-[node name="MasterVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Master"
+[node name="MasterVolumeLabel" type="Label" parent="." unique_id=2132475187]
+layout_mode = 0
+offset_left = 887.0
+offset_top = 422.0
+offset_right = 942.0
+offset_bottom = 445.0
+text = "VOLUME"
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+[node name="MasterSlider" type="HSlider" parent="." unique_id=324833863]
+layout_mode = 0
+offset_left = 762.0
+offset_top = 453.0
+offset_right = 1078.0
+offset_bottom = 469.0
 max_value = 1.0
-step = 0.05
+step = 0.005
 value = 0.5
 
-[node name="MusicVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Music"
-horizontal_alignment = 1
-
-[node name="MusicSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-max_value = 1.0
-step = 0.05
-value = 0.5
-
-[node name="SFXVolumeSlider" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Sound effects"
-horizontal_alignment = 1
-
-[node name="SFXSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-max_value = 1.0
-step = 0.05
-value = 0.5
-
-[node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Back"
-
-[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
-[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="value_changed" from="MasterSlider" to="." method="_on_master_slider_value_changed"]

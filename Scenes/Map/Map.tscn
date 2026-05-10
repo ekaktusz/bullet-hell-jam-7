@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dc4ilfdj350o3" path="res://Scenes/Map/camera.gd" id="8_ym3jq"]
 [ext_resource type="Texture2D" uid="uid://b6kfi637cokkd" path="res://assets/health.png" id="12_alfaa"]
 [ext_resource type="Texture2D" uid="uid://dbuuo2jtckd2s" path="res://assets/health_empty.png" id="13_mxgwm"]
+[ext_resource type="PackedScene" uid="uid://c55vl17w7kkn0" path="res://UI/Menus/SettingsMenu/settings_menu.tscn" id="14_mxgwm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3geo5"]
 shader = ExtResource("8_lfsem")
@@ -48,6 +49,9 @@ script = ExtResource("8_ym3jq")
 [node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=975789396]
 process_mode = 3
 script = ExtResource("5_lats3")
+
+[node name="SettingsMenu" parent="UICanvasLayer" unique_id=1628940162 instance=ExtResource("14_mxgwm")]
+visible = false
 
 [node name="SkillMenu" type="Control" parent="UICanvasLayer" unique_id=1595562489]
 visible = false
