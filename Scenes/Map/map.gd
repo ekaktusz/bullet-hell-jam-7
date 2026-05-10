@@ -8,11 +8,13 @@ extends Node2D
 @onready var skill_tree: Control = $UICanvasLayer/SkillMenu/SkillTree
 @onready var skill_menu: Control = $UICanvasLayer/SkillMenu
 @onready var camera: Camera2D = $Camera2D
-
+@onready var rewards: Node2D = $Rewards
+@onready var reward_spawn_timer: Timer = $RewardSpawnTimer
 
 const THOUGHT = preload("uid://bh5ungrieylu3")
 const BRAIN_DEATH_EFFECT = preload("res://Scenes/Brain/brain_death_effect.tscn")
 const DEFAULT_BASE_RADIUS := 600.0
+const COLLECTIBLE = preload("res://Scenes/Collectible/collectible.tscn")
 
 const MIN_BASE_RADIUS := 100.0
 
@@ -26,6 +28,7 @@ var velocities = []
 var run_time := 0.0
 var brain_outside_time := 0.0
 var brain_dead := false
+var reward_exists := false
 
 const OUTSIDE_CONFIRM_TIME := 0.08
 const OUTSIDE_TOLERANCE := 3.0
@@ -37,10 +40,12 @@ func _ready() -> void:
 	GameEvents.hit_player_emitter.connect(_on_update_hp_label)
 	GameEvents.reset_hp_emitter.connect(_on_update_hp_label)
 
+	reward_spawn_timer.timeout.connect(spawn_reward)
 	skill_tree.restart_run.connect(_on_restart)
 	noise.frequency = 2
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
+	start_reward_timer()
 
 
 func _process(delta: float) -> void:
@@ -233,8 +238,45 @@ func _on_restart():
 	skill_menu.hide()
 	GameEvents.reset_hp()
 	get_tree().paused = false
+	for child in rewards.get_children():
+		child.queue_free()
 	
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
 		end_run()
 	# TODO: hp_label.text = "HP: " + str(GameEvents.current_hp)
+
+func start_reward_timer() -> void:
+	reward_spawn_timer.start(randf_range(1.0, 6.0))
+
+func _on_reward_spawn_timer_timeout() -> void:
+	spawn_reward()
+	
+func spawn_reward() -> void:
+	if brain_dead:
+		return
+	if reward_exists:
+		return
+
+	reward_exists = true
+	var collectible := COLLECTIBLE.instantiate() as Collectible
+	collectible.position = get_random_point_in_blob()
+	collectible.map_ref = self
+	collectible.tree_exited.connect(_on_reward_gone)
+
+	rewards.add_child(collectible)
+	print("SPAWN POSITION: ", collectible.global_position)
+
+func _on_reward_gone() -> void:
+	reward_exists = false
+	start_reward_timer()
+
+func get_random_point_in_blob() -> Vector2:
+	while true:
+		var x = randf_range(-base_radius * 1.6, base_radius * 1.6)
+		var y = randf_range(-base_radius, base_radius)
+		var point = Vector2(x, y)
+		if Geometry2D.is_point_in_polygon(point, points):
+			if get_distance_to_boundary(point) > 80:
+				return point
+	return Vector2.ZERO

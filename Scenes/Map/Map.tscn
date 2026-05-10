@@ -104,3 +104,9 @@ theme = ExtResource("7_eo4jh")
 text = "current money: 200"
 
 [node name="Thoughts" type="Node2D" parent="." unique_id=997611035]
+
+[node name="RewardSpawnTimer" type="Timer" parent="." unique_id=800258304]
+wait_time = 4.0
+one_shot = true
+
+[node name="Rewards" type="Node2D" parent="." unique_id=1014088442]
