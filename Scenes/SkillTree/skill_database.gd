@@ -27,20 +27,27 @@ const K_GRAY = preload("uid://b18dd37fpvaem")
 const L_GRAY = preload("uid://crebj4x8exh5h")
 const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
+const default_wall_speed = 75
+const default_wall_size = 500
+const default_max_bullet_count = 10
+const default_player_speed = 100
+const default_player_size = 1.0
+const default_bullet_size = 0.3
+const default_reward_multiplier = 1
 ##skillekkel buffolhato global valtozok
-var max_bullet_count = 10
-var wall_speed = 100
-var wall_size = 500
-var player_speed = 100
-var player_size = 1.0
-var bullet_size = 0.3
-var reward_multiplier = 1
+var max_bullet_count = default_max_bullet_count
+var wall_speed = default_wall_speed
+var wall_size = default_wall_size
+var player_speed = default_player_speed
+var player_size = default_player_size
+var bullet_size = default_bullet_size
+var reward_multiplier = default_reward_multiplier
 
 
 var max_bullet_skill = Skill.new({
 	"id": "max_bullet",
 	"name": "Max Bullet",
-	"costs": [10, 20, 30] as Array[int],
+	"costs": [5, 10, 20] as Array[int],
 	"gray_image" : A_GRAY,
 	"unlocked_image" : A_UNLOCKED,
 	"max_level": 3,
@@ -51,7 +58,7 @@ var max_bullet_skill = Skill.new({
 var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Heavy Bullets",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
 	"max_level": 3,
@@ -67,7 +74,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
 	"name": "Fast Bullets",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
 	"max_level": 3,
@@ -83,7 +90,7 @@ var fast_bullets_skill = Skill.new({
 var split_shot_skill = Skill.new({
 	"id": "split_shot",
 	"name": "Split Shot",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : K_GRAY,
 	"unlocked_image" : K_UNLOCKED,
 	"max_level": 3,
@@ -99,7 +106,7 @@ var split_shot_skill = Skill.new({
 var ghost_shot_skill = Skill.new({
 	"id": "ghost_shot",
 	"name": "Ghost Bullet",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : H_GRAY,
 	"unlocked_image" : H_UNLOCKED,
 	"max_level": 3,
@@ -115,7 +122,7 @@ var ghost_shot_skill = Skill.new({
 var bullet_size_skill = Skill.new({
 	"id": "bullet_size",
 	"name": "Bullet Size",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
@@ -135,7 +142,7 @@ var bullet_size_skill = Skill.new({
 var reward_skill = Skill.new({
 	"id": "reward",
 	"name": "More Reward",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [5, 15, 20] as Array[int],
 	"gray_image" : C_GRAY,
 	"unlocked_image" : C_UNLOCKED,
 	"max_level": 3,
@@ -146,7 +153,7 @@ var reward_skill = Skill.new({
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
 	"name": "Wall Speed",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
 	"max_level": 3,
@@ -162,7 +169,7 @@ var wall_speed_skill = Skill.new({
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Wall Size",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 30] as Array[int],
 	"gray_image" : B_GRAY,
 	"unlocked_image" : B_UNLOCKED,
 	"max_level": 3,
@@ -194,7 +201,7 @@ var rapid_fire_skill = Skill.new({
 var player_speed_skill = Skill.new({
 	"id": "player_speed",
 	"name": "Player Speed",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : E_GRAY,
 	"unlocked_image" : E_UNLOCKED,
 	"max_level": 3,
@@ -210,7 +217,7 @@ var player_speed_skill = Skill.new({
 var player_size_skill = Skill.new({
 	"id": "player_size",
 	"name": "Player Size",
-	"costs": [10, 15, 20] as Array[int],
+	"costs": [10, 20, 40] as Array[int],
 	"gray_image" : M_GRAY,
 	"unlocked_image" : M_UNLOCKED,
 	"max_level": 3,
@@ -251,13 +258,13 @@ func sell_all_skills() -> void:
 		skill.current_level = 0
 
 	# reset all upgraded values to defaults
-	max_bullet_count = 10
-	wall_speed = 100
-	wall_size = 500
-	player_speed = 100
-	player_size = 1.0
-	bullet_size = 0.3
-	reward_multiplier = 1
+	max_bullet_count = default_max_bullet_count
+	wall_speed = default_wall_speed
+	wall_size = default_wall_size
+	player_speed = default_player_speed
+	player_size = default_player_size
+	bullet_size = default_bullet_size
+	reward_multiplier = default_reward_multiplier
 	# ez nem tom kell e de lehet
 	player_size_skill_emitter.emit()
 	print("All skills sold and refunded.")

@@ -19,7 +19,7 @@ const MIN_BASE_RADIUS := 100.0
 
 var noise = FastNoiseLite.new()
 var damping = 0.97
-var spike_size = 250
+var spike_size = 100
 var points = []
 var base_radius = SkillDatabase.wall_size
 var segments := 512
@@ -46,7 +46,7 @@ func _ready() -> void:
 	global_position = get_viewport_rect().size / 2.0
 	generate_blob(0)
 	start_reward_timer()
-
+	
 
 func _process(delta: float) -> void:
 	run_time += delta
@@ -171,10 +171,8 @@ func check_brain_outside() -> void:
 				brain_outside_time += get_process_delta_time()
 				if brain_outside_time >= OUTSIDE_CONFIRM_TIME and not brain_dead:
 					brain_dead = true
-					print("END RUN")
-					brain.hide()
 					play_brain_death()
-			elif not brain_dead:
+			elif not brain_dead && GameEvents.current_hp > 1:
 				brain_outside_time = 0.0
 				brain.show()
 
@@ -198,12 +196,15 @@ func spawn_bad_thought(thought_position: Vector2) -> void:
 
 
 func play_brain_death() -> void:
+	brain.hide()
+	SoundManager.play_sound_by_id(SoundManager.Sound.DEATH)
 	var effect = BRAIN_DEATH_EFFECT.instantiate() as CPUParticles2D
 	camera.shake(effect.lifetime, 30.0)
 	add_child(effect)
 	effect.global_position = brain.global_position
 	effect.play()
-	await get_tree().create_timer(effect.lifetime).timeout
+	#1.3 a death sound hossza azért lett ez berakva
+	await get_tree().create_timer(1.3).timeout
 	end_run()
 
 
@@ -247,10 +248,12 @@ func _on_restart():
 	get_tree().paused = false
 	for child in rewards.get_children():
 		child.queue_free()
+	reward_exists = false
+	start_reward_timer()
 	
 func _on_update_hp_label():
 	if GameEvents.current_hp < 1:
-		end_run()
+		play_brain_death()
 
 func start_reward_timer() -> void:
 	reward_spawn_timer.start(randf_range(0.0, 3.0))
