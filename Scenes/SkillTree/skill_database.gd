@@ -241,3 +241,23 @@ var skills_map := {
 	"player_speed": player_speed_skill,
 	"player_size": player_size_skill
 }
+
+func sell_all_skills() -> void:
+	CommonGlobals.has_at_least_one_skill = false
+	
+	for skill in skills_map.values():
+		for i in range(skill.current_level):
+			CommonGlobals.current_money += skill.costs[i]
+		skill.current_level = 0
+
+	# reset all upgraded values to defaults
+	max_bullet_count = 10
+	wall_speed = 100
+	wall_size = 500
+	player_speed = 100
+	player_size = 1.0
+	bullet_size = 0.3
+	reward_multiplier = 1
+	# ez nem tom kell e de lehet
+	player_size_skill_emitter.emit()
+	print("All skills sold and refunded.")

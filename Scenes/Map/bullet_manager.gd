@@ -13,6 +13,7 @@ var bullets: Array = []
 var shoot_cooldown := 0.15
 var shoot_timer := 0.0
 var can_shoot := true
+var trigger_pressed := false
 
 var split_shot_angle := deg_to_rad(15.0)
 var rng = RandomNumberGenerator.new()
@@ -21,7 +22,8 @@ var rng = RandomNumberGenerator.new()
 func _process(delta: float) -> void:
 	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		shoot_timer -= delta
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and shoot_timer <= 0.0:
+		var shooting := (not CommonGlobals.controller_support_on and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.get_joy_axis(0, JOY_AXIS_TRIGGER_RIGHT) > 0.5
+		if shooting and shoot_timer <= 0.0:
 			spawn_bullet()
 			shoot_timer = shoot_cooldown
 
@@ -29,10 +31,20 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if SkillDatabase.rapid_fire_skill.is_unlocked():
 		return
-	if event is InputEventMouseButton and event.pressed and can_shoot:
+	if not CommonGlobals.controller_support_on and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and can_shoot:
 		can_shoot = false
 		shoot_cooldown_timer()
 		spawn_bullet()
+	elif event is InputEventJoypadMotion and event.axis == JOY_AXIS_TRIGGER_RIGHT:
+		var is_pressed = event.axis_value > 0.5
+		if is_pressed and not trigger_pressed:
+			trigger_pressed = true
+			if can_shoot:
+				can_shoot = false
+				shoot_cooldown_timer()
+				spawn_bullet()
+		elif not is_pressed:
+			trigger_pressed = false
 
 
 func get_bullets() -> Array:
@@ -46,8 +58,7 @@ func spawn_bullet() -> void:
 		SoundManager.play_sound_by_id(SoundManager.Sound.NO_MORE_BALLS)
 		return
 
-	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - brain.global_position -Vector2(0,-25)).normalized()
+	var direction := Vector2.UP.rotated(brain.rotation)
 	var spawn_pos = brain.position + direction * brain.get_node("CollisionShape2D").shape.radius
 	var bullet_rng = rng.randf()
 	var bullet_type = get_bullet_type(bullet_rng)

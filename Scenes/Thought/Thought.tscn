@@ -82,8 +82,8 @@ _data = {
 script = ExtResource("1_3kms1")
 
 [node name="Label" type="Label" parent="." unique_id=589982492]
-offset_right = 144.0
-offset_bottom = 23.0
+offset_right = 247.0
+offset_bottom = 30.0
 theme = ExtResource("2_mtyh6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "ROSSZ GONDOLAT"

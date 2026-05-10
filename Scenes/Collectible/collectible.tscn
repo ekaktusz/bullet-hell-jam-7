@@ -1,18 +1,82 @@
 [gd_scene format=3 uid="uid://bx3ug36ax6gry"]
 
 [ext_resource type="Script" uid="uid://bb1l4iamvhjdi" path="res://Scenes/Collectible/collectible.gd" id="1_myef3"]
-[ext_resource type="Texture2D" uid="uid://bpk8mwrd5w4tv" path="res://icon.svg" id="2_w0yf0"]
+[ext_resource type="Texture2D" uid="uid://jc63qbrgliap" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0030.png" id="2_3iq8s"]
+[ext_resource type="Texture2D" uid="uid://5843k4smicx" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0031.png" id="3_hl3ly"]
+[ext_resource type="Texture2D" uid="uid://bqdpyj4eg5y12" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0032.png" id="4_hy8xa"]
+[ext_resource type="Texture2D" uid="uid://dx2gdavo63ptj" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0033.png" id="5_72jed"]
+[ext_resource type="Texture2D" uid="uid://cj7gay5v40bdq" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0034.png" id="6_7vgg4"]
+[ext_resource type="Texture2D" uid="uid://cd8yq0boggyij" path="res://Scenes/Collectible/assets/pickup/collectable_pick_up_0035.png" id="7_bwcku"]
+[ext_resource type="Texture2D" uid="uid://ivfefkv0kn03" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0001.png" id="8_o22tu"]
+[ext_resource type="Texture2D" uid="uid://b3o7hh2supdi2" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0002.png" id="9_pveo3"]
+[ext_resource type="Texture2D" uid="uid://b8ft3exr104xk" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0003.png" id="10_rrrpa"]
+[ext_resource type="Texture2D" uid="uid://dj0ql7bl0b343" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0004.png" id="11_7ehbk"]
+[ext_resource type="Texture2D" uid="uid://bt6ejygwtpv8l" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0005.png" id="12_stxiw"]
+[ext_resource type="Texture2D" uid="uid://cojygs2qtevpn" path="res://Scenes/Collectible/assets/pop/collectable_pop_in_0006.png" id="13_5crtm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvpq4"]
-size = Vector2(129, 128)
+[sub_resource type="SpriteFrames" id="SpriteFrames_u01nr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3iq8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hl3ly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hy8xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_72jed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7vgg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_bwcku")
+}],
+"loop": false,
+"name": &"pickup",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_o22tu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pveo3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rrrpa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7ehbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_stxiw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5crtm")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3iq8s"]
+radius = 26.5
 
 [node name="Area2D" type="Area2D" unique_id=337846612]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_myef3")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=593915682]
-texture = ExtResource("2_w0yf0")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=220298045]
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_u01nr")
+animation = &"pop"
+autoplay = "pop"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2074130717]
 position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_dvpq4")
+shape = SubResource("CircleShape2D_3iq8s")

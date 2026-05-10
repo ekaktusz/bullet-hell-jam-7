@@ -12,6 +12,10 @@ func _ready():
 	label.text = skill_data.name
 	cost_label.text = str(skill_data.costs[skill_data.current_level])
 	level_label.text = str(skill_data.current_level) + "/" + str(skill_data.max_level)
+	
+	focus_entered.connect(queue_redraw)
+	focus_exited.connect(queue_redraw)
+
 	update_visual()
 
 func update_visual():
@@ -21,6 +25,7 @@ func update_visual():
 		cost_label.text = "-"
 	else:
 		cost_label.text = str(skill_data.costs[skill_data.current_level])
+		
 
 	var should_be_disabled := true
 	if skill_data.can_unlock():
@@ -39,6 +44,15 @@ func update_visual():
 
 func _process(_delta: float) -> void:
 	update_visual()
+	
+func _draw():
+	if has_focus():
+		draw_rect(
+			Rect2(Vector2.ZERO, size),
+			Color.WHITE,
+			false,
+			4.0
+		)
 
 func _on_pressed() -> void:
 	print("pressed")

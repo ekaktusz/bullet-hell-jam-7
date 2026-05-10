@@ -53,6 +53,7 @@ func can_unlock() -> bool:
 
 func unlock() -> void:
 	if can_unlock():
+		CommonGlobals.has_at_least_one_skill = true
 		CommonGlobals.current_money -= costs[current_level]
 		level_up()
 		match id:
