@@ -112,10 +112,10 @@ func handle_player_size_level_up():
 	if current_level == 1:
 			SkillDatabase.player_size = 0.8
 	if current_level == 2:
-			SkillDatabase.player_size = 0.6
+			SkillDatabase.player_size = 0.65
 	if current_level == 3:
-			SkillDatabase.player_size = 0.4
-			SkillDatabase.player_size_skill_emitter.emit()
+			SkillDatabase.player_size = 0.5
+	SkillDatabase.player_size_skill_emitter.emit()
 
 func handle_bullet_size_level_up():
 	if current_level == 1:

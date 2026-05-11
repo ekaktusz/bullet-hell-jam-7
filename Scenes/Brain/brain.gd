@@ -36,6 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_player_size_level_up():
 	scale = Vector2(SkillDatabase.player_size, SkillDatabase.player_size)
+	print("scale: ", scale.x, " ", scale.y)
 
 
 func _on_shoot():

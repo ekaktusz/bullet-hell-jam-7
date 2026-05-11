@@ -242,6 +242,8 @@ func end_run() -> void:
 	print("MULTIPLIER:", SkillDatabase.reward_multiplier)
 	print("MONEY EARNED:", earned)
 	print("MONEY AFTER: ", CommonGlobals.current_money)
+	if run_time > CommonGlobals.best_time_alive:
+		CommonGlobals.best_time_alive = run_time
 	print("======================")
 	await get_tree().create_timer(0.1).timeout
 	MusicPlayer.play_chill_music()

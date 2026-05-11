@@ -25,9 +25,16 @@ const SKILL_NODE = preload("res://Scenes/SkillTree/skill_node.tscn")
 
 @onready var sell_skills: Button = $SellSkills
 
+var best_time_label: Label
+
 func _ready() -> void:
 	GameEvents.show_thank_you.connect(_on_show_thank_you)
 	GameEvents.keep_playing.connect(_on_keep_playing)
+	
+	best_time_label = Label.new()
+	best_time_label.text = "Best Time: 0.00"
+	add_child(best_time_label)
+	
 	# --- restart ---
 	restart_button.focus_neighbor_left  = left_skill_1.get_path()
 	restart_button.focus_neighbor_right = right_skill_1.get_path()
@@ -119,6 +126,9 @@ func opened() -> void:
 func _process(delta: float) -> void:
 	sell_skills.disabled = not CommonGlobals.has_at_least_one_skill
 	current_money_label.text = str(CommonGlobals.current_money)
+	best_time_label.add_theme_font_size_override("font_size", 32)
+	best_time_label.text = "Best Time: %.1f sec" % CommonGlobals.best_time_alive
+	best_time_label.position = sell_skills.position + Vector2(sell_skills.size.x / 2 - best_time_label.size.x / 2, 70)
 
 func _on_restart_pressed():
 	print("RESTART CLICKED")
