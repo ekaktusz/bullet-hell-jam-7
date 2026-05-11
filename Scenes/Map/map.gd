@@ -203,7 +203,13 @@ func spawn_bad_thought(thought_position: Vector2) -> void:
 
 
 func play_brain_death() -> void:
+	brain_dead = true
 	brain.hide()
+	brain.collision_layer = 0  # Disable collision
+	var area = brain.get_node("Area2D")
+	area.monitoring = false
+	area.monitorable = false
+	area.get_node("CollisionShape2D").disabled = true
 	SoundManager.play_sound_by_id(SoundManager.Sound.DEATH)
 	var effect = BRAIN_DEATH_EFFECT.instantiate() as CPUParticles2D
 	camera.shake(effect.lifetime, 30.0)
@@ -230,10 +236,13 @@ func end_run() -> void:
 		child.queue_free()
 	var earned = int(run_time * SkillDatabase.reward_multiplier)
 
+	print("MONEY BEFORE: ", CommonGlobals.current_money)
 	CommonGlobals.current_money += earned
-
-
-	print("EARNED:", earned)
+	print("TIME ALIVE:", run_time)
+	print("MULTIPLIER:", SkillDatabase.reward_multiplier)
+	print("MONEY EARNED:", earned)
+	print("MONEY AFTER: ", CommonGlobals.current_money)
+	print("======================")
 	await get_tree().create_timer(0.1).timeout
 	MusicPlayer.play_chill_music()
 	hide_labels()
@@ -267,6 +276,11 @@ func _on_restart():
 	generate_blob(0)
 	brain.position = Vector2.ZERO
 	brain.show()
+	brain.collision_layer = 1
+	var area = brain.get_node("Area2D")
+	area.monitoring = true
+	area.monitorable = true
+	area.get_node("CollisionShape2D").disabled = false
 	skill_menu.hide()
 	GameEvents.reset_hp()
 	get_tree().paused = false
@@ -276,7 +290,7 @@ func _on_restart():
 	start_reward_timer()
 	
 func _on_update_hp_label():
-	if GameEvents.current_hp < 1:
+	if not brain_dead and GameEvents.current_hp < 1:
 		play_brain_death()
 
 func start_reward_timer() -> void:
@@ -298,7 +312,7 @@ func spawn_reward() -> void:
 	collectible.tree_exited.connect(_on_reward_gone)
 
 	rewards.add_child(collectible)
-	print("SPAWN POSITION: ", collectible.global_position)
+	#print("SPAWN POSITION: ", collectible.global_position)
 
 func _on_reward_gone() -> void:
 	reward_exists = false

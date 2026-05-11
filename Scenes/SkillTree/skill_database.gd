@@ -58,7 +58,7 @@ var max_bullet_skill = Skill.new({
 var heavy_bullets_skill: Skill = Skill.new({
 	"id": "heavy_bullets",
 	"name": "Assertivity",
-	"costs": [15, 40, 80] as Array[int],
+	"costs": [15, 35, 80] as Array[int],
 	"gray_image" : F_GRAY,
 	"unlocked_image" : F_UNLOCKED,
 	"max_level": 3,
@@ -74,7 +74,7 @@ var heavy_bullets_skill: Skill = Skill.new({
 var fast_bullets_skill = Skill.new({
 	"id": "fast_bullets",
 	"name": "Boundaries",
-	"costs": [15, 40, 80] as Array[int],
+	"costs": [15, 35, 80] as Array[int],
 	"gray_image" : G_GRAY,
 	"unlocked_image" : G_UNLOCKED,
 	"max_level": 3,
@@ -153,7 +153,7 @@ var reward_skill = Skill.new({
 var wall_speed_skill = Skill.new({
 	"id": "wall_speed",
 	"name": "Resilience",
-	"costs": [15, 40, 80] as Array[int],
+	"costs": [15, 35, 80] as Array[int],
 	"gray_image" : D_GRAY,
 	"unlocked_image" : D_UNLOCKED,
 	"max_level": 3,
@@ -169,7 +169,7 @@ var wall_speed_skill = Skill.new({
 var wall_size_skill = Skill.new({
 	"id": "wall_size",
 	"name": "Self Image",
-	"costs": [15, 40, 80] as Array[int],
+	"costs": [15, 35, 80] as Array[int],
 	"gray_image" : B_GRAY,
 	"unlocked_image" : B_UNLOCKED,
 	"max_level": 3,
@@ -274,4 +274,4 @@ func sell_all_skills() -> void:
 	reward_multiplier = default_reward_multiplier
 	# ez nem tom kell e de lehet
 	player_size_skill_emitter.emit()
-	print("All skills sold and refunded.")
+	#print("All skills sold and refunded.")

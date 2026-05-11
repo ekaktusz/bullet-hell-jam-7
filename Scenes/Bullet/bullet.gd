@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 
 func _ready() -> void:
 	scale = Vector2(SkillDatabase.bullet_size,SkillDatabase.bullet_size)
-	print(type)
+	#print(type)
 	match type:
 		"fast":
 			SoundManager.play_sound_by_id(SoundManager.Sound.FAST_BULLET)
@@ -54,7 +54,7 @@ func ghost_bullet_chance():
 	max_bounce = 5
 			
 func fast_bullet_chance():
-	print("fast")
+	#print("fast")
 	impact_force = impact_force / 2
 	impact_radius = impact_radius
 	velocity = velocity * 2
@@ -63,7 +63,7 @@ func fast_bullet_chance():
 	#sprite_2d.modulate = Color("F1FCD7")
 	
 func heavy_bullet_chance():
-	print("heacy")
+	#print("heacy")
 	impact_force *= double_hit * 2
 	impact_radius *= 1.5
 	velocity = velocity / 2

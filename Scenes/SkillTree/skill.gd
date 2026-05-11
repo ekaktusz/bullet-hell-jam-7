@@ -81,7 +81,7 @@ func handle_max_bullet_level_up():
 			SkillDatabase.max_bullet_count = 30
 	if current_level == 3:
 			SkillDatabase.max_bullet_count = 50
-	print(SkillDatabase.max_bullet_count)
+	#print(SkillDatabase.max_bullet_count)
 				
 func handle_wall_speed_level_up():
 	if current_level == 1:
@@ -124,7 +124,7 @@ func handle_bullet_size_level_up():
 			SkillDatabase.bullet_size = 0.2
 	if current_level == 3:
 			SkillDatabase.bullet_size = 0.15
-	print(SkillDatabase.bullet_size)
+	#print(SkillDatabase.bullet_size)
 	
 func handle_reward_level_up():
 	if current_level == 1:

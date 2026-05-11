@@ -7,7 +7,6 @@ extends Area2D
 var map_ref: Node2D
 
 func _ready() -> void:
-	print("ASDASDAS: ")
 	area_entered.connect(_on_area_entered)
 
 func _process(_delta: float) -> void:
@@ -20,7 +19,7 @@ func _process(_delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if not area.is_in_group("player"):
 		return
-	print("REWARD PICKED:")
+	#print("REWARD PICKED:")
 	GameEvents.reset_hp()
 	animation.play("pickup")
 	SoundManager.play_sound_by_id(SoundManager.Sound.REWARD_PICKUP)

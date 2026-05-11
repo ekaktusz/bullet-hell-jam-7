@@ -89,7 +89,7 @@ func spawn_single_bullet(spawn_pos: Vector2, direction: Vector2, bullet_type: St
 
 
 func get_bullet_type(bullet_rng):
-	print(bullet_rng)
+	#print(bullet_rng)
 
 	#ezek most a lvl 3 rangek, a rangeket majd csökkenthetjük amikor bekerülnek a lvl-ek
 	if SkillDatabase.heavy_bullets_skill.is_unlocked() && bullet_rng < getHeavyLevelRange():
