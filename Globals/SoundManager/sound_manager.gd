@@ -49,7 +49,7 @@ func _ready() -> void:
 	sound_library.set(Sound.NO_MONEY, no_money_sound)
 	sound_library.set(Sound.MOVEMENT, movement_sound)
 	sound_library.set(Sound.BRAIN_DMG, brain_dmg_sound)
-	sound_library.set(Sound.BALL_BOUNCE, ball_bounce_sound)
+	sound_library.set(Sound.BALL_BOUNCE, ball_bounce_fun_sound)
 	sound_library.set(Sound.BALL_BOUNCE_FUN, ball_bounce_fun_sound)
 
 func play_sound_by_id(id: Sound, bus: String = "SFX"):
