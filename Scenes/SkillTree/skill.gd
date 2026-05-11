@@ -78,35 +78,35 @@ func handle_max_bullet_level_up():
 	if current_level == 1:
 			SkillDatabase.max_bullet_count = 20
 	if current_level == 2:
-			SkillDatabase.max_bullet_count = 50	
+			SkillDatabase.max_bullet_count = 50
 	if current_level == 3:
-			SkillDatabase.max_bullet_count = 100			
+			SkillDatabase.max_bullet_count = 100
 	print(SkillDatabase.max_bullet_count)
 				
 func handle_wall_speed_level_up():
 	if current_level == 1:
-			SkillDatabase.wall_speed = 60
+			SkillDatabase.wall_speed = 70
 	if current_level == 2:
-			SkillDatabase.wall_speed = 50	
+			SkillDatabase.wall_speed = 60
 	if current_level == 3:
-			SkillDatabase.wall_speed = 40	
+			SkillDatabase.wall_speed = 50
 
 func handle_wall_size_level_up():
 	if current_level == 1:
 			SkillDatabase.wall_size = 600
 	if current_level == 2:
-			SkillDatabase.wall_size = 700	
+			SkillDatabase.wall_size = 700
 	if current_level == 3:
-			SkillDatabase.wall_size = 800	
+			SkillDatabase.wall_size = 800
 
 
 func handle_player_speed_level_up():
 	if current_level == 1:
-			SkillDatabase.player_speed = 200
+			SkillDatabase.player_speed = 150
 	if current_level == 2:
-			SkillDatabase.player_speed = 300
+			SkillDatabase.player_speed = 200
 	if current_level == 3:
-			SkillDatabase.player_speed = 500
+			SkillDatabase.player_speed = 300
 
 func handle_player_size_level_up():
 	if current_level == 1:

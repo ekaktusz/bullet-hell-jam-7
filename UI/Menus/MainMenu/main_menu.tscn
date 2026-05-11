@@ -93,7 +93,7 @@ offset_bottom = 548.0
 theme = ExtResource("3_ex7bm")
 theme_override_colors/font_color = Color(0.67481464, 0.67481464, 0.6748146, 1)
 theme_override_font_sizes/font_size = 20
-text = "⚠️ if you turn on controller support keyboard + mouse won't work! ⚠️"
+text = "if you turn on controller support keyboard + mouse won't work!"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
