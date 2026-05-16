@@ -106,7 +106,9 @@ func update_blob(delta: float) -> void:
 	for i in range(points.size()):
 		var point = points[i]
 		var velocity = velocities[i]
-		var inward = -point.normalized() * SkillDatabase.wall_speed
+		var target_local = to_local(brain.global_position)
+		var inward = (target_local - point).normalized() * SkillDatabase.wall_speed
+		#var inward = -point.normalized() * SkillDatabase.wall_speed
 
 		var prev = points[(i - 1 + points.size()) % points.size()]
 		var next = points[(i + 1) % points.size()]
