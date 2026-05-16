@@ -98,7 +98,6 @@ func generate_blob(time: float) -> void:
 
 
 func update_blob(delta: float) -> void:
-	remove_close_points()
 	check_outside()
 	points.sort_custom(func(a, b):
 		return atan2(a.y, a.x) < atan2(b.y, b.x)
@@ -120,32 +119,6 @@ func update_blob(delta: float) -> void:
 		velocities[i] = velocity
 	line_2d.points = points
 	polygon_2d.polygon = points
-	
-	
-func remove_close_points(min_distance: float = 10.0) -> void:
-	if points.size() <= 3:
-		return
-
-	var i := 0
-
-	while i < points.size():
-		var next_i = (i + 1) % points.size()
-
-		# Avoid deleting until only 3 points remain
-		if points.size() <= 3:
-			break
-
-		var dist = points[i].distance_to(points[next_i])
-
-		if dist < min_distance:
-			points.remove_at(next_i)
-			velocities.remove_at(next_i)
-
-			# Do NOT increment i
-			# because array shifted
-			continue
-
-		i += 1
 
 
 func get_closest_normal(point: Vector2) -> Vector2:
