@@ -27,11 +27,11 @@ const K_GRAY = preload("uid://b18dd37fpvaem")
 const L_GRAY = preload("uid://crebj4x8exh5h")
 const M_GRAY = preload("uid://bmk7h4ctw1iqr")
 
-const default_wall_speed = 30
+const default_wall_speed = 75
 const default_wall_size = 500
 const default_max_bullet_count = 10
 const default_player_speed = 100
-const default_player_size = 0.2
+const default_player_size = 1.0
 const default_bullet_size = 0.3
 const default_reward_multiplier = 1
 ##skillekkel buffolhato global valtozok
